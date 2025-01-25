@@ -9,22 +9,20 @@ const websiteRouter = createBrowserRouter(
 	createRoutesFromElements(
 		RouteList.map((route: RouteListProps, i: number) => {
 			return (
-				<>
-					<Route
-						key={i}
-						path={route.url}
-						element={
-							<RouteGuard>
-								<AppLayout>{route.element}</AppLayout>
-							</RouteGuard>
-						}
-						errorElement={
-							route.errorElement || (
-								<ErrorBoundary fallback={"An error has occurred, check DevTools for more details."} />
-							)
-						}
-					/>
-				</>
+				<Route
+					key={i}
+					path={route.url}
+					element={
+						<RouteGuard>
+							<AppLayout>{route.element}</AppLayout>
+						</RouteGuard>
+					}
+					errorElement={
+						route.errorElement || (
+							<ErrorBoundary fallback={"An error has occurred, check DevTools for more details."} />
+						)
+					}
+				/>
 			);
 		})
 	)
