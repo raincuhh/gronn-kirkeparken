@@ -30,6 +30,8 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
 		// todo, create a modal for the error details if its a development environment. as in like:
 		// <p>{error.toString()}<p/>
 		// <pre>{errorInfo?.componentStack}<pre/>
+		console.log(error, errorInfo);
+
 		if (hasError) {
 			return (
 				<>

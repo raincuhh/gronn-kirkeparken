@@ -1,13 +1,13 @@
 import { PropsWithChildren, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 
 import { RouteTypes } from "@/shared/types/routing";
 
 type RouteGuardProps = PropsWithChildren & { type?: RouteTypes };
 
 const RouteGuard = ({ children, type = RouteTypes.protected }: RouteGuardProps): React.JSX.Element => {
-	const navigate = useNavigate();
-	const location = useLocation();
+	// const navigate = useNavigate();
+	// const location = useLocation();
 
 	useEffect(() => {
 		// before checking type, check if authenticated, if not, then return unless the path is public.
