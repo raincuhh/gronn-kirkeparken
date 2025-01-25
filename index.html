@@ -2,13 +2,41 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<link rel="icon" type="image/svg+xml" href="/assets/images/miljofyrtarnLogo.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="miljofyrtarn" />
+		<meta property="og:title" content="miljofyrtarn" />
+		<meta
+			property="og:description"
+			content="A cross-platform application that lets you save, and read your .epub, .azw, etc.. formats."
+		/>
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="miljofyrtarn" />
+		<meta name="twitter:description" content="" />
 		<title>miljofyrtarn</title>
-		<link rel="stylesheet" href="/global.css" />
+		<link rel="stylesheet" href="./public/global.css" />
+		<link rel="stylesheet" href="./public/satoshi.css" />
+		<script defer type="module" src="/src/app/main.tsx"></script>
 	</head>
 	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/app/main.tsx"></script>
+		<noscript>
+			<div id="n_script_c">
+				<div id="n_script_h">Please enable JavaScript to view this website.</div>
+			</div>
+		</noscript>
+		<script nomodule>
+			let d = document;
+
+			let cont = d.createElement("div");
+			cont.id = "n_script_c";
+			d.body.appendChild(cont);
+
+			let header = d.createElement("div");
+			header.id = "n_script_h";
+			header.textContent = "Please enable JavaScript to view this website.";
+			cont.appendChild(header);
+		</script>
+		<main></main>
 	</body>
 </html>

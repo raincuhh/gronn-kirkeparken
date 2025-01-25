@@ -6,7 +6,7 @@ export enum RouteTypes {
 }
 
 export type RouteListProps = {
-	id: string;
+	id?: string;
 	url: string;
 	element: React.JSX.Element;
 	errorElement?: React.JSX.Element;
