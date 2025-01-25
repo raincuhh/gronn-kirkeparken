@@ -10,6 +10,12 @@ import AnnouncementDetailPage from "@/pages/announcementDetail/components/ui/ann
 
 const RouteList: RouteListProps[] = [
 	{
+		id: "root",
+		url: "/",
+		element: <Navigate to="/home" replace={true} />,
+		type: RouteTypes.public,
+	},
+	{
 		id: "not-found",
 		url: "/404",
 		element: <NotFoundPage />,
