@@ -1,19 +1,11 @@
 import React from "react";
+import HomeHero from "./homeHero";
 
 const HomePage = (): React.JSX.Element => {
 	return (
-		<div>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-			<p>placeholder</p>
-		</div>
+		<>
+			<HomeHero />
+		</>
 	);
 };
 

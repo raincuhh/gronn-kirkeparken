@@ -7,6 +7,7 @@ import NotFoundPage from "@/pages/notFound/components/ui/notFoundPage";
 import LoginPage from "@/pages/login/components/ui/loginPage";
 import RegisterPage from "@/pages/register/components/ui/registerPage";
 import AnnouncementDetailPage from "@/pages/announcementDetail/components/ui/announcementDetailPage";
+import DashboardPage from "@/pages/dashboard/components/ui/dashboardPage";
 
 const RouteList: RouteListProps[] = [
 	{
@@ -49,19 +50,19 @@ const RouteList: RouteListProps[] = [
 		id: "login",
 		url: "/login",
 		element: <LoginPage />,
-		type: RouteTypes.public,
+		type: RouteTypes.auth,
 	},
 	{
 		id: "register",
 		url: "/register",
 		element: <RegisterPage />,
-		type: RouteTypes.public,
+		type: RouteTypes.auth,
 	},
 	{
 		id: "dashboard",
 		url: "/dashboard",
-		element: <></>,
-		type: RouteTypes.public,
+		element: <DashboardPage />,
+		type: RouteTypes.protected,
 	},
 ];
 
