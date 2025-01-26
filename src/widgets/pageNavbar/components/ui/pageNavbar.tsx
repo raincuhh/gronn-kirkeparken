@@ -25,10 +25,11 @@ const PageNavbar = (): React.JSX.Element => {
 					hasScrolled ? "bg-primary border-b-[1px]" : "bg-transparent"
 				)}
 			>
-				<div className="md:px-16 px-8 flex flex-row md:h-32 h-28 justify-between w-full items-center">
-					<div className="gap-4 flex items-center">
+				<div className="md:px-16 px-8 flex flex-row md:h-16 justify-between w-full items-center">
+					<div className="gap-6 flex items-center">
 						<Link to={"/home"}>
-							<img className="md:w-32 w-24" src="/assets/images/miljofyrtarnBrand.png" alt="logo" />
+							{/* <img className="md:w-32 w-24" src="/assets/images/miljofyrtarnBrand.png" alt="logo" /> */}
+							placeholder
 						</Link>
 						<div className="w-fit flex gap-4 items-center">
 							<nav className="hidden md:flex gap-4">
@@ -41,7 +42,7 @@ const PageNavbar = (): React.JSX.Element => {
 					<div>placeholder</div>
 				</div>
 			</header>
-			<div className="md:pb-36 pb-28"></div>
+			<div className="pb-20"></div>
 		</>
 	);
 };

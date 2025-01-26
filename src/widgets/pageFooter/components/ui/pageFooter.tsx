@@ -5,7 +5,7 @@ type PageFooterProps = { isPrivateRoute: boolean };
 
 const PageFooter = ({ isPrivateRoute }: PageFooterProps): React.JSX.Element => {
 	return (
-		<footer className={clsx("w-full pb-8", isPrivateRoute ? "" : "")}>
+		<footer className={clsx("w-full pb-8 md:px-16 px-8", isPrivateRoute ? "" : "")}>
 			<div>foooter</div>
 		</footer>
 	);
