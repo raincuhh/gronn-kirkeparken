@@ -58,8 +58,8 @@ const RouteList: RouteListProps[] = [
 		type: RouteTypes.public,
 	},
 	{
-		id: "",
-		url: "",
+		id: "dashboard",
+		url: "/dashboard",
 		element: <></>,
 		type: RouteTypes.public,
 	},

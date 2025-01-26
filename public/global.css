@@ -48,9 +48,9 @@
 	--color-success-400: hsl(141, 50%, 60%);
 
 	--color-scheme: dark;
-	--color-accent-h: 259;
-	--color-accent-s: 51%;
-	--color-accent-l: 45%;
+	--color-accent-h: 210;
+	--color-accent-s: 100%;
+	--color-accent-l: 73%;
 
 	--color-accent-hsl: var(--color-accent-h), var(--color-accent-s), var(--color-accent-l);
 	--color-accent: hsl(var(--color-accent-hsl));
@@ -77,18 +77,18 @@
 	--color-secondary: var(--color-base-10);
 	--color-secondary-alt: var(--color-base-15);
 	--color-modifier-gradient-1: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
-	--color-background-modifier-primary-form-field: var(--color-base-10);
-	--color-background-modifier-secondary-form-field: var(--color-base-25);
-	--background-modifier-border-width: var(--border-width);
-	--color-background-modifier-border-color: var(--color-base-30);
-	--color-background-modifier-border-hover: var(--color-base-35);
-	--color-background-modifier-border-focus: var(--color-base-40);
-	--color-background-modifier-box-shadow: rgba(0, 0, 0, 0.254);
-	--color-background-modifier-error-hsl: var(--color-destructive-500);
-	--color-background-modifier-error: var(--color-background-modifier-error-hsl);
-	--color-background-modifier-error-hover: var(--color-destructive-400);
-	--color-background-modifier-success-hsl: var(--color-success-500);
-	--color-background-modifier-success: var(--color-background-modifier-success-hsl);
+	--color-modifier-primary-form-field: var(--color-base-10);
+	--color-modifier-secondary-form-field: var(--color-base-25);
+	--modifier-border-width: var(--border-width);
+	--color-modifier-border-color: var(--color-base-30);
+	--color-modifier-border-hover: var(--color-base-35);
+	--color-modifier-border-focus: var(--color-base-40);
+	--color-modifier-box-shadow: rgba(0, 0, 0, 0.254);
+	--color-modifier-error-hsl: var(--color-destructive-500);
+	--color-modifier-error: var(--color-modifier-error-hsl);
+	--color-modifier-error-hover: var(--color-destructive-400);
+	--color-modifier-success-hsl: var(--color-success-500);
+	--color-modifier-success: var(--color-modifier-success-hsl);
 
 	--color-text-normal: var(--color-base-100);
 	--color-text-muted: var(--color-base-90);
@@ -176,6 +176,7 @@
 	--breakpoint-media-min-h-1000: "(min-height: 1000px)";
 }
 
+/*
 *,
 *::before,
 *::after {
@@ -185,9 +186,44 @@
 	box-sizing: border-box;
 	text-decoration: none;
 	list-style: none;
+} */
+
+html,
+body {
+	box-sizing: border-box;
 }
 
-article,
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+li,
+figure,
+blockquote {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+}
+
+/* article,
 aside,
 details,
 figure,
@@ -199,12 +235,13 @@ nav,
 section,
 summary {
 	display: block;
-}
+} */
 
 body {
 	font-family: var(--font-primary);
 	font-weight: 500;
-	line-height: 1.5;
+	font-size: var(--font-md);
+	line-height: var(--line-height-base);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }

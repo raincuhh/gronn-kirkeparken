@@ -3,7 +3,7 @@ import RouteList from "./routeList";
 import ErrorBoundary from "@/shared/components/utils/errorBoundary";
 import { RouteListProps } from "@/shared/types/routing";
 import RouteGuard from "@/features/auth/components/utils/routeGuard";
-import AppLayout from "@/shared/components/layouts/appLayout";
+import PageLayout from "@/shared/components/layouts/pageLayout";
 
 const websiteRouter = createBrowserRouter(
 	createRoutesFromElements(
@@ -14,7 +14,7 @@ const websiteRouter = createBrowserRouter(
 					path={route.url}
 					element={
 						<RouteGuard>
-							<AppLayout>{route.element}</AppLayout>
+							<PageLayout>{route.element}</PageLayout>
 						</RouteGuard>
 					}
 					errorElement={
