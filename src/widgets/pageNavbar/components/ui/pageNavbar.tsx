@@ -25,7 +25,7 @@ const PageNavbar = (): React.JSX.Element => {
 					hasScrolled ? "bg-primary border-b-[1px]" : "bg-transparent"
 				)}
 			>
-				<div className="md:px-16 px-8 flex flex-row h-24 justify-between w-full max-w-[1440px] mx-auto items-center">
+				<div className="md:px-16 px-8 flex flex-row h-16 justify-between w-full max-w-[1440px] mx-auto items-center">
 					<div className="gap-6 flex items-center">
 						<Link to={"/home"}>
 							<img
@@ -35,17 +35,16 @@ const PageNavbar = (): React.JSX.Element => {
 							/>
 						</Link>
 						<div className="w-fit flex gap-4 items-center">
-							<nav className="hidden md:flex gap-4 text-text-muted">
-								<li className="text-text-faint">placeholder</li>
-								<li>placeholder</li>
-								<li>placeholder</li>
-							</nav>
+							<nav className="hidden md:flex gap-4 text-text-muted">test</nav>
 						</div>
 					</div>
 					<div className="flex items-center">
-						<nav className="hidden md:flex gap-4">
-							<li>placeholder</li>
-							<li>placeholder</li>
+						<nav className="hidden md:flex gap-4 text-text-muted">
+							<li className=" text-text-normal">
+								<div className="px-2 py-1 hover:bg-accent border-solid border-base-10 bg-base-5 border-[1px] transition-colors duration-100 ease-in-out rounded-md">
+									Dashboard
+								</div>
+							</li>
 						</nav>
 					</div>
 				</div>

@@ -48,9 +48,9 @@
 	--color-success-400: hsl(141, 50%, 60%);
 
 	--color-scheme: dark;
-	--color-accent-h: 210;
+	--color-accent-h: 196;
 	--color-accent-s: 100%;
-	--color-accent-l: 73%;
+	--color-accent-l: 46.1%;
 
 	--color-accent-hsl: var(--color-accent-h), var(--color-accent-s), var(--color-accent-l);
 	--color-accent: hsl(var(--color-accent-hsl));
@@ -118,16 +118,16 @@
 	--font-weight-lg: 600;
 	--font-weight-xl: 700;
 
-	--font-xs: 12px;
-	--font-sm: 13px;
-	--font-md: 15px;
-	--font-lg: 17px;
-	--font-xl: 21px;
-	--font-2xl: 26px;
-	--font-3xl: 36px;
-	--font-4xl: 46px;
-	--font-5xl: 54px;
-	--font-6xl: 62px;
+	--text-xs: 12px;
+	--text-sm: 13px;
+	--text-md: 15px;
+	--text-lg: 17px;
+	--text-xl: 21px;
+	--text-2xl: 26px;
+	--text-3xl: 36px;
+	--text-4xl: 46px;
+	--text-5xl: 54px;
+	--text-6xl: 62px;
 
 	--radius-sm: 3px;
 	--radius-md: 7px;
@@ -223,6 +223,11 @@ li {
 	list-style: none;
 }
 
+::selection {
+	background: #00aceb;
+	color: #fff;
+	text-shadow: none;
+}
 /* article,
 aside,
 details,
