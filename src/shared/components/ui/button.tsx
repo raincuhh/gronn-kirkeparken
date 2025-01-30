@@ -7,7 +7,7 @@ const buttonVariants = cva(
 	{
 		variants: {
 			variant: {
-				base: "",
+				base: "bg-interactive-base hover:bg-interactive-base-hover",
 				accent: "",
 				destructive: "",
 				ghost: "",

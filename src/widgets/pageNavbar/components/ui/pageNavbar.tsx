@@ -29,7 +29,7 @@ const PageNavbar = (): React.JSX.Element => {
 					<div className="gap-6 flex items-center">
 						<Link to={"/home"}>
 							<img
-								className=" w-32 sm:w-42 md:46"
+								className=" w-42 md:46 h-auto"
 								src="/assets/images/kirkeparkenLogo.svg"
 								alt="logo"
 							/>
