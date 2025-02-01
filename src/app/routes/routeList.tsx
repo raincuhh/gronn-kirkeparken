@@ -64,6 +64,12 @@ const RouteList: RouteListProps[] = [
 		element: <DashboardPage />,
 		type: RouteTypes.protected,
 	},
+	{
+		id: "approvals",
+		url: "/dashboard/photo-approvals",
+		element: <></>,
+		type: RouteTypes.admin,
+	},
 ];
 
 export default RouteList;

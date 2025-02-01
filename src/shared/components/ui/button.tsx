@@ -11,8 +11,9 @@ const buttonVariants = cva(
 				accent: "",
 				destructive: "",
 				ghost: "",
-				outline: "",
-				link: "",
+				outline:
+					"bg-transparent text-text-normal hover:text-text-muted border-solid border-[1px] border-modifier-border-color",
+				link: "underline text-text-accent hover:text-text-accent-hover cursor-pointer",
 			},
 			size: {
 				sm: "py-1 px-2 text-fs-sm",
@@ -20,9 +21,9 @@ const buttonVariants = cva(
 				lg: "py-3 px-6 text-fs-lg",
 			},
 			rounded: {
-				sm: "rounded-radius-sm",
-				md: "rounded-radius-md",
-				full: "rounded-radius-full",
+				sm: "rounded-sm",
+				md: "rounded-md",
+				full: "rounded-full",
 			},
 		},
 		defaultVariants: {

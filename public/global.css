@@ -80,9 +80,9 @@
 	--color-modifier-primary-form-field: var(--color-base-10);
 	--color-modifier-secondary-form-field: var(--color-base-25);
 	--modifier-border-width: var(--border-width);
-	--color-modifier-border-color: var(--color-base-30);
-	--color-modifier-border-hover: var(--color-base-35);
-	--color-modifier-border-focus: var(--color-base-40);
+	--color-modifier-border-color: var(--color-base-15);
+	--color-modifier-border-hover: var(--color-base-20);
+	--color-modifier-border-focus: var(--color-base-25);
 	--color-modifier-box-shadow: rgba(0, 0, 0, 0.254);
 	--color-modifier-error-hsl: var(--color-destructive-500);
 	--color-modifier-error: var(--color-modifier-error-hsl);

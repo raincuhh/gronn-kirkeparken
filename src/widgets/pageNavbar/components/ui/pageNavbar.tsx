@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import Button from "@/shared/components/ui/button";
 
 // type PageNavbarProps = { isPrivateRoute: boolean };
 
@@ -21,7 +22,7 @@ const PageNavbar = (): React.JSX.Element => {
 		<>
 			<header
 				className={clsx(
-					"w-full fixed z-[110] border-solid border-b-base-10 border-b-[0px]",
+					"w-full fixed z-[110] border-solid border-b-modifier-border-color border-b-[0px]",
 					hasScrolled ? "bg-primary border-b-[1px]" : "bg-transparent"
 				)}
 			>
@@ -39,11 +40,21 @@ const PageNavbar = (): React.JSX.Element => {
 						</div>
 					</div>
 					<div className="flex items-center">
-						<nav className="hidden md:flex gap-4 text-text-muted">
-							<li className=" text-text-normal">
-								<div className="px-2 py-1 hover:bg-accent border-solid border-base-10 bg-base-5 border-[1px] transition-colors duration-100 ease-in-out rounded-md">
+						<nav className="hidden md:flex gap-4">
+							<li>
+								<div className="px-2 py-1 hover:bg-accent border-solid border-modifier-border-color bg-base-5 border-[1px] transition-colors duration-100 ease-in-out rounded-md">
 									Dashboard
 								</div>
+							</li>
+							<li>
+								<Button
+									size="sm"
+									rounded={"md"}
+									variant="outline"
+									onClick={() => console.log("click")}
+								>
+									dashboard
+								</Button>
 							</li>
 						</nav>
 					</div>
