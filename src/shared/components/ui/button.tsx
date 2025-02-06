@@ -8,11 +8,11 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				base: "bg-interactive-base hover:bg-interactive-base-hover",
-				accent: "",
+				accent: "bg-interactive-accent hover:bg-interactive-accent-hover",
 				destructive: "",
-				ghost: "",
+				ghost: "bg-transparent hover:bg-interactive-base",
 				outline:
-					"bg-transparent text-text-normal hover:text-text-muted border-solid border-[1px] border-modifier-border-color",
+					"bg-transparent text-text-normal hover:bg-secondary hover:border-base-15 border-solid border-[1px] border-modifier-border-color",
 				link: "underline text-text-accent hover:text-text-accent-hover cursor-pointer",
 			},
 			size: {
@@ -28,8 +28,8 @@ const buttonVariants = cva(
 		},
 		defaultVariants: {
 			variant: "base",
-			size: "md",
-			rounded: "sm",
+			size: "sm",
+			rounded: "md",
 		},
 	}
 );

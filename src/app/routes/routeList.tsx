@@ -11,7 +11,6 @@ import DashboardPage from "@/pages/dashboard/components/ui/dashboardPage";
 
 const RouteList: RouteListProps[] = [
 	{
-		id: "root",
 		url: "/",
 		element: <Navigate to="/home" replace={true} />,
 		type: RouteTypes.public,
@@ -23,7 +22,6 @@ const RouteList: RouteListProps[] = [
 		type: RouteTypes.public,
 	},
 	{
-		id: "all",
 		url: "*",
 		element: <Navigate to={"/404"} replace={true} />,
 		type: RouteTypes.public,
@@ -68,7 +66,13 @@ const RouteList: RouteListProps[] = [
 		id: "approvals",
 		url: "/dashboard/photo-approvals",
 		element: <></>,
-		type: RouteTypes.admin,
+		type: RouteTypes.private,
+	},
+	{
+		id: "announcements",
+		url: "/dashboard/announcements",
+		element: <></>,
+		type: RouteTypes.private,
 	},
 ];
 

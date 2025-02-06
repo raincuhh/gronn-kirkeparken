@@ -48,8 +48,8 @@
 	--color-success-400: hsl(141, 50%, 60%);
 
 	--color-scheme: dark;
-	--color-accent-h: 196;
-	--color-accent-s: 100%;
+	--color-accent-h: 120;
+	--color-accent-s: 59%;
 	--color-accent-l: 46.1%;
 
 	--color-accent-hsl: var(--color-accent-h), var(--color-accent-s), var(--color-accent-l);
@@ -65,8 +65,8 @@
 		calc(var(--color-accent-l) * 1.25)
 	);
 
-	--color-interactive-base: var(--color-base-45);
-	--color-interactive-base-hover: var(--color-base-40);
+	--color-interactive-base: var(--color-base-15);
+	--color-interactive-base-hover: var(--color-base-20);
 	--color-interactive-accent-hsl: var(--color-accent-hsl);
 	--color-interactive-accent: var(--color-accent-1);
 	--color-interactive-accent-hover: var(--color-accent-2);

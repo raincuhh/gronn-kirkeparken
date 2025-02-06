@@ -1,8 +1,8 @@
 export enum RouteTypes {
 	public,
-	auth,
 	protected,
-	admin,
+	auth,
+	private,
 }
 
 export type RouteListProps = {

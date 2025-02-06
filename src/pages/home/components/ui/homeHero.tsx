@@ -6,9 +6,9 @@ const HomeHero = (): React.JSX.Element => {
 		<div className="relative h-[95dvh] sm:h-[85vh] pt-8 overflow-hidden w-full flex justify-center items-center ">
 			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-local bg-center h-full w-full">
 				<div className=" w-full flex-col lg:flex-row gap-8 lg:gap-16 mx-auto flex items-center justify-center h-full px-4">
-					<div className="bg-primary rounded-md h-[22rem] md:max-w-2xl md:w-[50rem] w-full px-8 py-4 flex flex-col justify-between">
-						<div className="flex flex-col">
-							<header className="md:text-4xl text-xl sm:text-3xl font-xl mb-4 sm:mb-8">
+					<div className="bg-primary rounded-md h-[22rem] md:max-w-2xl md:w-[50rem] w-full px-8 py-8 flex flex-col justify-between">
+						<div className="flex flex-col items-center">
+							<header className="md:text-3xl text-2xl font-xl mb-4 sm:mb-4">
 								Grønt skifte på Kirkeparken VGS
 							</header>
 							<p className="text-text-muted md:text-lg text-md">
@@ -17,7 +17,7 @@ const HomeHero = (): React.JSX.Element => {
 								forskjell!
 							</p>
 						</div>
-						<div className="flex gap-4">
+						<div className="flex gap-4 ">
 							<Button>Les mer</Button>
 						</div>
 					</div>
