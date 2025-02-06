@@ -1,18 +1,19 @@
 import { forwardRef, ButtonHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 import { VariantProps, cva } from "class-variance-authority";
+import clsx from "clsx";
 
 const buttonVariants = cva(
 	"flex items-center justify-center font-weight-md transition-colors duration-100 ease-in-out cursor-default focus:outline-none disabled:pointer-events-none",
 	{
 		variants: {
 			variant: {
-				base: "bg-interactive-base hover:bg-interactive-base-hover",
+				base: "bg-interactive-base hover:bg-interactive-base-hover text-base-00",
 				accent: "bg-interactive-accent hover:bg-interactive-accent-hover",
 				destructive: "",
 				ghost: "bg-transparent hover:bg-interactive-base",
 				outline:
-					"bg-transparent text-text-normal hover:bg-secondary hover:border-base-15 border-solid border-[1px] border-modifier-border-color",
+					"bg-transparent text-text-normal hover:bg-base-10 hover:border-base-20 border-solid border-[1px] border-modifier-border-color",
 				link: "underline text-text-accent hover:text-text-accent-hover cursor-pointer",
 			},
 			size: {
@@ -47,7 +48,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		if (href) {
 			return (
 				<>
-					<Link to={href} className={classes}>
+					<Link to={href} className={clsx(classes, "text-base-00")}>
 						{text || children}
 					</Link>
 				</>

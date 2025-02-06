@@ -41,7 +41,7 @@ const PageNavbar = (): React.JSX.Element => {
 						: "bg-transparent border-b-0"
 				)}
 			>
-				<div className="md:px-16 px-8 flex flex-row h-16 justify-between w-full max-w-[1440px] mx-auto items-center">
+				<div className="md:px-16 px-4 flex flex-row h-16 justify-between w-full max-w-[1440px] mx-auto items-center">
 					<div className="gap-6 flex items-center">
 						<Link to={"/home"}>
 							<img
@@ -56,11 +56,16 @@ const PageNavbar = (): React.JSX.Element => {
 					</div>
 					<div className="flex items-center">
 						<nav className="hidden md:flex gap-4">
-							<li>awdaw</li>
+							<Button rounded={"full"} size={"md"} href={"/register"}>
+								Create an Account
+							</Button>
+							<Button variant={"outline"} href={"/login"}>
+								Log in
+							</Button>
 						</nav>
 
 						<div
-							className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color md:hidden hover:bg-primary-alt"
+							className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color md:hidden hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
 							onClick={() => setIsOpen((prev) => !prev)}
 						>
 							{!isOpen ? (
@@ -75,16 +80,15 @@ const PageNavbar = (): React.JSX.Element => {
 			{isOpen && (
 				<>
 					<div className="fixed inset-0 z-[109] bg-primary flex pt-16 w-full">
-						<div className="py-4 px-8 flex w-full flex-col gap-8 text-lg font-md">
+						<div className="py-4 px-4 flex w-full flex-col gap-8 text-lg font-md">
 							<nav className="w-full gap-4 flex flex-col">
-								<Button size={"lg"} className="w-full">
-									Sign up
+								<Button size={"lg"} variant={"base"} href={"/register"} className="w-full">
+									Create an account
 								</Button>
-								{/* <Button size={"lg"} className="w-full" variant={"outline"}>
-									Dashboard
-								</Button> */}
+								<Button size={"lg"} className="w-full" variant={"outline"}>
+									Log in
+								</Button>
 							</nav>
-
 							<nav className="w-full flex flex-col border-b-[1px] border-modifier-border-color pb-4">
 								<Button variant={"ghost"} size={"lg"} className=" flex justify-start">
 									type shit

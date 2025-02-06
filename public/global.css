@@ -65,8 +65,8 @@
 		calc(var(--color-accent-l) * 1.25)
 	);
 
-	--color-interactive-base: var(--color-base-15);
-	--color-interactive-base-hover: var(--color-base-20);
+	--color-interactive-base: var(--color-base-80);
+	--color-interactive-base-hover: var(--color-base-60);
 	--color-interactive-accent-hsl: var(--color-accent-hsl);
 	--color-interactive-accent: var(--color-accent-1);
 	--color-interactive-accent-hover: var(--color-accent-2);
@@ -224,7 +224,8 @@ li {
 }
 
 ::selection {
-	background: #00aceb;
+	/* background: #00aceb; */
+	background: #30bb30;
 	color: #fff;
 	text-shadow: none;
 }
