@@ -56,14 +56,13 @@ const PageNavbar = (): React.JSX.Element => {
 					</div>
 					<div className="flex items-center">
 						<nav className="hidden md:flex gap-4">
-							<Button rounded={"full"} size={"md"} href={"/register"}>
+							<Button variant={"outline"} href={"/register"}>
 								Create an Account
 							</Button>
 							<Button variant={"outline"} href={"/login"}>
 								Log in
 							</Button>
 						</nav>
-
 						<div
 							className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color md:hidden hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
 							onClick={() => setIsOpen((prev) => !prev)}

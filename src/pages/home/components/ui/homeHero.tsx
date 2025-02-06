@@ -3,7 +3,7 @@ import React from "react";
 
 const HomeHero = (): React.JSX.Element => {
 	return (
-		<div className="relative h-[calc(100dvh-6rem)] md:h-[100dvh] pt-8 md:pt-16  overflow-hidden w-full flex flex-col justify-center items-center">
+		<div className="relative min-h-[calc(100dvh-6rem)] md:h-[100dvh] pt-8 md:pt-16  overflow-hidden w-full flex flex-col justify-center items-center">
 			<div className="px-4 mb-16 flex flex-col justify-center items-center">
 				<header className="md:text-3xl text-2xl font-xl text-center mb-2">
 					Grønt skifte på Kirkeparken VGS
@@ -21,7 +21,7 @@ const HomeHero = (): React.JSX.Element => {
 					</Button>
 				</div>
 			</div>
-			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-local bg-center h-full w-full"></div>
+			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-local bg-center min-h-[50dvh] h-[] w-full"></div>
 
 			{/* <div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-local bg-center h-full w-full">
 				<div className=" w-full flex-col lg:flex-row gap-8 lg:gap-16 mx-auto flex items-center justify-center h-full px-4">
