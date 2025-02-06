@@ -13,7 +13,7 @@ const RouteGuard = ({ children, type = RouteTypes.protected }: RouteGuardProps):
 		// before checking type, check if authenticated, if not, then return unless the path is public.
 
 		switch (type) {
-			case RouteTypes.admin:
+			case RouteTypes.private:
 				// if authenticated and role != admin.
 				// redirect with a 401 error no autherization
 				break;
