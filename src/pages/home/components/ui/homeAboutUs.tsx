@@ -75,6 +75,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 							data={dropdownData}
 							render={(item: DropdownItemData, i) => (
 								<DropdownItem
+									key={i}
 									data={item}
 									idx={i}
 									openDropdowns={openDropdowns}

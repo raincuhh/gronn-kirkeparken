@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { supabaseInstance } from "@/shared/lib/services";
+import { supabase } from "@/shared/lib/services";
+import { Tables } from "@/shared/types/supabase";
 
 const HomeAnnouncementsPreview = (): React.JSX.Element => {
 	const [announcements, setAnnouncements] = useState<any[]>([]);
 	const [error, setError] = useState<any>(null);
-	console.log(error);
 
 	useEffect(() => {
 		const fetchAnnouncements = async () => {
-			const { data, error } = await supabaseInstance.from("announcements").select("*");
+			const { data, error } = await supabase.from("announcements").select("*");
 
 			if (error) {
 				console.error("Error fetching announcements:", error);
@@ -18,10 +18,12 @@ const HomeAnnouncementsPreview = (): React.JSX.Element => {
 			}
 
 			fetchAnnouncements();
-
-			console.log(announcements);
 		};
 	}, []);
+
+	useEffect(() => {
+		console.log(announcements);
+	}, [announcements]);
 
 	return (
 		<div
