@@ -4,6 +4,7 @@ import { supabaseInstance } from "@/shared/lib/services";
 const HomeAnnouncementsPreview = (): React.JSX.Element => {
 	const [announcements, setAnnouncements] = useState<any[]>([]);
 	const [error, setError] = useState<any>(null);
+	console.log(error);
 
 	useEffect(() => {
 		const fetchAnnouncements = async () => {
@@ -17,6 +18,8 @@ const HomeAnnouncementsPreview = (): React.JSX.Element => {
 			}
 
 			fetchAnnouncements();
+
+			console.log(announcements);
 		};
 	}, []);
 
