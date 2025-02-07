@@ -57,7 +57,7 @@ const PageFooter = ({ isPrivateRoute }: PageFooterProps): React.JSX.Element => {
 				</div>
 				<div className="flex justify-between">
 					<p className="text-sm font-md text-text-muted">
-						&copy; {new Date().getFullYear()} Kirkeparken VGS
+						&copy; {new Date().getFullYear()} Kirkeparken VGS, Filip Ryan.dev - All Rights Reserved.
 					</p>
 				</div>
 			</nav>
