@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+	--swipe-speed: 0;
+}
+
 @theme {
 	--color-*: initial;
 
@@ -269,4 +273,20 @@ button {
 
 a {
 	color: inherit;
+}
+
+/* non default styling overwriting onwards */
+
+.banner {
+	animation: swipe var(--swipe-speed) linear infinite backwards;
+}
+
+@keyframes swipe {
+	0% {
+		transform: translate(0);
+	}
+
+	100% {
+		transform: translate(-100%);
+	}
 }
