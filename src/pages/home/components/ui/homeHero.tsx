@@ -7,9 +7,9 @@ const HomeHero = (): React.JSX.Element => {
 	return (
 		<div
 			id="hero"
-			className="relative min-h-[calc(100dvh-6rem)]  pt-8 md:pt-16  overflow-hidden w-full flex flex-col justify-center items-center"
+			className="relative min-h-[calc(100dvh-6rem)]  pt-16 md:pt-48  overflow-hidden w-full flex flex-col justify-center items-center bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover"
 		>
-			<div className="px-4 mb-16 flex flex-col justify-center items-center">
+			<div className="px-4 pt-4 mb-16 flex flex-col justify-center items-center">
 				<header className="md:text-3xl text-2xl font-xl text-center mb-2">
 					Grønt skifte på Kirkeparken VGS
 				</header>
@@ -26,14 +26,14 @@ const HomeHero = (): React.JSX.Element => {
 						size={"md"}
 						variant={"outline"}
 						href={"https://www.miljofyrtarn.no/miljoledelse/"}
-						className="flex gap-2"
+						className="flex gap-2  !hover:bg-secondary-alt"
 					>
 						<p>Les om Miljøfyrtårnet</p>
 						<LinkExternalIcon className="!h-4 !w-4 fill-text-normal" />
 					</Button>
 				</div>
 			</div>
-			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-local bg-center min-h-[50dvh] h-[31rem] w-full"></div>
+			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-fixed bg-center min-h-[50dvh] h-[31rem] w-full"></div>
 			<HomeHorizontalBannerScroll speed={10000} />
 		</div>
 	);

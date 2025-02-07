@@ -22,13 +22,34 @@ const PageNavbar = (): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
+		// if (isOpen) {
+		// 	document.body.classList.add("overflow-hidden");
+		// } else {
+		// 	document.body.classList.remove("overflow-hidden");
+		// }
+		// return () => document.body.classList.remove("overflow-hidden");
+	}, [isOpen]);
+
+	useEffect(() => {
+		const preventScroll = (e: Event) => {
+			if (isOpen) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		};
+
 		if (isOpen) {
-			document.body.classList.add("overflow-hidden");
+			window.addEventListener("wheel", preventScroll, { passive: false });
+			window.addEventListener("touchstart", preventScroll, { passive: false });
 		} else {
-			document.body.classList.remove("overflow-hidden");
+			window.removeEventListener("wheel", preventScroll);
+			window.removeEventListener("touchstart", preventScroll);
 		}
 
-		return () => document.body.classList.remove("overflow-hidden");
+		return () => {
+			window.removeEventListener("wheel", preventScroll);
+			window.removeEventListener("touchstart", preventScroll);
+		};
 	}, [isOpen]);
 
 	return (

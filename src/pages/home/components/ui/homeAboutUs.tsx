@@ -56,10 +56,14 @@ const HomeAboutUs = (): React.JSX.Element => {
 					<h1 className="text-3xl font-lg !my-4">Sammen for en grønnere skolehverdag!</h1>
 					<div className="bg-[url('./assets/images/kirkeparkenUtsiden2.jpg')] bg-cover bg-local bg-center rounded-sm my-8 w-full h-[20rem] md:h-[25rem]"></div>
 					<h2 className="text-2xl font-lg !my-4">Hvem er vi?</h2>
-					<p className="">
+					<p>
 						GrønnKirkeparken er et initiativ ved Kirkeparken VGS som har som mål å øke bevisstheten
 						rundt miljøspørsmål og fremme bærekraftige tiltak på skolen. Vi ønsker å inspirere elever og
-						ansatte til å ta del i positive miljøendringer.
+						ansatte til å ta del i positive miljøendringer, både i hverdagen og på lang sikt. Gjennom
+						ulike prosjekter og aktiviteter håper vi å skape en mer miljøvennlig skolekultur, hvor alle
+						føler ansvar for å bidra til et grønnere lokalsamfunn. Vårt engasjement strekker seg fra å
+						redusere avfall og energiforbruk, til å fremme bruk av kollektivtransport og bærekraftige
+						matvalg.
 					</p>
 				</header>
 				<section>

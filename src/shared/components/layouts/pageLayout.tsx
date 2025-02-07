@@ -14,7 +14,7 @@ const PageLayout = ({ children }: PageLayoutProps): React.JSX.Element => {
 	return (
 		<>
 			<PageNavbar />
-			<div className="min-h-dvh flex flex-col bg-primary pt-16">{children}</div>
+			<div className="min-h-dvh flex flex-col bg-primary">{children}</div>
 			<PageFooter isPrivateRoute={isPrivateRoute} />
 		</>
 	);

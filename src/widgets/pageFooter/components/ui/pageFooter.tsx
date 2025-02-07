@@ -44,20 +44,30 @@ const PageFooter = ({ isPrivateRoute }: PageFooterProps): React.JSX.Element => {
 	return (
 		<footer
 			className={clsx(
-				"md:px-16 px-4 my-16 flex flex-row justify-between w-full max-w-[1020px] mx-auto items-center",
+				"md:px-16 px-4 pb-16 pt-24 flex flex-row justify-between w-full max-w-[1020px] mx-auto items-center relative h-full",
 				isPrivateRoute ? "" : ""
 			)}
 		>
 			<nav className="flex flex-col w-full gap-16">
-				<div className="grid-cols-2 md:grid-cols-4 grid gap-12 w-full">
-					<FooterNavigation sections={footerLinks} isAdmin={true} adminLinks={adminLinks} />
-					<Link to={"/home"}>
-						<img className=" w-42 md:w-48 h-auto" src="/assets/images/kirkeparkenLogo.svg" alt="logo" />
+				<div className="w-full">
+					<Link to={"/home"} className="md:hidden">
+						<img className="w-42 md:w-48 h-auto" src="/assets/images/kirkeparkenLogo.svg" alt="logo" />
 					</Link>
+					<div className="grid-cols-2 md:grid-cols-4 grid gap-12 w-full mt-6">
+						<FooterNavigation sections={footerLinks} isAdmin={true} adminLinks={adminLinks} />
+						<Link to={"/home"} className="hidden md:block">
+							<img
+								className="w-42 md:w-48 h-auto"
+								src="/assets/images/kirkeparkenLogo.svg"
+								alt="logo"
+							/>
+						</Link>
+					</div>
 				</div>
 				<div className="flex justify-between">
 					<p className="text-sm font-md text-text-muted">
-						&copy; {new Date().getFullYear()} Kirkeparken VGS, Filip Ryan.dev - All Rights Reserved.
+						&copy; {new Date().getFullYear()} Kirkeparken VGS, Filip Ryan S. Paulsen - All Rights
+						Reserved.
 					</p>
 				</div>
 			</nav>
