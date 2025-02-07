@@ -59,11 +59,13 @@ const HomeAboutUs = (): React.JSX.Element => {
 					<p>
 						GrønnKirkeparken er et initiativ ved Kirkeparken VGS som har som mål å øke bevisstheten
 						rundt miljøspørsmål og fremme bærekraftige tiltak på skolen. Vi ønsker å inspirere elever og
-						ansatte til å ta del i positive miljøendringer, både i hverdagen og på lang sikt. Gjennom
-						ulike prosjekter og aktiviteter håper vi å skape en mer miljøvennlig skolekultur, hvor alle
-						føler ansvar for å bidra til et grønnere lokalsamfunn. Vårt engasjement strekker seg fra å
-						redusere avfall og energiforbruk, til å fremme bruk av kollektivtransport og bærekraftige
-						matvalg.
+						ansatte til å ta del i positive miljøendringer, både i hverdagen og på lang sikt.
+					</p>
+					<p className="!mt-4">
+						Gjennom ulike prosjekter og aktiviteter håper vi å skape en mer miljøvennlig skolekultur,
+						hvor alle føler ansvar for å bidra til et grønnere lokalsamfunn. Vårt engasjement strekker
+						seg fra å redusere avfall og energiforbruk, til å fremme bruk av kollektivtransport og
+						bærekraftige matvalg.
 					</p>
 				</header>
 				<section>
@@ -88,7 +90,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 						Vi tror at små handlinger kan føre til store endringer. Gjennom GrønnKirkeparken ønsker vi å
 						skape et mer miljøbevisst skolesamfunn hvor alle kan gjøre en forskjell.
 					</p>
-					<p>💚 Bli med og gjør Kirkeparken grønnere!</p>
+					<p className="!mt-8 font-xl text-2xl md:text-3xl">💚 Bli med og gjør Kirkeparken grønnere!</p>
 				</footer>
 			</div>
 		</div>

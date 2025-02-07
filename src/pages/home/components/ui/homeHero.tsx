@@ -7,7 +7,7 @@ const HomeHero = (): React.JSX.Element => {
 	return (
 		<div
 			id="hero"
-			className="relative min-h-[calc(100dvh-6rem)]  pt-16 md:pt-48  overflow-hidden w-full flex flex-col justify-center items-center bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover"
+			className="relative min-h-[calc(100dvh-6rem)]  pt-16 md:pt-48  overflow-hidden w-full flex flex-col justify-center items-center bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover "
 		>
 			<div className="px-4 pt-4 mb-16 flex flex-col justify-center items-center">
 				<header className="md:text-3xl text-2xl font-xl text-center mb-2">
@@ -33,7 +33,7 @@ const HomeHero = (): React.JSX.Element => {
 					</Button>
 				</div>
 			</div>
-			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-fixed bg-center min-h-[50dvh] h-[31rem] w-full"></div>
+			<div className="bg-[url('/assets/images/norwayNaturePlaceholder1920x1080.jpg')] bg-cover bg-local bg-center min-h-[50dvh] h-[31rem] w-full"></div>
 			<HomeHorizontalBannerScroll speed={10000} />
 		</div>
 	);

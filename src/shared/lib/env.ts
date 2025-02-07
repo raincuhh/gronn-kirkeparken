@@ -5,5 +5,5 @@ export const getEnvVar = (key: string) => {
 	return import.meta.env[key] || "";
 };
 
-export const VERCEL_SUPABASE_PROJECT_URL: string = getEnvVar("VERCEL_SUPABASE_PROJECT_URL");
-export const VERCEL_SUPABASE_PUBLIC_KEY: string = getEnvVar("VERCEL_SUPABASE_PUBLIC_KEY");
+export const VITE_VERCEL_SUPABASE_PROJECT_URL: string = getEnvVar("VITE_VERCEL_SUPABASE_PROJECT_URL");
+export const VITE_VERCEL_SUPABASE_PUBLIC_KEY: string = getEnvVar("VITE_VERCEL_SUPABASE_PUBLIC_KEY");

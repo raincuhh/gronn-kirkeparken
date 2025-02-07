@@ -51,7 +51,11 @@ const PageFooter = ({ isPrivateRoute }: PageFooterProps): React.JSX.Element => {
 			<nav className="flex flex-col w-full gap-16">
 				<div className="w-full">
 					<Link to={"/home"} className="md:hidden">
-						<img className="w-42 md:w-48 h-auto" src="/assets/images/kirkeparkenLogo.svg" alt="logo" />
+						<img
+							className="w-46 sm:w-48 md:w-56 h-auto"
+							src="/assets/images/kirkeparkenLogo.svg"
+							alt="logo"
+						/>
 					</Link>
 					<div className="grid-cols-2 md:grid-cols-4 grid gap-12 w-full mt-6">
 						<FooterNavigation sections={footerLinks} isAdmin={true} adminLinks={adminLinks} />
