@@ -233,6 +233,7 @@ li {
 	color: #fff;
 	text-shadow: none;
 }
+
 /* article,
 aside,
 details,
@@ -258,7 +259,7 @@ body {
 
 html,
 body {
-	overscroll-behavior: none;
+	/* overscroll-behavior: none; */
 	scroll-behavior: smooth;
 }
 

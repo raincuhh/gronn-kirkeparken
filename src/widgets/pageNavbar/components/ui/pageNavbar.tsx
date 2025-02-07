@@ -57,10 +57,10 @@ const PageNavbar = (): React.JSX.Element => {
 					<div className="flex items-center">
 						<nav className="hidden md:flex gap-4">
 							<Button variant={"outline"} href={"/register"}>
-								Create an Account
+								Lag en bruker
 							</Button>
 							<Button variant={"outline"} href={"/login"}>
-								Log in
+								Logg in
 							</Button>
 						</nav>
 						<div
@@ -82,10 +82,10 @@ const PageNavbar = (): React.JSX.Element => {
 						<div className="py-4 px-4 flex w-full flex-col gap-8 text-lg font-md">
 							<nav className="w-full gap-4 flex flex-col">
 								<Button size={"lg"} variant={"base"} href={"/register"} className="w-full">
-									Create an account
+									Lag en bruker
 								</Button>
 								<Button size={"lg"} className="w-full" variant={"outline"}>
-									Log in
+									Logg in
 								</Button>
 							</nav>
 							<nav className="w-full flex flex-col border-b-[1px] border-modifier-border-color pb-4">

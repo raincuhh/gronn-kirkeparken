@@ -13,7 +13,7 @@ type HomeHorizontalBannerScrollProps = {
 
 const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScrollProps): React.JSX.Element => {
 	return (
-		<div className="flex md:flex-row my-16 h-12 md:h-24 w-full overflow-hidden relative">
+		<div className="flex md:flex-row my-16 h-12 md:h-18 w-full overflow-hidden relative">
 			<div className="flex absolute w-full">
 				<div className="flex items-center banner" style={{ ["--swipe-speed" as any]: `${speed}ms` }}>
 					<RenderList
@@ -21,7 +21,7 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 						render={(item, i) => (
 							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-12 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-18 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -33,7 +33,7 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 						render={(item, i) => (
 							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-12 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-18 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -45,7 +45,7 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 						render={(item, i) => (
 							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-12 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-18 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -57,7 +57,7 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 						render={(item, i) => (
 							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-12 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-18 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -69,7 +69,7 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 						render={(item, i) => (
 							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-12 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-18 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -83,32 +83,3 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 };
 
 export default HomeHorizontalBannerScroll;
-
-{
-	/* <div className="relative w-full overflow-hidden py-2 my-14">
-			<div className="flex w-full items-center">
-				<div
-					className="flex banner items-center whitespace-nowrap gap-16 w-ful"
-					style={{ ["--swipe-speed" as any]: `${speed}ms` }}
-				>
-					<RenderList
-						data={images}
-						render={(item) => (
-							<div key={item.id} className="flex-none h-16">
-								<img className="h-16 w-auto object-contain" src={item.img} alt="Logo" />
-							</div>
-						)}
-					/>
-
-					<RenderList
-						data={images}
-						render={(item) => (
-							<div key={`clone-${item.id}`} className="flex-none h-16">
-								<img className="h-16 w-auto object-contain" src={item.img} alt="Logo" />
-							</div>
-						)}
-					/>
-				</div>
-			</div>
-		</div> */
-}
