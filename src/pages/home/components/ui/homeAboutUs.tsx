@@ -14,24 +14,36 @@ const HomeAboutUs = (): React.JSX.Element => {
 	const dropdownData: DropdownItemData[] = [
 		{
 			title: "🏫 Miljøtiltak",
-			description: ["Vi fremhever og støtter grønne prosjekter ved Kirkeparken VGS."],
+			description: [
+				"Vi fremhever og støtter grønne prosjekter ved Kirkeparken VGS. Dette inkluderer alt fra resirkuleringsinitiativ og energisparende tiltak til grønne områder og bærekraftige løsninger i skolens hverdag.",
+				"Vårt mål er å redusere skolens miljøavtrykk ved å implementere mer miljøvennlige alternativer, som for eksempel bruk av gjenbruksmaterialer og energieffektiv belysning.",
+				"Vi samarbeider også med elever og ansatte for å finne nye måter å gjøre skolen mer bærekraftig på. Har du en god idé? Del den med oss!",
+			],
 		},
 		{
 			title: "📢 Kunngjøringer",
 			description: [
-				"Hold deg oppdatert på viktige miljønyheter, skoleinitiativer og kommende arrangementer.",
+				"Hold deg oppdatert på viktige miljønyheter, skoleinitiativer og kommende arrangementer. Vi deler jevnlig informasjon om hva som skjer på skolen når det gjelder bærekraft.",
+				"Her vil du finne informasjon om kampanjer, prosjekter og spesielle temadager som skal øke bevisstheten rundt miljøet.",
+				"Vi oppfordrer også elever og ansatte til å bidra med egne kunngjøringer og forslag til nye initiativer.",
 			],
 		},
 		{
 			title: "📸 Fotoalbum",
 			description: [
-				"Se og del bilder av miljøvennlige initiativer på skolen. Alle opplastede bilder må godkjennes av en administrator.",
+				"Se og del bilder av miljøvennlige initiativer på skolen. Har klassen din plantet et tre eller deltatt i en ryddeaksjon? Last opp bilder og inspirer andre!",
+				"Alle opplastede bilder må godkjennes av en administrator for å sikre at innholdet er relevant og bidrar til et positivt budskap.",
+				"Bildegalleriet fungerer også som en visuell historikk over skolens miljøengasjement, slik at vi kan se fremgangen vi har gjort over tid.",
+				"Vi håper at dette kan være en inspirasjonskilde for elever og ansatte til å ta enda flere miljøvennlige valg i hverdagen.",
 			],
 		},
 		{
 			title: "🛠 Bli med!",
 			description: [
-				"Som elev eller ansatt kan du bidra ved å laste opp bilder, lese kunngjøringer og delta i grønne tiltak.",
+				"Som elev eller ansatt kan du aktivt bidra til et grønnere skolemiljø. Delta i våre prosjekter, last opp bilder, del ideer og engasjer deg i tiltak som gjør en forskjell.",
+				"Vi ønsker å bygge et fellesskap der alle kan være med og ta ansvar for miljøet – enten det er gjennom små hverdagsvaner eller større prosjekter.",
+				"Det er mange måter å bidra på, enten du vil hjelpe til med organisering av arrangementer, komme med forslag til forbedringer eller bare spre budskapet videre.",
+				"Sammen kan vi skape en mer bærekraftig skolehverdag og vise at små handlinger kan føre til store endringer!",
 			],
 		},
 	];
@@ -52,7 +64,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 				</header>
 				<section>
 					<h2 className="text-2xl font-lg !my-4">Hva gjør vi?</h2>
-					<ul className="flex flex-col gap-2">
+					<ul className="flex flex-col gap-4">
 						<RenderList
 							data={dropdownData}
 							render={(item: DropdownItemData, i) => (
