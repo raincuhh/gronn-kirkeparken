@@ -19,7 +19,7 @@ const HomeHero = (): React.JSX.Element => {
 				</p>
 				<div className="flex gap-4 mt-4 font-lg">
 					<Button rounded={"full"} size={"md"} href="#about-us">
-						Les om oss
+						om oss
 					</Button>
 					<Button
 						rounded={"full"}
@@ -29,7 +29,7 @@ const HomeHero = (): React.JSX.Element => {
 						className="flex gap-2"
 					>
 						<p>Les om Miljøfyrtårnet</p>
-						<LinkExternalIcon className={"!h-4 !w-4 fill-text-normal"} />
+						<LinkExternalIcon className="!h-4 !w-4 fill-text-normal" />
 					</Button>
 				</div>
 			</div>
