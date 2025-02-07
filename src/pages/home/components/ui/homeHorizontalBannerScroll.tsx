@@ -13,15 +13,15 @@ type HomeHorizontalBannerScrollProps = {
 
 const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScrollProps): React.JSX.Element => {
 	return (
-		<div className="flex md:flex-row my-16 h-16 md:h-24 w-full overflow-hidden relative">
+		<div className="flex md:flex-row my-16 h-12 md:h-24 w-full overflow-hidden relative">
 			<div className="flex absolute w-full">
 				<div className="flex items-center banner" style={{ ["--swipe-speed" as any]: `${speed}ms` }}>
 					<RenderList
 						data={images}
 						render={(item, i) => (
-							<div key={i} className="flex-none mr-16">
+							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-16 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-24 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -31,9 +31,9 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 					<RenderList
 						data={images}
 						render={(item, i) => (
-							<div key={i} className="flex-none mr-16">
+							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-16 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-24 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -43,9 +43,9 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 					<RenderList
 						data={images}
 						render={(item, i) => (
-							<div key={i} className="flex-none mr-16">
+							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-16 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-24 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -55,9 +55,9 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 					<RenderList
 						data={images}
 						render={(item, i) => (
-							<div key={i} className="flex-none mr-16">
+							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-16 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-24 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
@@ -67,9 +67,9 @@ const HomeHorizontalBannerScroll = ({ speed = 5000 }: HomeHorizontalBannerScroll
 					<RenderList
 						data={images}
 						render={(item, i) => (
-							<div key={i} className="flex-none mr-16">
+							<div key={item.id} className="flex-none mr-16">
 								<img
-									className="min-h-16 md:min-h-24 w-auto object-contain"
+									className="min-h-12 md:min-h-24 w-auto object-contain"
 									src={item.img}
 									alt={`Logo-${i}`}
 								></img>
