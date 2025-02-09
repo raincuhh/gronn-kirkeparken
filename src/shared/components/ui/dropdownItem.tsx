@@ -20,14 +20,16 @@ const DropdownItem = ({ data, idx, openDropdowns, toggleDropDown }: DropdownItem
 		<li>
 			<div
 				onClick={() => toggleDropDown(idx)}
-				className="flex justify-between cursor-pointer border-modifier-border-color border-b-[1px] !py-2"
+				className="group flex justify-between cursor-pointer border-modifier-border-color hover:border-accent-1 border-b-[1px] !py-2 transition-colors duration-100 ease-in-out"
 			>
-				<span className="text-lg">{data.title}</span>
+				<span className="text-lg font-xl group-hover:text-accent-1 transition-colors duration-100 ease-in-out">
+					{data.title}
+				</span>
 				<span>
 					{openDropdowns.includes(idx) ? (
-						<MinusIcon className="!h-4 !w-4 fill-text-normal" />
+						<MinusIcon className="!h-4 !w-4 fill-text-normal group-hover:fill-accent-1 transition-colors duration-100 ease-in-out" />
 					) : (
-						<PlusIcon className="!h-4 !w-4 fill-text-normal" />
+						<PlusIcon className="!h-4 !w-4 fill-text-normal group-hover:fill-accent-1 transition-colors duration-100 ease-in-out" />
 					)}
 				</span>
 			</div>
@@ -38,7 +40,7 @@ const DropdownItem = ({ data, idx, openDropdowns, toggleDropDown }: DropdownItem
 				)}
 			>
 				{data.description.map((desc, i) => (
-					<p key={i} className="!mb-2">
+					<p key={i} className="!mb-4 text-lg">
 						{desc}
 					</p>
 				))}

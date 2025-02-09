@@ -8,7 +8,7 @@ const buttonVariants = cva(
 	{
 		variants: {
 			variant: {
-				base: "bg-interactive-base hover:bg-interactive-base-hover !text-base-00",
+				base: "bg-interactive-base hover:bg-interactive-base-hover",
 				accent: "bg-interactive-accent hover:bg-interactive-accent-hover",
 				destructive: "",
 				ghost: "bg-transparent hover:bg-interactive-base",
@@ -48,7 +48,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		if (href) {
 			return (
 				<>
-					<Link to={href} className={clsx(classes, "!text-base-00")}>
+					<Link to={href} className={clsx(classes, "!text-base-05")}>
 						{text || children}
 					</Link>
 				</>

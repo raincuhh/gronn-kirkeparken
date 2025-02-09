@@ -38,7 +38,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 			],
 		},
 		{
-			title: "🛠 Bli med!",
+			title: "🛠️ Bli med!",
 			description: [
 				"Som elev eller ansatt kan du aktivt bidra til et grønnere skolemiljø. Delta i våre prosjekter, last opp bilder, del ideer og engasjer deg i tiltak som gjør en forskjell.",
 				"Vi ønsker å bygge et fellesskap der alle kan være med og ta ansvar for miljøet – enten det er gjennom små hverdagsvaner eller større prosjekter.",
@@ -50,18 +50,18 @@ const HomeAboutUs = (): React.JSX.Element => {
 
 	return (
 		<div id="about-us" className="md:px-16 px-4 flex w-full mt-16 max-w-[1020px] mx-auto items-center">
-			<div className="flex flex-col gap-8 ">
+			<div className="flex flex-col gap-8">
 				<header>
-					<p className="text-text-muted">Om oss - GrønnKirkeparken</p>
-					<h1 className="text-3xl font-lg !my-4">Sammen for en grønnere skolehverdag!</h1>
+					<p className="text-text-muted text-lg sm:text-xl">Om oss - GrønnKirkeparken</p>
+					<h1 className="text-3xl sm:text-4xl font-xl !my-4">Sammen for en grønnere skolehverdag!</h1>
 					<div className="bg-[url('./assets/images/kirkeparkenUtsiden2.jpg')] bg-cover bg-local bg-center rounded-sm my-8 w-full h-[20rem] md:h-[25rem]"></div>
 					<h2 className="text-2xl font-lg !my-4">Hvem er vi?</h2>
-					<p>
+					<p className="text-lg">
 						GrønnKirkeparken er et initiativ ved Kirkeparken VGS som har som mål å øke bevisstheten
 						rundt miljøspørsmål og fremme bærekraftige tiltak på skolen. Vi ønsker å inspirere elever og
 						ansatte til å ta del i positive miljøendringer, både i hverdagen og på lang sikt.
 					</p>
-					<p className="!mt-4">
+					<p className="!mt-4 text-lg">
 						Gjennom ulike prosjekter og aktiviteter håper vi å skape en mer miljøvennlig skolekultur,
 						hvor alle føler ansvar for å bidra til et grønnere lokalsamfunn. Vårt engasjement strekker
 						seg fra å redusere avfall og energiforbruk, til å fremme bruk av kollektivtransport og
@@ -87,11 +87,13 @@ const HomeAboutUs = (): React.JSX.Element => {
 				</section>
 				<footer>
 					<h2 className="text-2xl font-lg !my-4">Vår visjon</h2>
-					<p>
+					<p className="text-lg">
 						Vi tror at små handlinger kan føre til store endringer. Gjennom GrønnKirkeparken ønsker vi å
 						skape et mer miljøbevisst skolesamfunn hvor alle kan gjøre en forskjell.
 					</p>
-					<p className="!mt-8 font-xl text-2xl md:text-3xl">💚 Bli med og gjør Kirkeparken grønnere!</p>
+					<p className="!mb-12 !mt-20 font-xl text-3xl md:text-3xl text-center">
+						💚 Bli med og gjør Kirkeparken grønnere!
+					</p>
 				</footer>
 			</div>
 		</div>

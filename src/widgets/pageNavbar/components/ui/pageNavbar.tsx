@@ -72,16 +72,20 @@ const PageNavbar = (): React.JSX.Element => {
 							/>
 						</Link>
 						<div className="w-fit flex gap-4 items-center">
-							<nav className="hidden md:flex gap-4 text-text-muted">test</nav>
+							<nav className="hidden md:flex gap-4 text-text-muted">
+								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full">
+									placeholder
+								</li>
+							</nav>
 						</div>
 					</div>
 					<div className="flex items-center">
 						<nav className="hidden md:flex gap-4">
-							<Button variant={"outline"} href={"/register"}>
-								Lag en bruker
+							<Button variant={"base"} href={"/register"}>
+								Registrer deg
 							</Button>
 							<Button variant={"outline"} href={"/login"}>
-								Logg in
+								Logg inn
 							</Button>
 						</nav>
 						<div
@@ -103,7 +107,7 @@ const PageNavbar = (): React.JSX.Element => {
 						<div className="py-4 px-4 flex w-full flex-col gap-8 text-lg font-md">
 							<nav className="w-full gap-4 flex flex-col">
 								<Button size={"lg"} variant={"base"} href={"/register"} className="w-full">
-									Lag en bruker
+									Registrer deg
 								</Button>
 								<Button size={"lg"} className="w-full" variant={"outline"}>
 									Logg in
