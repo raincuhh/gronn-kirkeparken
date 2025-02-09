@@ -49,18 +49,24 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							<img
 								src="./assets/images/bell.svg"
 								alt="homeAnnouncementPreviewIllustrationImg"
-								className="w-[12rem] lg:w-[14rem] bg-transparent h-auto"
+								className="w-[7rem] sm:w-[12rem] lg:w-[14rem] bg-transparent h-auto"
 							/>
 						</div>
 					</div>
 					<div className="w-full min-h-[14rem] border-solid border-modifier-border-color border-b border-x">
 						<div className="w-full h-full justify-center items-center flex flex-col gap-4 px-4 py-8">
-							<h1 className="text-3xl font-xl text-center">Siste kunngjøringer</h1>
+							<h1 className="md:text-3xl text-2xl  font-xl text-center">Siste kunngjøringer</h1>
 							<p className="text-center text-lg font-lg text-text-muted">
 								Hold deg oppdatert med de nyeste{" "}
 								<span className="text-text-normal">3 kunngjøringene</span> fra oss.
 							</p>
-							<Button variant={"outline"} size={"md"} rounded={"full"} href="/announcements">
+							<Button
+								variant={"outline"}
+								size={"md"}
+								rounded={"full"}
+								href="/announcements"
+								className="font-xl"
+							>
 								Se fler kunngjøringer
 							</Button>
 						</div>

@@ -71,10 +71,13 @@ const PageNavbar = (): React.JSX.Element => {
 								alt="logo"
 							/>
 						</Link>
-						<div className="w-fit flex gap-4 items-center">
-							<nav className="hidden md:flex gap-4 text-text-muted">
+						<div className="w-fit flex items-center">
+							<nav className="hidden md:flex text-text-muted">
 								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full">
-									placeholder
+									<Link to={"/announcements"}>Kunngjøringer</Link>
+								</li>
+								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full">
+									<Link to={"/image-gallery"}>Bildegalleri</Link>
 								</li>
 							</nav>
 						</div>

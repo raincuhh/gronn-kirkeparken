@@ -91,8 +91,8 @@ const HomeAboutUs = (): React.JSX.Element => {
 						Vi tror at små handlinger kan føre til store endringer. Gjennom GrønnKirkeparken ønsker vi å
 						skape et mer miljøbevisst skolesamfunn hvor alle kan gjøre en forskjell.
 					</p>
-					<p className="!mb-12 !mt-20 font-xl text-3xl md:text-3xl text-center">
-						💚 Bli med og gjør Kirkeparken grønnere!
+					<p className="!mb-12 !mt-20 font-xl text-2xl md:text-3xl text-center">
+						Bli med og gjør Kirkeparken grønnere! 💚
 					</p>
 				</footer>
 			</div>

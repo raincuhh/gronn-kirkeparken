@@ -18,7 +18,7 @@ const HomeHero = (): React.JSX.Element => {
 					initiativer, bidra med ideer, og følg miljøarbeidet vårt - sammen gjør vi en forskjell!
 				</p>
 				<div className="flex gap-4 mt-8 font-lg">
-					<Button rounded={"full"} size={"md"} href="#about-us">
+					<Button rounded={"full"} size={"md"} href="#about-us" className="font-xl">
 						om oss
 					</Button>
 					<Button
@@ -26,7 +26,7 @@ const HomeHero = (): React.JSX.Element => {
 						size={"md"}
 						variant={"base"}
 						href={"https://www.miljofyrtarn.no/miljoledelse/"}
-						className="flex gap-2 bg-primary hover:!bg-primary-alt !text-text-normal"
+						className="flex gap-2 bg-primary hover:!bg-primary-alt !text-text-normal font-xl"
 					>
 						<p>Les om Miljøfyrtårnet</p>
 						<LinkExternalIcon className="!h-4 !w-4 fill-text-normal" />

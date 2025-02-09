@@ -8,6 +8,7 @@ import LoginPage from "@/pages/login/components/ui/loginPage";
 import RegisterPage from "@/pages/register/components/ui/registerPage";
 import AnnouncementDetailPage from "@/pages/announcementDetail/components/ui/announcementDetailPage";
 import DashboardPage from "@/pages/dashboard/components/ui/dashboardPage";
+import ImageGalleryPage from "@/pages/imageGallery/components/ui/imageGalleryPage";
 
 const RouteList: RouteListProps[] = [
 	{
@@ -42,6 +43,12 @@ const RouteList: RouteListProps[] = [
 		id: "announcement-detail",
 		url: "/announcements/:id",
 		element: <AnnouncementDetailPage />,
+		type: RouteTypes.public,
+	},
+	{
+		id: "image-gallery",
+		url: "/image-gallery",
+		element: <ImageGalleryPage />,
 		type: RouteTypes.public,
 	},
 	{
