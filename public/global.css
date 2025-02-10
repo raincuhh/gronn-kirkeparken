@@ -166,6 +166,7 @@
 	--breakpoint-media-min-w-500: 500px;
 	--breakpoint-media-min-w-550: 550px;
 	--breakpoint-media-min-w-600: 600px;
+	--breakpoint-media-min-w-800: 800px;
 
 	--breakpoint-media-min-h-500: "(min-height: 500px)";
 	--breakpoint-media-min-h-550: "(min-height: 550px)";

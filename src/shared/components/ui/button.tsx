@@ -11,7 +11,7 @@ const buttonVariants = cva(
 				base: "bg-interactive-base hover:bg-interactive-base-hover",
 				accent: "bg-interactive-accent hover:bg-interactive-accent-hover",
 				destructive: "",
-				ghost: "bg-transparent hover:bg-interactive-base",
+				ghost: "bg-transparent hover:bg-interactive-base hover:!text-base-00",
 				outline:
 					"bg-transparent !text-text-normal hover:bg-base-10 hover:border-base-20 border-solid border-[1px] border-modifier-border-color",
 				link: "underline !text-text-accent hover:text-text-accent-hover cursor-pointer",

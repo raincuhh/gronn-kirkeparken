@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Button from "@/shared/components/ui/button";
 import HamburgerMenuIcon from "@/shared/components/icons/hamburgerMenuIcon";
 import HamburgerMenuClosedIcon from "@/shared/components/icons/hamburgerMenuClosedIcon";
@@ -10,6 +10,8 @@ import HamburgerMenuClosedIcon from "@/shared/components/icons/hamburgerMenuClos
 const PageNavbar = (): React.JSX.Element => {
 	const [hasScrolled, setHasScrolled] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const location = useLocation();
+	const [locationNavigation, setLocationNavigation] = useState<React.JSX.Element | null>(null);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -52,6 +54,36 @@ const PageNavbar = (): React.JSX.Element => {
 		};
 	}, [isOpen]);
 
+	useEffect(() => {
+		switch (location.pathname) {
+			case "/home":
+				setLocationNavigation(
+					<>
+						<Button
+							variant="ghost"
+							size="lg"
+							href="/announcements"
+							className="flex justify-start !text-text-normal"
+						>
+							Kunngjøringer
+						</Button>
+						<Button
+							variant="ghost"
+							size="lg"
+							href="/image-gallery"
+							className="flex justify-start !text-text-normal"
+						>
+							Bildegalleri
+						</Button>
+					</>
+				);
+				break;
+			default:
+				setLocationNavigation(null);
+				break;
+		}
+	}, [location.pathname]);
+
 	return (
 		<>
 			<header
@@ -72,7 +104,7 @@ const PageNavbar = (): React.JSX.Element => {
 							/>
 						</Link>
 						<div className="w-fit flex items-center">
-							<nav className="hidden md:flex text-text-muted">
+							<nav className="hidden media-min-w-800:flex text-text-muted">
 								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full">
 									<Link to={"/announcements"}>Kunngjøringer</Link>
 								</li>
@@ -107,23 +139,24 @@ const PageNavbar = (): React.JSX.Element => {
 			{isOpen && (
 				<>
 					<div className="fixed inset-0 z-[109] bg-primary flex pt-16 w-full">
-						<div className="py-4 px-4 flex w-full flex-col gap-8 text-lg font-md">
-							<nav className="w-full gap-4 flex flex-col">
-								<Button size={"lg"} variant={"base"} href={"/register"} className="w-full">
+						<div className="py-4 px-4 flex w-full flex-col text-lg font-md">
+							<nav className="w-full gap-4 flex flex-col mb-4">
+								<Button size={"lg"} variant={"base"} href={"/register"} className="w-full font-lg">
 									Registrer deg
 								</Button>
-								<Button size={"lg"} className="w-full" variant={"outline"}>
+								<Button size={"lg"} variant={"outline"} href={"/login"} className="w-full font-lg">
 									Logg in
 								</Button>
 							</nav>
-							<nav className="w-full flex flex-col border-b-[1px] border-modifier-border-color pb-4">
-								<Button variant={"ghost"} size={"lg"} className=" flex justify-start">
+							<nav className="w-full flex flex-col border-b-[1px] border-modifier-border-color pb-4 mb-4">
+								<Button variant={"ghost"} size={"lg"} className="flex justify-start">
 									type shit
 								</Button>
-								<Button variant={"ghost"} size={"lg"} className=" flex justify-start">
+								<Button variant={"ghost"} size={"lg"} className="flex justify-start">
 									more testing
 								</Button>
 							</nav>
+							<nav className="flex flex-col">{locationNavigation}</nav>
 						</div>
 					</div>
 				</>

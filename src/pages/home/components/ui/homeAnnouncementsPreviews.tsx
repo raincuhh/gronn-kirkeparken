@@ -35,8 +35,8 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			id="announcements-preview"
 			className="md:px-16 px-4 flex w-full mt-16 max-w-[1020px] mx-auto items-center"
 		>
-			<div className="flex flex-col w-full">
-				<div className="flex flex-col w-full mb-16">
+			<div className="flex flex-col w-full gap-8">
+				<div className="flex flex-col w-full">
 					<div className="relative grid grid-cols-8 grid-rows-4 md:grid-cols-12 md:grid-rows-4 border-t border-l border-modifier-border-color">
 						{[...Array(gridSize)].map((_, i: number) => (
 							<div
@@ -49,7 +49,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							<img
 								src="./assets/images/bell.svg"
 								alt="homeAnnouncementPreviewIllustrationImg"
-								className="w-[7rem] sm:w-[12rem] lg:w-[14rem] bg-transparent h-auto"
+								className="w-[6rem] sm:w-[12rem] lg:w-[14rem] bg-transparent h-auto"
 							/>
 						</div>
 					</div>
