@@ -4,6 +4,7 @@ import ErrorBoundary from "@/shared/components/utils/errorBoundary";
 import { RouteListProps } from "@/shared/types/routing";
 import RouteGuard from "@/features/auth/components/utils/routeGuard";
 import PageLayout from "@/shared/components/layouts/pageLayout";
+import ScrollToTop from "@/shared/components/utils/scrollToTop";
 
 const websiteRouter = createBrowserRouter(
 	createRoutesFromElements(
@@ -14,6 +15,7 @@ const websiteRouter = createBrowserRouter(
 					path={route.url}
 					element={
 						<RouteGuard>
+							<ScrollToTop />
 							<PageLayout>{route.element}</PageLayout>
 						</RouteGuard>
 					}

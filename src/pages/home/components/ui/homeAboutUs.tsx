@@ -92,7 +92,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 						skape et mer miljøbevisst skolesamfunn hvor alle kan gjøre en forskjell.
 					</p>
 					<p className="!mb-12 !mt-20 font-xl text-2xl md:text-3xl text-center">
-						Bli med og gjør Kirkeparken grønnere! 💚
+						💚 Bli med og gjør Kirkeparken grønnere!
 					</p>
 				</footer>
 			</div>
