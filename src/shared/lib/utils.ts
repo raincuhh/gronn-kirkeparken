@@ -52,9 +52,11 @@ export const sqlTimestampToDateVTwo = (timestamp: string): Date | null => {
 export const sanitizeAndHyphenate = (str: string): string => {
 	return str
 		.normalize("NFKD")
-		.replace(/[^\x00-\x7F]/g, "")
+		.replace(/[^\w\s-]/g, "")
 		.trim()
-		.replace(/\s+/g, "-");
+		.replace(/\s+/g, "-")
+		.replace(/-+/g, "-")
+		.toLowerCase();
 };
 
 export const timeAgo = (date: Date): string => {

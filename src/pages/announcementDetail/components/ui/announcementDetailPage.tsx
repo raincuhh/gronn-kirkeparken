@@ -1,7 +1,12 @@
 import React from "react";
+import AnnouncementReaderView from "./announcementReaderView";
 
 const AnnouncementDetailPage = (): React.JSX.Element => {
-	return <div>AnnouncementDetailPage</div>;
+	return (
+		<>
+			<AnnouncementReaderView />
+		</>
+	);
 };
 
 export default AnnouncementDetailPage;

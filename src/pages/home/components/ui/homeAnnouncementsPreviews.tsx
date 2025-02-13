@@ -7,14 +7,14 @@ import RenderList from "@/shared/components/utils/renderList";
 
 const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
-	const [announcementError, setAnnouncementError] = useState<any>(null);
+	const [announcementsError, setAnnouncementsError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const gridSize = isOverMd ? 12 * 4 : 8 * 4;
 
 	const fetchAnnouncements = async () => {
 		setLoading(true);
-		setAnnouncementError(null);
+		setAnnouncementsError(null);
 
 		const { data, error } = await supabase
 			.from("announcements")
@@ -24,7 +24,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 
 		if (error) {
 			console.error("Error fetching announcements:", error);
-			setAnnouncementError(error);
+			setAnnouncementsError(error);
 			setAnnouncementsData([]);
 		} else {
 			// setAnnouncementError("test error");
@@ -54,7 +54,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			);
 
 			setAnnouncementsData(announcementWithAuthor || []);
-			console.log(announcementWithAuthor);
+			// console.log(announcementWithAuthor);
 		}
 
 		setLoading(false);
@@ -110,10 +110,10 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 				<div className="flex flex-col gap-8 w-full h-full justify-center items-center">
 					{loading ? (
 						<p className="font-xl text-2xl !mt-8">Loading...</p>
-					) : announcementError ? (
+					) : announcementsError ? (
 						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
 							<p className="text-lg">En feil oppstod</p>
-							<p className="font-xl text-2xl text-modifier-error">{announcementError}</p>
+							<p className="font-xl text-2xl text-modifier-error">{announcementsError}</p>
 							<Button
 								onClick={fetchAnnouncements}
 								variant={"outline"}
