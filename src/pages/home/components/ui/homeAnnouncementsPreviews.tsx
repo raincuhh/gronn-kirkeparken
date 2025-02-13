@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/shared/lib/services";
-import HomeAnnouncementPreview, { Announcement } from "./homeAnnouncementPreview";
+import HomeAnnouncementPreview, { Announcement, Author } from "./homeAnnouncementPreview";
 import { useMediaQuery } from "react-responsive";
 import Button from "@/shared/components/ui/button";
 import RenderList from "@/shared/components/utils/renderList";
 
 const HomeAnnouncementsPreviews = (): React.JSX.Element => {
-	const [announcements, setAnnouncements] = useState<any[]>([]);
+	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
 	const [announcementError, setAnnouncementError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
@@ -18,20 +18,43 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 
 		const { data, error } = await supabase
 			.from("announcements")
-			.select("title, preview_text, created_at, announcement_id")
+			.select("title, preview_text, created_at, announcement_id, user_id")
 			.order("created_at", { ascending: false })
 			.limit(3);
-
-		console.log("fetched announcements: ", announcements);
-		console.log("fetch error: ", error);
 
 		if (error) {
 			console.error("Error fetching announcements:", error);
 			setAnnouncementError(error);
-			setAnnouncements([]);
+			setAnnouncementsData([]);
 		} else {
 			// setAnnouncementError("test error");
-			setAnnouncements(data || []);
+			const announcementWithAuthor = await Promise.all(
+				data.map(async (announcement: Announcement) => {
+					if (!announcement.user_id) {
+						return { ...announcement, author: { firstname: "Unknown" } };
+					}
+
+					const { data: authorData, error: authorError } = await supabase
+						.from("users")
+						.select("firstname, lastname")
+						.eq("user_id", announcement.user_id)
+						.maybeSingle();
+
+					if (authorError || !authorData) {
+						console.error("Error fetching author:", authorError || "no user found");
+					}
+
+					return {
+						...announcement,
+						author: authorData
+							? { firstname: authorData.firstname, lastname: authorData.lastname }
+							: "Unknown",
+					};
+				})
+			);
+
+			setAnnouncementsData(announcementWithAuthor || []);
+			console.log(announcementWithAuthor);
 		}
 
 		setLoading(false);
@@ -40,10 +63,6 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 	useEffect(() => {
 		fetchAnnouncements();
 	}, []);
-
-	useEffect(() => {
-		console.log(announcements);
-	}, [announcements]);
 
 	return (
 		<div
@@ -105,15 +124,15 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 								Prøv igjen
 							</Button>
 						</div>
-					) : announcements.length > 0 ? (
-						<div className="flex flex-col w-full mt-8 gap-8">
+					) : announcementsData.length > 0 ? (
+						<ul className="flex flex-col w-full !mt-8 gap-8">
 							<RenderList
-								data={announcements}
-								render={(data: Announcement, i: number) => (
-									<HomeAnnouncementPreview key={i} data={data} />
+								data={announcementsData}
+								render={(announcement: Announcement & { author?: Author }, i: number) => (
+									<HomeAnnouncementPreview key={i} announcement={announcement} />
 								)}
 							/>
-						</div>
+						</ul>
 					) : (
 						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
 							<p className="font-xl text-2xl">Ingen nye kunngjøringer</p>

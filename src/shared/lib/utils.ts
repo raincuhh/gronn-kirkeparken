@@ -44,7 +44,7 @@ export const sqlTimestampToDate = (timestamp: string): Date | null => {
 export const sqlTimestampToDateVTwo = (timestamp: string): Date | null => {
 	if (!timestamp || typeof timestamp !== "string") return null;
 
-	const date = new Date(timestamp + "Z");
+	const date = new Date(timestamp);
 
 	return isNaN(date.getTime()) ? null : date;
 };
@@ -76,4 +76,8 @@ export const timeAgo = (date: Date): string => {
 	if (diffInMonths < 12) return `${diffInMonths} month(s) ago`;
 	const diffInYears = Math.floor(diffInDays / 365);
 	return `${diffInYears} year(s) ago`;
+};
+
+export const formatTextWithLineBreaks = (text: string): string => {
+	return text.replace(/\n/g, "<br>").replace(/<br>/g, '<br><span class="block mb-4"></span>');
 };
