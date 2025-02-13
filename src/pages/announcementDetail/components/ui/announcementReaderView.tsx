@@ -1,7 +1,7 @@
 import { supabase } from "@/shared/lib/services";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { sqlTimestampToDateVTwo } from "@/shared/lib/utils";
+import { formatTextWithLineBreaks, sqlTimestampToDateVTwo } from "@/shared/lib/utils";
 
 import { Announcement } from "@/pages/home/components/ui/homeAnnouncementPreview";
 
@@ -69,7 +69,7 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 						{/* <h1 className="text-2xl text-white">Announcement ID: {announcementId}</h1> */}
 					</header>
 					<div className="flex flex-col">
-						<p className="text-lg">{announcementData?.content}</p>
+						<p className="text-lg">{formatTextWithLineBreaks(announcementData?.content ?? "")}</p>
 					</div>
 				</div>
 			</div>
