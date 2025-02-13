@@ -26,6 +26,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			console.error("Error fetching announcements:", error);
 			setAnnouncementsError(error);
 			setAnnouncementsData([]);
+			return;
 		} else {
 			// setAnnouncementError("test error");
 			const announcementWithAuthor = await Promise.all(
@@ -128,8 +129,8 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 						<ul className="flex flex-col w-full !mt-8 gap-8">
 							<RenderList
 								data={announcementsData}
-								render={(announcement: Announcement & { author?: Author }, i: number) => (
-									<HomeAnnouncementPreview key={i} announcement={announcement} />
+								render={(data: Announcement & { author?: Author }, i: number) => (
+									<HomeAnnouncementPreview key={i} announcement={data} />
 								)}
 							/>
 						</ul>

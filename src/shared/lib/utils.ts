@@ -81,5 +81,5 @@ export const timeAgo = (date: Date): string => {
 };
 
 export const formatTextWithLineBreaks = (text: string): string => {
-	return text.replace(/\n/g, "<br>").replace(/<br>/g, '<br><span class="block mb-4"></span>');
+	return text.replace(/\n+/g, '<span class="block mb-4"></span>');
 };

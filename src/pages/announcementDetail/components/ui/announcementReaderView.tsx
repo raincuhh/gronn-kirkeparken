@@ -2,7 +2,7 @@ import { supabase } from "@/shared/lib/services";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { formatTextWithLineBreaks, sqlTimestampToDateVTwo } from "@/shared/lib/utils";
-
+import DOMPurify from "dompurify";
 import { Announcement } from "@/pages/home/components/ui/homeAnnouncementPreview";
 
 const AnnouncementReaderView = (): React.JSX.Element => {
@@ -10,8 +10,6 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 	const announcementId = searchParams.get("announcement_id");
 
 	const [announcementPublishDate, setAnnouncementPublishDate] = useState<string>("");
-
-	let formattedDate;
 
 	const [announcementData, setAnnouncementData] = useState<Announcement>({});
 	// const [announcementError, setAnnouncementError] = useState<any>(null);
@@ -43,8 +41,7 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		// console.log(announcementData, announcementError);
-		formattedDate = sqlTimestampToDateVTwo(announcementData?.created_at ?? "");
+		const formattedDate = sqlTimestampToDateVTwo(announcementData?.created_at ?? "");
 		setAnnouncementPublishDate(
 			formattedDate
 				? formattedDate?.toLocaleDateString("default", {
@@ -57,23 +54,37 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 	}, [announcementData]);
 
 	return (
-		<div
-			id="announcement-reader"
-			className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col" // bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[30%] md:bg-[-10%]
-		>
-			<div className="md:px-16 px-4 flex w-full max-w-[1020px] mx-auto items-center">
-				<div className="flex flex-col gap-8">
-					<header>
-						<p className="text-text-muted text-md font-lg md:text-xl">{announcementPublishDate}</p>
-						<h1 className="text-3xl sm:text-4xl font-xl !my-4">{announcementData?.title ?? ""}</h1>
-						{/* <h1 className="text-2xl text-white">Announcement ID: {announcementId}</h1> */}
-					</header>
+		<>
+			<div
+				id="announcement-reader"
+				className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[50%] md:bg-[-20%]"
+			>
+				<div className="md:px-16 px-4 flex w-full max-w-[1020px] mx-auto items-center">
 					<div className="flex flex-col">
-						<p className="text-lg">{formatTextWithLineBreaks(announcementData?.content ?? "")}</p>
+						<div className="flex flex-col">
+							<header className="flex flex-col">
+								<p className="text-text-muted text-md font-lg md:text-xl">
+									{announcementPublishDate}
+								</p>
+								<h1 className="text-3xl sm:text-4xl font-xl !my-4">
+									{announcementData?.title ?? ""}
+								</h1>
+							</header>
+							<div className="flex flex-col">
+								<p
+									className="text-lg"
+									dangerouslySetInnerHTML={{
+										__html: formatTextWithLineBreaks(
+											DOMPurify.sanitize(announcementData?.content ?? "")
+										),
+									}}
+								></p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
