@@ -2,6 +2,7 @@
 
 :root {
 	--swipe-speed: 0;
+	--reading-text-size: 17px;
 }
 
 @theme {
@@ -132,7 +133,7 @@
 	--text-4xl: 46px;
 	--text-5xl: 54px;
 	--text-6xl: 62px;
-
+	--text-variable-text: var(--reading-text-size);
 	--radius-sm: 3px;
 	--radius-md: 7px;
 	--radius-lg: 11px;

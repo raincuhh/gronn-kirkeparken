@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/shared/lib/services";
-import HomeAnnouncementPreview from "./homeAnnouncementPreview";
+import HomeAnnouncementPreview, { Announcement } from "./homeAnnouncementPreview";
 import { useMediaQuery } from "react-responsive";
 import Button from "@/shared/components/ui/button";
+import RenderList from "@/shared/components/utils/renderList";
 
 const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 	const [announcements, setAnnouncements] = useState<any[]>([]);
-	const [loading, setLoading] = useState<boolean>(true);
 	const [announcementError, setAnnouncementError] = useState<any>(null);
+	const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const gridSize = isOverMd ? 12 * 4 : 8 * 4;
 
@@ -17,16 +18,19 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 
 		const { data, error } = await supabase
 			.from("announcements")
-			.select("*")
+			.select("title, preview_text, created_at, announcement_id")
 			.order("created_at", { ascending: false })
 			.limit(3);
+
+		console.log("fetched announcements: ", announcements);
+		console.log("fetch error: ", error);
 
 		if (error) {
 			console.error("Error fetching announcements:", error);
 			setAnnouncementError(error);
 			setAnnouncements([]);
 		} else {
-			setAnnouncementError("test error");
+			// setAnnouncementError("test error");
 			setAnnouncements(data || []);
 		}
 
@@ -69,7 +73,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							<h1 className="md:text-3xl text-2xl  font-xl text-center">📢 Siste kunngjøringer</h1>
 							<p className="text-center text-lg font-lg text-text-muted">
 								Hold deg oppdatert med de nyeste{" "}
-								<span className="text-text-normal">3 kunngjøringene</span> fra oss.
+								<span className="text-text-normal">kunngjøringene</span> fra oss.
 							</p>
 							<Button
 								variant={"outline"}
@@ -89,6 +93,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 						<p className="font-xl text-2xl !mt-8">Loading...</p>
 					) : announcementError ? (
 						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
+							<p className="text-lg">En feil oppstod</p>
 							<p className="font-xl text-2xl text-modifier-error">{announcementError}</p>
 							<Button
 								onClick={fetchAnnouncements}
@@ -101,12 +106,17 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							</Button>
 						</div>
 					) : announcements.length > 0 ? (
-						<div>
-							<HomeAnnouncementPreview info={["thinawdawdag"]} />
+						<div className="flex flex-col w-full mt-8 gap-8">
+							<RenderList
+								data={announcements}
+								render={(data: Announcement, i: number) => (
+									<HomeAnnouncementPreview key={i} data={data} />
+								)}
+							/>
 						</div>
 					) : (
 						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
-							<p className="font-xl text-2xl">ingen nye kunngjøringer</p>
+							<p className="font-xl text-2xl">Ingen nye kunngjøringer</p>
 						</div>
 					)}
 				</div>
