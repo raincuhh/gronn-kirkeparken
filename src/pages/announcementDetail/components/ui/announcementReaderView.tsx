@@ -59,7 +59,7 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 	return (
 		<div
 			id="announcement-reader"
-			className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[30%] md:bg-[-10%]"
+			className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col" // bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[30%] md:bg-[-10%]
 		>
 			<div className="md:px-16 px-4 flex w-full max-w-[1020px] mx-auto items-center">
 				<div className="flex flex-col gap-8">
