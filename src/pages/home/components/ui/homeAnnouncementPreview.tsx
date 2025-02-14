@@ -8,18 +8,8 @@ import {
 	timeAgo,
 } from "@/shared/lib/utils";
 import DOMPurify from "dompurify";
+import { Announcement, Author } from "@/shared/types/general";
 import clsx from "clsx";
-
-export type Announcement = {
-	announcement_id?: string;
-	content?: string;
-	created_at?: string | null;
-	title?: string;
-	user_id?: string | null;
-	preview_text?: string | null;
-};
-
-export type Author = { firstname?: string | null; lastname?: string | null };
 
 type HomeAnnouncementPreviewProps = {
 	announcement: Announcement & { author?: Author };
@@ -37,7 +27,7 @@ const HomeAnnouncementPreview = ({ announcement }: HomeAnnouncementPreviewProps)
 	});
 
 	return (
-		<li>
+		<li className="list-none">
 			<Link
 				to={"/announcements/"
 					.concat(lowercaseifySentences(sanitizeAndHyphenate(announcement?.title ?? "")))

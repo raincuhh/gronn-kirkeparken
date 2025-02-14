@@ -1,9 +1,9 @@
 import { supabase } from "@/shared/lib/services";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { formatTextWithLineBreaks, sqlTimestampToDateVTwo } from "@/shared/lib/utils";
-import DOMPurify from "dompurify";
-import { Announcement } from "@/pages/home/components/ui/homeAnnouncementPreview";
+import { sqlTimestampToDateVTwo } from "@/shared/lib/utils";
+import { Announcement } from "@/shared/types/general";
+import Markdown from "react-markdown";
 
 const AnnouncementReaderView = (): React.JSX.Element => {
 	const [searchParams] = useSearchParams();
@@ -71,7 +71,7 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 								</h1>
 							</header>
 							<div className="flex flex-col">
-								<p
+								{/* <p
 									className="text-lg"
 									dangerouslySetInnerHTML={{
 										__html: formatTextWithLineBreaks(
@@ -79,6 +79,10 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 										),
 									}}
 								></p>
+								*/}
+								<Markdown className="prose prose-invert markdown-reset" components={{}}>
+									{announcementData?.content ?? ""}
+								</Markdown>
 							</div>
 						</div>
 					</div>

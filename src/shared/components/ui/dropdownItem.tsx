@@ -17,7 +17,7 @@ type DropdownItemProps = {
 
 const DropdownItem = ({ data, idx, openDropdowns, toggleDropDown }: DropdownItemProps): React.JSX.Element => {
 	return (
-		<li>
+		<li className="list-none">
 			<div
 				onClick={() => toggleDropDown(idx)}
 				className="group flex justify-between cursor-pointer border-modifier-border-color hover:border-accent-1 border-b-[1px] !py-2 transition-colors duration-100 ease-in-out"

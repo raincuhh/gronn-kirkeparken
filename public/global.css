@@ -122,6 +122,8 @@
 	--font-weight-md: 500;
 	--font-weight-lg: 600;
 	--font-weight-xl: 700;
+	--font-weight-2xl: 750;
+	--font-weight-3xl: 800;
 
 	--text-xs: 12px;
 	--text-sm: 13px;
@@ -232,15 +234,15 @@ a {
 	text-decoration: none;
 }
 
-ul,
+/* ul,
 ol,
 li {
 	list-style: none;
-}
+} */
 
 ::selection {
 	/* background: #00aceb; */
-	background: #30bb30;
+	background: var(--color-interactive-accent);
 	color: #fff;
 	text-shadow: none;
 }
@@ -262,10 +264,19 @@ summary {
 body {
 	font-family: var(--font-primary);
 	font-weight: var(--font-weight-md);
-	font-size: var(--font-md);
+	font-size: var(--font-lg);
 	line-height: var(--line-height-base);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 /*html,
@@ -313,4 +324,114 @@ a {
 	-webkit-backdrop-filter: blur(3.5px);
 	/* border-radius: 7px; */
 	/* border: 1px solid rgba(211, 255, 218, 0.726); */
+}
+
+/* markdown stuff*/
+
+.markdown-reset {
+	all: unset;
+}
+
+.markdown-reset h1 {
+	margin: 16px 0 8px;
+	font-size: var(--text-3xl);
+	font-weight: var(--font-weight-2xl);
+}
+
+.markdown-reset h2 {
+	margin: 16px 0 8px;
+	font-size: var(--text-2xl);
+	font-weight: var(--font-weight-2xl);
+}
+
+.markdown-reset h3 {
+	margin: 16px 0 8px;
+	font-size: var(--text-xl);
+	font-weight: var(--font-weight-xl);
+}
+
+.markdown-reset p {
+	font-size: var(--text-lg);
+	font-weight: var(--font-weight-md);
+}
+
+.markdown-reset,
+.markdown-reset * {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	font-size: inherit;
+	font-family: inherit;
+	color: inherit;
+}
+
+.markdown-reset img {
+	max-width: 100%;
+	height: auto;
+}
+
+.markdown-reset ul,
+.markdown-reset ol,
+.markdown-reset li {
+	font-size: var(--text-lg);
+	font-weight: var(--font-weight-md);
+}
+
+.markdown-reset ul,
+.markdown-reset ol {
+	padding-left: 2rem;
+}
+
+.markdown-reset li::before {
+	content: " ";
+	transform: translate(-575%, 300%);
+	background: #000;
+	width: 5px;
+	height: 5px;
+	border-radius: 6rem;
+	display: block;
+}
+
+.markdown-reset blockquote {
+	padding-left: 1rem;
+	margin: 8px 1rem;
+	border-left: 4px solid var(--color-modifier-border-color);
+	font-size: var(--text-lg);
+	font-style: italic;
+}
+
+.markdown-reset pre {
+	background: var(--color-base-80);
+	color: var(--color-text-normal);
+	padding: 1rem;
+	border-radius: 5px;
+	overflow-x: auto;
+}
+
+.markdown-reset code {
+	background: var(--color-base-15);
+	color: var(--color-text-normal);
+	font-weight: var(--font-weight-lg);
+	padding: 2px 4px;
+	border-radius: 6px;
+	font-family: monospace;
+}
+
+.markdown-reset a {
+	color: var(--color-interactive-accent);
+	text-decoration: none;
+}
+
+.markdown-reset a:hover {
+	color: var(--color-interactive-accent-hover);
+	text-decoration: underline;
+}
+
+.markdown-reset hr {
+	border: none;
+	border-top: 1px solid var(--color-modifier-border-color);
+	margin: 3rem 0;
 }

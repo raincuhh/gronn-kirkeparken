@@ -13,7 +13,7 @@ const HomeHero = (): React.JSX.Element => {
 				<header className="md:text-3xl lg:text-4xl text-2xl font-xl text-center mb-4">
 					Grønt skifte på Kirkeparken VGS
 				</header>
-				<p className="text-text-muted md:text-lg lg:text-xl text-md text-center max-w-lg md:max-w-xl lg:max-w-2xl">
+				<p className="text-text-muted text-lg lg:text-xl text-center max-w-lg md:max-w-xl lg:max-w-2xl">
 					Kirkeparken VGS er et Miljøfyrtårn og jobber for en bærekraftig skolehverdag. Les om våre
 					initiativer, bidra med ideer, og følg miljøarbeidet vårt - sammen gjør vi en forskjell!
 				</p>

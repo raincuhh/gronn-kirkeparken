@@ -70,7 +70,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 				</header>
 				<section>
 					<h2 className="text-2xl font-lg !my-4">Hva gjør vi?</h2>
-					<ul className="flex flex-col gap-4">
+					<ul className="flex flex-col gap-4 list-none">
 						<RenderList
 							data={dropdownData}
 							render={(item: DropdownItemData, i) => (

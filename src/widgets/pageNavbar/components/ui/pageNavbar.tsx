@@ -105,10 +105,10 @@ const PageNavbar = (): React.JSX.Element => {
 						</Link>
 						<div className="w-fit flex items-center">
 							<nav className="hidden media-min-w-800:flex text-text-muted">
-								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full">
+								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full list-none">
 									<Link to={"/announcements"}>Kunngjøringer</Link>
 								</li>
-								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full">
+								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full list-none">
 									<Link to={"/image-gallery"}>Bildegalleri</Link>
 								</li>
 							</nav>

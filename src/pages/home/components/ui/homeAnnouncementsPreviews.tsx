@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/shared/lib/services";
-import HomeAnnouncementPreview, { Announcement, Author } from "./homeAnnouncementPreview";
+import HomeAnnouncementPreview from "./homeAnnouncementPreview";
+import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
 import Button from "@/shared/components/ui/button";
 import RenderList from "@/shared/components/utils/renderList";
@@ -28,7 +29,6 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			setAnnouncementsData([]);
 			return;
 		} else {
-			// setAnnouncementError("test error");
 			const announcementWithAuthor = await Promise.all(
 				data.map(async (announcement: Announcement) => {
 					if (!announcement.user_id) {
@@ -55,7 +55,6 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			);
 
 			setAnnouncementsData(announcementWithAuthor || []);
-			// console.log(announcementWithAuthor);
 		}
 
 		setLoading(false);
@@ -126,7 +125,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							</Button>
 						</div>
 					) : announcementsData.length > 0 ? (
-						<ul className="flex flex-col w-full !mt-8 gap-8">
+						<ul className="flex flex-col w-full !mt-8 gap-8 list-none">
 							<RenderList
 								data={announcementsData}
 								render={(data: Announcement & { author?: Author }, i: number) => (

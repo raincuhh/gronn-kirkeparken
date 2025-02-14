@@ -1,8 +1,8 @@
-type leftArrowAltIconProps = {
+type LeftArrowAltIconProps = {
 	className?: string;
 };
 
-const leftArrowAltIcon = ({ className }: leftArrowAltIconProps) => {
+const LeftArrowAltIcon = ({ className }: LeftArrowAltIconProps) => {
 	return (
 		<>
 			<svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24">
@@ -12,4 +12,4 @@ const leftArrowAltIcon = ({ className }: leftArrowAltIconProps) => {
 	);
 };
 
-export default leftArrowAltIcon;
+export default LeftArrowAltIcon;
