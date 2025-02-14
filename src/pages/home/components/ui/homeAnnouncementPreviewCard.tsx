@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
 	formatTextWithLineBreaks,
@@ -15,16 +15,22 @@ type HomeAnnouncementPreviewProps = {
 	announcement: Announcement & { author?: Author };
 };
 
-const HomeAnnouncementPreview = ({ announcement }: HomeAnnouncementPreviewProps): React.JSX.Element => {
+const HomeAnnouncementPreviewCard = ({ announcement }: HomeAnnouncementPreviewProps): React.JSX.Element => {
 	const formattedDate = sqlTimestampToDateVTwo(announcement?.created_at ?? "");
 	const formattedAnnouncementTimeAgo = timeAgo(formattedDate ?? new Date());
 	const formattedPreviewText = formatTextWithLineBreaks(announcement?.preview_text ?? "");
 	const sanitizedFormattedPreviewText = DOMPurify.sanitize(formattedPreviewText);
-	const announcementPublishDate = formattedDate?.toLocaleDateString("default", {
-		year: "numeric",
-		month: "short",
-		day: "2-digit",
-	});
+
+	const announcementPublishDate = useMemo(() => {
+		const formattedDate = sqlTimestampToDateVTwo(announcement?.created_at ?? "");
+		return formattedDate
+			? formattedDate.toLocaleDateString("default", {
+					year: "numeric",
+					month: "short",
+					day: "2-digit",
+				})
+			: "Ukjent Dato";
+	}, [announcement?.created_at]);
 
 	return (
 		<li className="list-none">
@@ -43,7 +49,7 @@ const HomeAnnouncementPreview = ({ announcement }: HomeAnnouncementPreviewProps)
 					</div>
 					<div
 						className={clsx(
-							"flex flex-co px-4 sm:px-8 md:px-16",
+							"flex flex-col px-4 sm:px-8 md:px-16",
 							formattedPreviewText != "" ? "py-8 md:py-16" : " pt-8 pb-8 md:pt-16 md:pb-12"
 						)}
 					>
@@ -86,4 +92,4 @@ const HomeAnnouncementPreview = ({ announcement }: HomeAnnouncementPreviewProps)
 	);
 };
 
-export default HomeAnnouncementPreview;
+export default HomeAnnouncementPreviewCard;

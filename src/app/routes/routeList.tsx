@@ -1,14 +1,17 @@
 import { Navigate } from "react-router-dom";
-// import { lazy } from "react";
+import { lazy } from "react";
 import { RouteListProps, RouteTypes } from "@/shared/types/routing";
 import HomePage from "@/pages/home/components/ui/homePage";
-import AnnouncementsPage from "@/pages/announcements/components/ui/announcementsPage";
-import NotFoundPage from "@/pages/notFound/components/ui/notFoundPage";
-import LoginPage from "@/pages/login/components/ui/loginPage";
-import RegisterPage from "@/pages/register/components/ui/registerPage";
-import AnnouncementDetailPage from "@/pages/announcementDetail/components/ui/announcementDetailPage";
-import DashboardPage from "@/pages/dashboard/components/ui/dashboardPage";
-import ImageGalleryPage from "@/pages/imageGallery/components/ui/imageGalleryPage";
+
+const AnnouncementsPage = lazy(() => import("@/pages/announcements/components/ui/announcementsPage"));
+const NotFoundPage = lazy(() => import("@/pages/notFound/components/ui/notFoundPage"));
+const LoginPage = lazy(() => import("@/pages/login/components/ui/loginPage"));
+const RegisterPage = lazy(() => import("@/pages/register/components/ui/registerPage"));
+const AnnouncementDetailPage = lazy(
+	() => import("@/pages/announcementDetail/components/ui/announcementDetailPage")
+);
+const DashboardPage = lazy(() => import("@/pages/dashboard/components/ui/dashboardPage"));
+const ImageGalleryPage = lazy(() => import("@/pages/imageGallery/components/ui/imageGalleryPage"));
 
 const RouteList: RouteListProps[] = [
 	{
@@ -76,7 +79,7 @@ const RouteList: RouteListProps[] = [
 		type: RouteTypes.private,
 	},
 	{
-		id: "announcements",
+		id: "announcement-posting",
 		url: "/dashboard/announcements",
 		element: <></>,
 		type: RouteTypes.private,

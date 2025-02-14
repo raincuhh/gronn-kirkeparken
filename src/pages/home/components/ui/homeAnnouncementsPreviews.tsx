@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { supabase } from "@/shared/lib/services";
-import HomeAnnouncementPreview from "./homeAnnouncementPreview";
+import HomeAnnouncementPreviewCard from "./homeAnnouncementPreviewCard";
 import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
 import Button from "@/shared/components/ui/button";
@@ -13,56 +13,111 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const gridSize = isOverMd ? 12 * 4 : 8 * 4;
 
-	const fetchAnnouncements = async () => {
+	const fetchAnnouncements = useCallback(async () => {
 		setLoading(true);
 		setAnnouncementsError(null);
 
-		const { data, error } = await supabase
+		const { data, error: announcementsError } = await supabase
 			.from("announcements")
 			.select("title, preview_text, created_at, announcement_id, user_id")
 			.order("created_at", { ascending: false })
 			.limit(3);
 
-		if (error) {
-			console.error("Error fetching announcements:", error);
-			setAnnouncementsError(error);
+		if (announcementsError) {
+			console.error("Error fetching announcements:", announcementsError);
+			setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
 			setAnnouncementsData([]);
+			setLoading(false);
 			return;
-		} else {
-			const announcementWithAuthor = await Promise.all(
-				data.map(async (announcement: Announcement) => {
-					if (!announcement.user_id) {
-						return { ...announcement, author: { firstname: "Unknown" } };
-					}
+		}
 
-					const { data: authorData, error: authorError } = await supabase
+		if (!data || data.length === 0) {
+			setAnnouncementsData([]);
+			setLoading(false);
+			return;
+		}
+
+		const fetchAuthors = async (announcements: Announcement[]) => {
+			const updatedAnnouncements = await Promise.all(
+				announcements.map(async (announcement) => {
+					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
+
+					const { data: author, error: authorError } = await supabase
 						.from("users")
 						.select("firstname, lastname")
 						.eq("user_id", announcement.user_id)
 						.maybeSingle();
 
-					if (authorError || !authorData) {
-						console.error("Error fetching author:", authorError || "no user found");
+					if (authorError) {
+						console.error("Error fetching author:", authorError);
 					}
-
-					return {
-						...announcement,
-						author: authorData
-							? { firstname: authorData.firstname, lastname: authorData.lastname }
-							: "Unknown",
-					};
+					return { ...announcement, author };
 				})
 			);
 
-			setAnnouncementsData(announcementWithAuthor || []);
-		}
+			setAnnouncementsData(updatedAnnouncements);
+			setLoading(false);
+		};
 
-		setLoading(false);
-	};
+		fetchAuthors(data);
+	}, []);
 
 	useEffect(() => {
 		fetchAnnouncements();
-	}, []);
+	}, [fetchAnnouncements]);
+
+	const memoizedAnnouncements = useMemo(() => announcementsData, [announcementsData]);
+
+	// const fetchAnnouncements = async () => {
+	// 	setLoading(true);
+	// 	setAnnouncementsError(null);
+
+	// 	const { data, error } = await supabase
+	// 		.from("announcements")
+	// 		.select("title, preview_text, created_at, announcement_id, user_id")
+	// 		.order("created_at", { ascending: false })
+	// 		.limit(3);
+
+	// 	if (error) {
+	// 		console.error("Error fetching announcements:", error);
+	// 		setAnnouncementsError(error);
+	// 		setAnnouncementsData([]);
+	// 		return;
+	// 	} else {
+	// 		const announcementWithAuthor = await Promise.all(
+	// 			data.map(async (announcement: Announcement) => {
+	// 				if (!announcement.user_id) {
+	// 					return { ...announcement, author: { firstname: "Unknown" } };
+	// 				}
+
+	// 				const { data: authorData, error: authorError } = await supabase
+	// 					.from("users")
+	// 					.select("firstname, lastname")
+	// 					.eq("user_id", announcement.user_id)
+	// 					.maybeSingle();
+
+	// 				if (authorError || !authorData) {
+	// 					console.error("Error fetching author:", authorError || "no user found");
+	// 				}
+
+	// 				return {
+	// 					...announcement,
+	// 					author: authorData
+	// 						? { firstname: authorData.firstname, lastname: authorData.lastname }
+	// 						: "Unknown",
+	// 				};
+	// 			})
+	// 		);
+
+	// 		setAnnouncementsData(announcementWithAuthor || []);
+	// 	}
+
+	// 	setLoading(false);
+	// };
+
+	// useEffect(() => {
+	// 	fetchAnnouncements();
+	// }, []);
 
 	return (
 		<div
@@ -124,12 +179,12 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 								Prøv igjen
 							</Button>
 						</div>
-					) : announcementsData.length > 0 ? (
+					) : memoizedAnnouncements.length > 0 ? (
 						<ul className="flex flex-col w-full !mt-8 gap-8 list-none">
 							<RenderList
-								data={announcementsData}
+								data={memoizedAnnouncements}
 								render={(data: Announcement & { author?: Author }, i: number) => (
-									<HomeAnnouncementPreview key={i} announcement={data} />
+									<HomeAnnouncementPreviewCard key={i} announcement={data} />
 								)}
 							/>
 						</ul>

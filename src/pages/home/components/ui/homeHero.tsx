@@ -2,8 +2,28 @@ import Button from "@/shared/components/ui/button";
 import React from "react";
 import HomeHorizontalBannerScroll from "./homeHorizontalBannerScroll";
 import LinkExternalIcon from "@/shared/components/icons/linkExternalIcon";
+import useModal from "@/shared/hooks/useModal";
+import { Modal } from "@/shared/types/modal";
 
 const HomeHero = (): React.JSX.Element => {
+	const { open, remove } = useModal();
+
+	const handleOpenModal = () => {
+		const modalContent: Modal = {
+			id: "about-us-test",
+			content: (
+				<div className="flex flex-col gap-4">
+					<header>Yokoso, watashi no SOUL SOCIETY.</header>
+					<Button onClick={() => remove()} className="font-lg">
+						Lukk
+					</Button>
+				</div>
+			),
+		};
+
+		open(modalContent);
+	};
+
 	return (
 		<div
 			id="hero"
@@ -18,7 +38,7 @@ const HomeHero = (): React.JSX.Element => {
 					initiativer, bidra med ideer, og følg miljøarbeidet vårt - sammen gjør vi en forskjell!
 				</p>
 				<div className="flex gap-4 mt-8 font-lg">
-					<Button rounded={"full"} size={"md"} href="#about-us" className="font-xl">
+					<Button rounded={"full"} size={"md"} onClick={handleOpenModal} className="font-xl">
 						om oss
 					</Button>
 					<Button

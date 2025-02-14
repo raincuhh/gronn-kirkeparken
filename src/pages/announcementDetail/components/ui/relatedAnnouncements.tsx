@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/shared/lib/services";
 import { Announcement } from "@/shared/types/general";
@@ -8,16 +8,29 @@ import { Link } from "react-router-dom";
 import LeftArrowAltIcon from "@/shared/components/icons/leftArrowAlt";
 import RightArrowAlt from "@/shared/components/icons/rightArrowAlt";
 
-// ok so i gotta refetch related announcements each time i go to a new announcement page.
-
 const RelatedAnnouncements = (): React.JSX.Element => {
 	const [searchParams] = useSearchParams();
 	const announcementId = searchParams.get("announcement_id");
+
 	const [relatedAnnouncementsData, setRelatedAnnouncementsData] = useState<Announcement[]>([]);
 	const [relatedAnnouncementsError, setRelatedAnnouncementsError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	const fetchRelatedAnnouncements = async () => {
+	const listRef = useRef<HTMLUListElement | null>(null);
+
+	const scroll = useCallback((direction: "left" | "right") => {
+		if (listRef.current) {
+			const scrollAmount = 300;
+			listRef.current.scrollBy({
+				left: direction === "left" ? -scrollAmount : scrollAmount,
+				behavior: "smooth",
+			});
+		}
+	}, []);
+
+	const fetchRelatedAnnouncements = useCallback(async () => {
+		if (!announcementId) return;
+
 		setLoading(true);
 		setRelatedAnnouncementsError(null);
 
@@ -32,17 +45,18 @@ const RelatedAnnouncements = (): React.JSX.Element => {
 			console.error("Error fetching related announcements:", error);
 			setRelatedAnnouncementsError(error);
 			setRelatedAnnouncementsData([]);
-			return;
 		} else {
 			setRelatedAnnouncementsData(data || []);
 		}
 
 		setLoading(false);
-	};
+	}, [announcementId]);
 
 	useEffect(() => {
 		fetchRelatedAnnouncements();
-	}, []);
+	}, [fetchRelatedAnnouncements]);
+
+	const memoizedRelatedAnnouncements = useMemo(() => relatedAnnouncementsData, [relatedAnnouncementsData]);
 
 	return (
 		<div className="flex flex-col w-full mt-32">
@@ -52,34 +66,32 @@ const RelatedAnnouncements = (): React.JSX.Element => {
 					<div className="relative overflow-hidden">
 						{relatedAnnouncementsError ? (
 							<div></div>
-						) : relatedAnnouncementsData.length < 0 ? (
+						) : memoizedRelatedAnnouncements.length < 0 ? (
 							<div></div>
 						) : (
 							<div className="flex flex-col relative overflow-hidden">
 								<div className="flex gap-4">
 									<div
-										onClick={() => console.log("w")}
+										onClick={() => scroll("left")}
 										className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color transition-colors hover:bg-primary-alt duration-100 ease-in-out cursor-default"
 									>
 										<LeftArrowAltIcon className="fill-text-normal !w-6 !h-6" />
 									</div>
 									<div
-										onClick={() => console.log("w")}
+										onClick={() => scroll("right")}
 										className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color transition-colors hover:bg-primary-alt duration-100 ease-in-out cursor-default"
 									>
 										<RightArrowAlt className="fill-text-normal !w-6 !h-6" />
 									</div>
 								</div>
-								<ul className="flex flex-row overflow-x-scroll w-full flex-nowrap list-none snap-x snap-mandatory proximity:snap-x-proximity !pr-[1px] whitespace-nowrap no-scrollbar">
+								<ul
+									ref={listRef}
+									className="flex flex-row overflow-x-scroll w-full flex-nowrap list-none snap-x snap-mandatory proximity:snap-x-proximity !pr-[1px] whitespace-nowrap no-scrollbar"
+								>
 									<RenderList
-										data={relatedAnnouncementsData}
+										data={memoizedRelatedAnnouncements}
 										render={(data: Announcement, i: number) => (
-											<RelatedAnnouncementCard
-												key={i}
-												announcement={data}
-												loading={loading}
-												// onClick={fetchRelatedAnnouncements}
-											/>
+											<RelatedAnnouncementCard key={i} announcement={data} loading={loading} />
 										)}
 									/>
 									<li className="list-none snap-start !pb-8 !pt-4 !pr-8">

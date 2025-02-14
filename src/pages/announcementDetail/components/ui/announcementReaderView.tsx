@@ -1,23 +1,23 @@
 import { supabase } from "@/shared/lib/services";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { sqlTimestampToDateVTwo } from "@/shared/lib/utils";
 import { Announcement } from "@/shared/types/general";
 import Markdown from "react-markdown";
+import Button from "@/shared/components/ui/button";
 
 const AnnouncementReaderView = (): React.JSX.Element => {
 	const [searchParams] = useSearchParams();
 	const announcementId = searchParams.get("announcement_id");
 
-	const [announcementPublishDate, setAnnouncementPublishDate] = useState<string>("");
+	const [announcementData, setAnnouncementData] = useState<Announcement | null>(null);
+	const [announcementError, setAnnouncementError] = useState<any>(null);
+	const [loading, setLoading] = useState<boolean>(true);
 
-	const [announcementData, setAnnouncementData] = useState<Announcement>({});
-	// const [announcementError, setAnnouncementError] = useState<any>(null);
-	// const [loading, setLoading] = useState<boolean>(true);
-
-	const fetchAnnouncement = async () => {
-		// setLoading(true);
-		// setAnnouncementError(null);
+	const fetchAnnouncement = useCallback(async () => {
+		if (!announcementId) return;
+		setLoading(true);
+		setAnnouncementError(null);
 
 		const { data, error } = await supabase
 			.from("announcements")
@@ -26,32 +26,30 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 			.single();
 
 		if (error) {
-			console.error("Error fetching announcements:", error);
-			// setAnnouncementError(error);
+			console.error("Error fetching announcement:", error);
 			setAnnouncementData({});
+			setAnnouncementError("Kunngjøring kunne ikke lastes inn.");
 		} else {
-			setAnnouncementData(data || {});
+			setAnnouncementData(data);
 		}
 
-		// setLoading(false);
-	};
+		setLoading(false);
+	}, [announcementId]);
 
 	useEffect(() => {
 		fetchAnnouncement();
-	}, []);
+	}, [fetchAnnouncement]);
 
-	useEffect(() => {
+	const announcementPublishDate = useMemo(() => {
 		const formattedDate = sqlTimestampToDateVTwo(announcementData?.created_at ?? "");
-		setAnnouncementPublishDate(
-			formattedDate
-				? formattedDate?.toLocaleDateString("default", {
-						year: "numeric",
-						month: "short",
-						day: "2-digit",
-					})
-				: "Ukjent Dato"
-		);
-	}, [announcementData]);
+		return formattedDate
+			? formattedDate.toLocaleDateString("default", {
+					year: "numeric",
+					month: "short",
+					day: "2-digit",
+				})
+			: "Ukjent Dato";
+	}, [announcementData?.created_at]);
 
 	return (
 		<>
@@ -60,31 +58,42 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 				className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[50%] md:bg-[-20%]"
 			>
 				<div className="md:px-16 px-4 flex w-full max-w-[1020px] mx-auto items-center">
-					<div className="flex flex-col">
-						<div className="flex flex-col">
-							<header className="flex flex-col">
-								<p className="text-text-muted text-md font-lg md:text-xl">
-									{announcementPublishDate}
-								</p>
-								<h1 className="text-3xl sm:text-4xl font-xl !my-4">
-									{announcementData?.title ?? ""}
-								</h1>
-							</header>
-							<div className="flex flex-col">
-								{/* <p
-									className="text-lg"
-									dangerouslySetInnerHTML={{
-										__html: formatTextWithLineBreaks(
-											DOMPurify.sanitize(announcementData?.content ?? "")
-										),
-									}}
-								></p>
-								*/}
-								<Markdown className="prose prose-invert markdown-reset" components={{}}>
-									{announcementData?.content ?? ""}
-								</Markdown>
+					<div className="flex flex-col w-full h-full">
+						{loading ? (
+							<div>loading...</div>
+						) : announcementError ? (
+							<div className="w-full h-full flex items-center justify-center flex-col gap-4">
+								<p className="text-lg">En feil oppstod</p>
+								<p className="font-xl text-2xl text-modifier-error">{announcementError}</p>
+								<Button
+									onClick={fetchAnnouncement}
+									variant={"outline"}
+									size={"md"}
+									rounded={"full"}
+									className="font-xl"
+								>
+									Prøv igjen
+								</Button>
 							</div>
-						</div>
+						) : announcementData ? (
+							<>
+								<header className="flex flex-col">
+									<p className="text-text-muted text-md font-lg md:text-xl">
+										{announcementPublishDate}
+									</p>
+									<h1 className="text-3xl sm:text-4xl font-xl !my-4">
+										{announcementData?.title ?? ""}
+									</h1>
+								</header>
+								<div className="flex flex-col">
+									<Markdown className="prose prose-invert markdown-reset" components={{}}>
+										{announcementData?.content ?? ""}
+									</Markdown>
+								</div>
+							</>
+						) : (
+							<div className="flex justify-center w-full items-center">No announcementdata gotten</div>
+						)}
 					</div>
 				</div>
 			</div>

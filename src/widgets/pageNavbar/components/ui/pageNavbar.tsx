@@ -88,12 +88,21 @@ const PageNavbar = (): React.JSX.Element => {
 		<>
 			<header
 				className={clsx(
-					"w-full fixed z-[110] border-solid border-b-modifier-border-color border-b-[0px] flex flex-col",
-					hasScrolled && !isOpen
-						? "bg-primary border-b-[1px] border-b-modifier-border-color"
-						: "bg-transparent border-b-0"
+					"w-full fixed z-[110] border-solid flex flex-col transition-colors  ease-in-out",
+					{
+						"bg-primary border-b-[1px] border-b-modifier-border-color duration-0":
+							hasScrolled && !isOpen,
+						"bg-transparent border-b-0 duration-100": !hasScrolled || isOpen,
+					}
 				)}
 			>
+				<div
+					className={clsx(
+						"absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out -z-10",
+						hasScrolled ? "opacity-100" : "opacity-0"
+					)}
+				/>
+
 				<div className="md:px-16 px-4 flex flex-row h-16 justify-between w-full max-w-[1440px] mx-auto items-center">
 					<div className="gap-6 flex items-center">
 						<Link to={"/home"}>
