@@ -7,10 +7,12 @@ import RelatedAnnouncementCard from "./relatedAnnouncementCard";
 import { Link } from "react-router-dom";
 import LeftArrowAltIcon from "@/shared/components/icons/leftArrowAlt";
 import RightArrowAlt from "@/shared/components/icons/rightArrowAlt";
+import { useMediaQuery } from "react-responsive";
 
 const RelatedAnnouncements = (): React.JSX.Element => {
 	const [searchParams] = useSearchParams();
 	const announcementId = searchParams.get("announcement_id");
+	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 
 	const [relatedAnnouncementsData, setRelatedAnnouncementsData] = useState<Announcement[]>([]);
 	const [relatedAnnouncementsError, setRelatedAnnouncementsError] = useState<any>(null);
@@ -20,7 +22,7 @@ const RelatedAnnouncements = (): React.JSX.Element => {
 
 	const scroll = useCallback((direction: "left" | "right") => {
 		if (listRef.current) {
-			const scrollAmount = 300;
+			const scrollAmount = isOverMd ? 399 : 299;
 			listRef.current.scrollBy({
 				left: direction === "left" ? -scrollAmount : scrollAmount,
 				behavior: "smooth",

@@ -24,37 +24,17 @@ const PageNavbar = (): React.JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		// if (isOpen) {
-		// 	document.body.classList.add("overflow-hidden");
-		// } else {
-		// 	document.body.classList.remove("overflow-hidden");
-		// }
-		// return () => document.body.classList.remove("overflow-hidden");
-	}, [isOpen]);
-
-	useEffect(() => {
-		const preventScroll = (e: Event) => {
-			if (isOpen) {
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		};
-
 		if (isOpen) {
-			window.addEventListener("wheel", preventScroll, { passive: false });
-			window.addEventListener("touchstart", preventScroll, { passive: false });
+			document.body.classList.add("overflow-hidden");
 		} else {
-			window.removeEventListener("wheel", preventScroll);
-			window.removeEventListener("touchstart", preventScroll);
+			document.body.classList.remove("overflow-hidden");
 		}
-
-		return () => {
-			window.removeEventListener("wheel", preventScroll);
-			window.removeEventListener("touchstart", preventScroll);
-		};
+		return () => document.body.classList.remove("overflow-hidden");
 	}, [isOpen]);
 
 	useEffect(() => {
+		setIsOpen(false);
+
 		switch (location.pathname) {
 			case "/home":
 				setLocationNavigation(
@@ -63,6 +43,7 @@ const PageNavbar = (): React.JSX.Element => {
 							variant="ghost"
 							size="lg"
 							href="/announcements"
+							onClick={() => setIsOpen(false)}
 							className="flex justify-start !text-text-normal"
 						>
 							Kunngjøringer
@@ -71,9 +52,34 @@ const PageNavbar = (): React.JSX.Element => {
 							variant="ghost"
 							size="lg"
 							href="/image-gallery"
+							onClick={() => setIsOpen(false)}
 							className="flex justify-start !text-text-normal"
 						>
 							Bildegalleri
+						</Button>
+					</>
+				);
+				break;
+			case "/announcements":
+				setLocationNavigation(
+					<>
+						<Button
+							variant="ghost"
+							size="lg"
+							href="/image-gallery"
+							onClick={() => setIsOpen(false)}
+							className="flex justify-start !text-text-normal"
+						>
+							Bildegalleri
+						</Button>
+						<Button
+							variant="ghost"
+							size="lg"
+							href="/home"
+							onClick={() => setIsOpen(false)}
+							className="flex justify-start !text-text-normal"
+						>
+							Hjem
 						</Button>
 					</>
 				);

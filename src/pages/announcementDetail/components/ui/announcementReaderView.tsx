@@ -5,6 +5,8 @@ import { sqlTimestampToDateVTwo } from "@/shared/lib/utils";
 import { Announcement } from "@/shared/types/general";
 import Markdown from "react-markdown";
 import Button from "@/shared/components/ui/button";
+import Skeleton from "react-loading-skeleton";
+import RandomSkeletonLoader from "@/shared/components/utils/randomSkeletonLoader";
 
 const AnnouncementReaderView = (): React.JSX.Element => {
 	const [searchParams] = useSearchParams();
@@ -55,12 +57,20 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 		<>
 			<div
 				id="announcement-reader"
-				className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[50%] md:bg-[-20%]"
+				className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col"
 			>
 				<div className="md:px-16 px-4 flex w-full max-w-[1020px] mx-auto items-center">
 					<div className="flex flex-col w-full h-full">
 						{loading ? (
-							<div>loading...</div>
+							<>
+								<header className="flex flex-col gap-4 w-full mb-4">
+									<Skeleton height={"1.4rem"} width={"15%"} />
+									<Skeleton height={"3rem"} width={"66%"} />
+								</header>
+								<div className="flex flex-col">
+									<RandomSkeletonLoader />
+								</div>
+							</>
 						) : announcementError ? (
 							<div className="w-full h-full flex items-center justify-center flex-col gap-4">
 								<p className="text-lg">En feil oppstod</p>
