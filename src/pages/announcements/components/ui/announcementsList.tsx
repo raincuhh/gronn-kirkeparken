@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useCallback } from "react";
 import { supabase } from "@/shared/lib/services";
-import { Announcement, Author } from "@/shared/types/general";
+// import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
 // import RenderList from "@/shared/components/utils/renderList";
 // import Skeleton from "react-loading-skeleton";
