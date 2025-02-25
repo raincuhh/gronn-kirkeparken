@@ -27,7 +27,7 @@ const HomeHero = (): React.JSX.Element => {
 	return (
 		<div
 			id="hero"
-			className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48  overflow-hidden w-full flex flex-col justify-center items-center bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[30%] md:bg-[-10%]"
+			className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col justify-center items-center bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[30%] md:bg-[-10%]"
 		>
 			<div className="px-4 pt-4 mb-16 flex flex-col justify-center items-center">
 				<header className="md:text-3xl lg:text-4xl text-2xl font-xl text-center mb-4">

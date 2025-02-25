@@ -44,7 +44,7 @@ const PageFooter = ({ isPrivateRoute }: PageFooterProps): React.JSX.Element => {
 	return (
 		<footer
 			className={clsx(
-				"md:px-16 px-4 pb-16 pt-24 flex flex-row justify-between w-full max-w-[1020px] mx-auto items-center relative h-full",
+				"md:px-16 px-4 pb-16 pt-24 flex flex-row justify-between w-full max-w-[1140px] mx-auto items-center relative h-full",
 				isPrivateRoute ? "" : ""
 			)}
 		>

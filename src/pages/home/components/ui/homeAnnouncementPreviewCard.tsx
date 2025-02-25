@@ -40,18 +40,16 @@ const HomeAnnouncementPreviewCard = ({ announcement }: HomeAnnouncementPreviewPr
 					.concat(`?announcement_id=${encodeURIComponent(announcement?.announcement_id ?? "")}`)}
 				className="w-full h-full cursor-pointer group transition-all duration-100 ease-in-out"
 			>
-				<div className="relative overflow-hidden border-b border-r border-solid border-modifier-border-color group-hover:">
+				<div className="relative overflow-hidden border-b border-r border-solid border-modifier-border-color group-hover:bg-primary-alt transition-colors duration-100 ease-in-out">
 					<div className={clsx("flex flex-col px-4 sm:px-8 py-8 sm:py-12")}>
-						<div className="flex flex-col w-full h-full justify-between min-h-[16rem]">
+						<div className="flex flex-col w-full h-full justify-between min-h-[18rem]">
 							<div className="flex flex-col w-full">
 								<header className="flex justify-between gap-4 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 									<p>{announcementPublishDate}</p>
 									<p>{formattedAnnouncementTimeAgo}</p>
 								</header>
-								<div className="flex flex-col gap-4 !mt-4">
-									<h1 className="text-2xl md:text-3xl font-xl text-text-muted group-hover:!text-text-normal transition-colors duration-100 ease-in-out">
-										{announcement?.title}
-									</h1>
+								<div className="flex flex-col gap-4 !mt-12">
+									<h1 className="text-3xl md:text-3xl font-xl">{announcement?.title}</h1>
 									{announcement?.preview_text != "" && (
 										<div className="relative">
 											<p
@@ -63,19 +61,15 @@ const HomeAnnouncementPreviewCard = ({ announcement }: HomeAnnouncementPreviewPr
 								</div>
 							</div>
 							<div className="flex flex-col gap-4">
-								<p className="group-hover:underline text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
+								<p className="group-hover:underline text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out !mt-4">
 									Les Mer
 								</p>
 								<div className="flex gap-4 items-center mt-auto">
-									<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-secondary"></div>
-									<div className="flex gap-2">
-										<p className="font-xl text-lg text-text-muted group-hover:!text-text-normal transition-colors duration-100 ease-in-out">
-											{announcement.author?.firstname}
-										</p>
+									<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-accent"></div>
+									<div className="flex gap-2 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
+										<p className="font-xl text-lg">{announcement.author?.firstname}</p>
 										{announcement.author?.lastname != "" || null ? (
-											<p className="font-xl text-lg text-text-muted group-hover:!text-text-normal transition-colors duration-100 ease-in-out">
-												{announcement.author?.lastname}
-											</p>
+											<p className="font-xl text-lg">{announcement.author?.lastname}</p>
 										) : null}
 									</div>
 								</div>

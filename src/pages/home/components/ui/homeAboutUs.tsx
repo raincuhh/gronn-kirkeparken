@@ -49,7 +49,7 @@ const HomeAboutUs = (): React.JSX.Element => {
 	];
 
 	return (
-		<div id="about-us" className="md:px-16 px-4 flex w-full mt-16 max-w-[1020px] mx-auto items-center">
+		<div id="about-us" className="md:px-16 px-4 flex w-full mt-16 max-w-[1140px] mx-auto items-center">
 			<div className="flex flex-col gap-8">
 				<header>
 					<p className="text-text-muted text-lg sm:text-xl">Om oss - GrønnKirkeparken</p>

@@ -61,8 +61,8 @@ const RelatedAnnouncements = (): React.JSX.Element => {
 	const memoizedRelatedAnnouncements = useMemo(() => relatedAnnouncementsData, [relatedAnnouncementsData]);
 
 	return (
-		<div className="flex flex-col w-full mt-32">
-			<div className="md:px-16 px-4 w-full flex flex-col max-w-[1020px] mx-auto">
+		<div id="related-announcements" className="flex flex-col w-full mt-32">
+			<div className="md:px-16 px-4 w-full flex flex-col max-w-[1140px] mx-auto">
 				<div className="flex flex-col gap-8">
 					<h1 className="text-3xl font-xl">Siste kunngjøringer</h1>
 					<div className="relative overflow-hidden">

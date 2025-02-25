@@ -59,7 +59,7 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 				id="announcement-reader"
 				className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col"
 			>
-				<div className="md:px-16 px-4 flex w-full max-w-[1020px] mx-auto items-center">
+				<div className="md:px-16 px-4 flex w-full max-w-[1140px] mx-auto items-center">
 					<div className="flex flex-col w-full h-full">
 						{loading ? (
 							<>

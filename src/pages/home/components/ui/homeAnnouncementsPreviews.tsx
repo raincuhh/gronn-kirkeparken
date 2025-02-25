@@ -72,7 +72,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 	return (
 		<div
 			id="announcements-preview"
-			className="md:px-16 px-4 flex w-full mt-16 max-w-[1020px] mx-auto items-center"
+			className="md:px-16 px-4 flex w-full mt-16 max-w-[1140px] mx-auto items-center"
 		>
 			<div className="flex flex-col w-full">
 				<div className="flex flex-col w-full">
