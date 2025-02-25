@@ -2,19 +2,19 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { supabase } from "@/shared/lib/services";
 import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
-import RenderList from "@/shared/components/utils/renderList";
-import Skeleton from "react-loading-skeleton";
+// import RenderList from "@/shared/components/utils/renderList";
+// import Skeleton from "react-loading-skeleton";
 
 const AnnouncementsList = (): React.JSX.Element => {
-	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
-	const [announcementsError, setAnnouncementsError] = useState<any>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	// const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
+	// const [announcementsError, setAnnouncementsError] = useState<any>(null);
+	// const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const gridSize = isOverMd ? 12 * 4 : 8 * 4;
 
 	const fetchAnnouncements = useCallback(async () => {
-		setLoading(true);
-		setAnnouncementsError(null);
+		// setLoading(true);
+		// setAnnouncementsError(null);
 
 		const { data, error: announcementsError } = await supabase
 			.from("announcements")
@@ -24,41 +24,41 @@ const AnnouncementsList = (): React.JSX.Element => {
 
 		if (announcementsError) {
 			console.error("Error fetching announcements:", announcementsError);
-			setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
-			setAnnouncementsData([]);
-			setLoading(false);
+			// setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
+			// setAnnouncementsData([]);
+			// setLoading(false);
 			return;
 		}
 
 		if (!data || data.length === 0) {
-			setAnnouncementsData([]);
-			setLoading(false);
+			// setAnnouncementsData([]);
+			// setLoading(false);
 			return;
 		}
 
-		const fetchAuthors = async (announcements: Announcement[]) => {
-			const updatedAnnouncements = await Promise.all(
-				announcements.map(async (announcement) => {
-					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
+		// const fetchAuthors = async (announcements: Announcement[]) => {
+		// 	const updatedAnnouncements = await Promise.all(
+		// 		announcements.map(async (announcement) => {
+		// 			if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
 
-					const { data: author, error: authorError } = await supabase
-						.from("users")
-						.select("firstname, lastname")
-						.eq("user_id", announcement.user_id)
-						.maybeSingle();
+		// 			const { data: author, error: authorError } = await supabase
+		// 				.from("users")
+		// 				.select("firstname, lastname")
+		// 				.eq("user_id", announcement.user_id)
+		// 				.maybeSingle();
 
-					if (authorError) {
-						console.error("Error fetching author:", authorError);
-					}
-					return { ...announcement, author };
-				})
-			);
+		// 			if (authorError) {
+		// 				console.error("Error fetching author:", authorError);
+		// 			}
+		// 			return { ...announcement, author };
+		// 		})
+		// 	);
 
-			setAnnouncementsData(updatedAnnouncements);
-			setLoading(false);
-		};
+		// 	setAnnouncementsData(updatedAnnouncements);
+		// 	setLoading(false);
+		// };
 
-		fetchAuthors(data);
+		// fetchAuthors(data);
 	}, []);
 
 	useEffect(() => {
