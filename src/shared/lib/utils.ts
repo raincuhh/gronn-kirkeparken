@@ -65,17 +65,17 @@ export const timeAgo = (date: Date): string => {
 	const now = new Date();
 	const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-	if (diffInSeconds < 60) return `${diffInSeconds} second(s) ago`;
+	if (diffInSeconds < 60) return `${diffInSeconds} sekund(er) siden`;
 	const diffInMinutes = Math.floor(diffInSeconds / 60);
-	if (diffInMinutes < 60) return `${diffInMinutes} minute(s) ago`;
+	if (diffInMinutes < 60) return `${diffInMinutes} minutt(er) siden`;
 	const diffInHours = Math.floor(diffInMinutes / 60);
-	if (diffInHours < 24) return `${diffInHours} hour(s) ago`;
+	if (diffInHours < 24) return `${diffInHours} time(r) siden`;
 	const diffInDays = Math.floor(diffInHours / 24);
-	if (diffInDays < 7) return `${diffInDays} day(s) ago`;
+	if (diffInDays < 7) return `${diffInDays} dag(er) siden`;
 	const diffInWeeks = Math.floor(diffInDays / 7);
-	if (diffInWeeks < 4) return `${diffInWeeks} week(s) ago`;
+	if (diffInWeeks < 4) return `${diffInWeeks} uke(r) siden`;
 	const diffInMonths = Math.floor(diffInDays / 30);
-	if (diffInMonths < 12) return `${diffInMonths} month(s) ago`;
+	if (diffInMonths < 12) return `${diffInMonths} måned(er) siden`;
 	const diffInYears = Math.floor(diffInDays / 365);
 	return `${diffInYears} year(s) ago`;
 };

@@ -22,7 +22,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			.from("announcements")
 			.select("title, preview_text, created_at, announcement_id, user_id")
 			.order("created_at", { ascending: false })
-			.limit(3);
+			.limit(6);
 
 		if (announcementsError) {
 			console.error("Error fetching announcements:", announcementsError);
@@ -134,7 +134,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							</Button>
 						</div>
 					) : memoizedAnnouncements.length > 0 ? (
-						<ul className="flex flex-col w-full !mt-8 gap-8 list-none">
+						<ul className="w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1">
 							<RenderList
 								data={memoizedAnnouncements}
 								render={(data: Announcement & { author?: Author }, i: number) => (

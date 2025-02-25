@@ -35,7 +35,7 @@ const RelatedAnnouncementCard = ({
 				className="w-full h-full cursor-pointer"
 			>
 				{loading ? (
-					<Skeleton className="md:w-[400px] md:h-[200px]" />
+					<Skeleton className="border-solid w-full border-modifier-border-color border-r border-b" />
 				) : (
 					<div className="custom-glass-card rounded-md relative overflow-hidden w-[300px] md:w-[400px] md:max-w-[400px]  max-w-[300px] h-[150px] md:h-[200px] sm:px-8 md:px-4 p-4 md:py-8">
 						<div className="absolute inset-0 bottom-0 right-0 w-full h-full -z-10">
