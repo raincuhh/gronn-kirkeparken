@@ -11,11 +11,11 @@ import DOMPurify from "dompurify";
 import { Announcement, Author } from "@/shared/types/general";
 import clsx from "clsx";
 
-type HomeAnnouncementPreviewProps = {
+type AnnouncementPreviewProps = {
 	announcement: Announcement & { author?: Author };
 };
 
-const HomeAnnouncementPreviewCard = ({ announcement }: HomeAnnouncementPreviewProps): React.JSX.Element => {
+const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): React.JSX.Element => {
 	const formattedDate = sqlTimestampToDateVTwo(announcement?.created_at ?? "");
 	const formattedAnnouncementTimeAgo = timeAgo(formattedDate ?? new Date());
 	const formattedPreviewText = formatTextWithLineBreaks(announcement?.preview_text ?? "");
@@ -42,20 +42,20 @@ const HomeAnnouncementPreviewCard = ({ announcement }: HomeAnnouncementPreviewPr
 			>
 				<div className="relative overflow-hidden border-b border-r border-solid border-modifier-border-color group-hover:bg-primary-alt transition-colors duration-100 ease-in-out">
 					<div className={clsx("flex flex-col px-4 sm:px-8 py-8 sm:py-12")}>
-						<div className="flex flex-col w-full h-full justify-between min-h-[20rem]">
+						<div className="flex flex-col w-full h-full justify-between md:min-h-[20rem]">
 							<div className="flex flex-col w-full">
 								<header className="flex justify-between gap-4 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 									<p>{announcementPublishDate}</p>
 									<p>{formattedAnnouncementTimeAgo}</p>
 								</header>
-								<div className="flex flex-col gap-4 !mt-12">
-									<h1 className="text-3xl md:text-3xl font-xl truncate overflow-hidden whitespace-nowrap">
+								<div className="flex flex-col !mt-12">
+									<h1 className="text-3xl md:text-3xl font-xl truncate overflow-hidden whitespace-nowrap !mb-4">
 										{announcement?.title}
 									</h1>
 									{announcement?.preview_text != "" && (
 										<div className="relative">
 											<p
-												className="text-lg overflow-hidden max-h-[16rem] min-h-[16rem] text-text-muted group-hover:!text-text-normal font-lg transition-colors duration-100 ease-in-out"
+												className="text-lg overflow-hidden max-h-[8rem] min-h-[8rem] md:max-h-[16rem] md:min-h-[16rem] text-text-muted group-hover:!text-text-normal font-lg transition-colors duration-100 ease-in-out"
 												style={{
 													WebkitMaskImage:
 														"linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)",
@@ -137,4 +137,4 @@ const HomeAnnouncementPreviewCard = ({ announcement }: HomeAnnouncementPreviewPr
 	);
 };
 
-export default HomeAnnouncementPreviewCard;
+export default AnnouncementPreviewCard;

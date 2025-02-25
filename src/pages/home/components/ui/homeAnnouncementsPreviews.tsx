@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { supabase } from "@/shared/lib/services";
-import HomeAnnouncementPreviewCard from "./homeAnnouncementPreviewCard";
+import AnnouncementPreviewCard from "@/shared/components/ui/announcementPreviewCard";
 import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
 import Button from "@/shared/components/ui/button";
@@ -138,7 +138,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							<RenderList
 								data={memoizedAnnouncements}
 								render={(data: Announcement & { author?: Author }, i: number) => (
-									<HomeAnnouncementPreviewCard key={i} announcement={data} />
+									<AnnouncementPreviewCard key={i} announcement={data} />
 								)}
 							/>
 						</ul>

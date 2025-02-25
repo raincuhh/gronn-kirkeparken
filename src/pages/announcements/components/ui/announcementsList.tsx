@@ -1,20 +1,20 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useMemo } from "react";
 import { supabase } from "@/shared/lib/services";
-// import { Announcement, Author } from "@/shared/types/general";
+import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
-// import RenderList from "@/shared/components/utils/renderList";
-// import Skeleton from "react-loading-skeleton";
+import RenderList from "@/shared/components/utils/renderList";
+import Skeleton from "react-loading-skeleton";
 
 const AnnouncementsList = (): React.JSX.Element => {
-	// const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
-	// const [announcementsError, setAnnouncementsError] = useState<any>(null);
-	// const [loading, setLoading] = useState<boolean>(true);
+	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
+	const [announcementsError, setAnnouncementsError] = useState<any>(null);
+	const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const gridSize = isOverMd ? 12 * 4 : 8 * 4;
 
 	const fetchAnnouncements = useCallback(async () => {
-		// setLoading(true);
-		// setAnnouncementsError(null);
+		setLoading(true);
+		setAnnouncementsError(null);
 
 		const { data, error: announcementsError } = await supabase
 			.from("announcements")
@@ -24,41 +24,41 @@ const AnnouncementsList = (): React.JSX.Element => {
 
 		if (announcementsError) {
 			console.error("Error fetching announcements:", announcementsError);
-			// setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
-			// setAnnouncementsData([]);
-			// setLoading(false);
+			setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
+			setAnnouncementsData([]);
+			setLoading(false);
 			return;
 		}
 
 		if (!data || data.length === 0) {
-			// setAnnouncementsData([]);
-			// setLoading(false);
+			setAnnouncementsData([]);
+			setLoading(false);
 			return;
 		}
 
-		// const fetchAuthors = async (announcements: Announcement[]) => {
-		// 	const updatedAnnouncements = await Promise.all(
-		// 		announcements.map(async (announcement) => {
-		// 			if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
+		const fetchAuthors = async (announcements: Announcement[]) => {
+			const updatedAnnouncements = await Promise.all(
+				announcements.map(async (announcement) => {
+					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
 
-		// 			const { data: author, error: authorError } = await supabase
-		// 				.from("users")
-		// 				.select("firstname, lastname")
-		// 				.eq("user_id", announcement.user_id)
-		// 				.maybeSingle();
+					const { data: author, error: authorError } = await supabase
+						.from("users")
+						.select("firstname, lastname")
+						.eq("user_id", announcement.user_id)
+						.maybeSingle();
 
-		// 			if (authorError) {
-		// 				console.error("Error fetching author:", authorError);
-		// 			}
-		// 			return { ...announcement, author };
-		// 		})
-		// 	);
+					if (authorError) {
+						console.error("Error fetching author:", authorError);
+					}
+					return { ...announcement, author };
+				})
+			);
 
-		// 	setAnnouncementsData(updatedAnnouncements);
-		// 	setLoading(false);
-		// };
+			setAnnouncementsData(updatedAnnouncements);
+			setLoading(false);
+		};
 
-		// fetchAuthors(data);
+		fetchAuthors(data);
 	}, []);
 
 	useEffect(() => {
@@ -80,14 +80,6 @@ const AnnouncementsList = (): React.JSX.Element => {
 								style={{ aspectRatio: "1" }}
 							></div>
 						))}
-						<div className="absolute w-full h-full justify-center flex items-center pb-6">
-							<div className="text-[100px]">📢</div>
-						</div>
-					</div>
-					<div className="w-full border-solid border-modifier-border-color border-b border-x">
-						<div className="w-full h-full justify-center items-center flex flex-col gap-4 px-4 py-8">
-							<h1 className="md:text-3xl text-2xl  font-xl text-center">kunngjøringer</h1>
-						</div>
 					</div>
 					<div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-b border-x"></div>
 				</div>
