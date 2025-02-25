@@ -22,7 +22,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 			.from("announcements")
 			.select("title, preview_text, created_at, announcement_id, user_id")
 			.order("created_at", { ascending: false })
-			.limit(6);
+			.limit(4);
 
 		if (announcementsError) {
 			console.error("Error fetching announcements:", announcementsError);
