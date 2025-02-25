@@ -96,15 +96,17 @@ const RelatedAnnouncements = (): React.JSX.Element => {
 											<RelatedAnnouncementCard key={i} announcement={data} loading={loading} />
 										)}
 									/>
-									<li className="list-none snap-start !pb-8 !pt-4 !pr-8">
-										<Link to="/announcements" className="w-full h-full cursor-pointer">
-											<div className="border-solid border-modifier-border-color border-[1px] hover:bg-primary-alt rounded-md relative overflow-hidden md:min-w-[400px] md:min-h-[200px] min-w-[300px] min-h-[150px] w-full h-full">
-												<div className="w-full h-full p-4 flex flex-col justify-center items-center ">
-													<h1 className="font-xl text-xl">Se fler kunngjøringer</h1>
+									{!loading && (
+										<li className="list-none snap-start !pb-8 !pt-4 !pr-8">
+											<Link to="/announcements" className="w-full h-full cursor-pointer">
+												<div className="border-solid border-modifier-border-color border-[1px] hover:bg-primary-alt rounded-md relative overflow-hidden md:min-w-[400px] md:min-h-[200px] min-w-[300px] min-h-[150px] w-full h-full">
+													<div className="w-full h-full p-4 flex flex-col justify-center items-center ">
+														<h1 className="font-xl text-xl">Se fler kunngjøringer</h1>
+													</div>
 												</div>
-											</div>
-										</Link>
-									</li>
+											</Link>
+										</li>
+									)}
 								</ul>
 							</div>
 						)}

@@ -84,6 +84,30 @@ const PageNavbar = (): React.JSX.Element => {
 					</>
 				);
 				break;
+			case "/image-gallery":
+				setLocationNavigation(
+					<>
+						<Button
+							variant="ghost"
+							size="lg"
+							href="/announcements"
+							onClick={() => setIsOpen(false)}
+							className="flex justify-start !text-text-normal"
+						>
+							kunngjøringer
+						</Button>
+						<Button
+							variant="ghost"
+							size="lg"
+							href="/home"
+							onClick={() => setIsOpen(false)}
+							className="flex justify-start !text-text-normal"
+						>
+							Hjem
+						</Button>
+					</>
+				);
+				break;
 			default:
 				setLocationNavigation(null);
 				break;
