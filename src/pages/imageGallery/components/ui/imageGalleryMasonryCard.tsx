@@ -20,7 +20,7 @@ const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps
 							<div className="absolute hidden group-hover:block w-full h-full"></div>
 						</div>
 						<div className="flex flex-col gap-4">
-							<p>{data?.caption}</p>
+							<p className="text-">{data?.caption}</p>
 							{/* <div className="flex gap-4 items-center mt-auto">
 								<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-accent border-solid border-y border-x border-modifier-border-color"></div>
 								<div className="flex gap-2 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">

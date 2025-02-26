@@ -112,7 +112,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 					</div>
 					<div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-b border-x"></div>
 				</div>
-				<div className="flex flex-col gap-8 w-full h-full justify-center items-center">
+				<div className="flex flex-col w-full h-full justify-center items-center">
 					{loading ? (
 						<div className="w-full mt-8 gap-8 flex flex-col">
 							<Skeleton width={"100%"} height={"14rem"} />
@@ -134,14 +134,27 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 							</Button>
 						</div>
 					) : memoizedAnnouncements.length > 0 ? (
-						<ul className="w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1">
-							<RenderList
-								data={memoizedAnnouncements}
-								render={(data: Announcement & { author?: Author }, i: number) => (
-									<AnnouncementPreviewCard key={i} announcement={data} />
-								)}
-							/>
-						</ul>
+						<>
+							<ul className="w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1">
+								<RenderList
+									data={memoizedAnnouncements}
+									render={(data: Announcement & { author?: Author }, i: number) => (
+										<AnnouncementPreviewCard key={i} announcement={data} />
+									)}
+								/>
+							</ul>
+							<div className="w-full min-h-[6rem] border-solid border-modifier-border-color px-4 py-8 items-center flex justify-center">
+								<Button
+									variant={"outline"}
+									size={"md"}
+									rounded={"full"}
+									href="/announcements"
+									className="font-xl"
+								>
+									Se fler
+								</Button>
+							</div>
+						</>
 					) : (
 						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
 							<p className="font-xl text-2xl">Ingen nye kunngjøringer</p>
