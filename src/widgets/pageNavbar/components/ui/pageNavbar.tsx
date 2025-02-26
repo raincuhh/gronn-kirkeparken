@@ -143,7 +143,7 @@ const PageNavbar = (): React.JSX.Element => {
 							/>
 						</Link>
 						<div className="w-fit flex items-center">
-							<nav className="hidden media-min-w-800:flex text-text-muted">
+							<nav className="hidden md:flex text-text-muted">
 								<li className="!py-1 !px-4 hover:bg-base-30 hover:text-base-00 text-center rounded-full items-center w-full h-full list-none">
 									<Link to={"/announcements"}>Kunngjøringer</Link>
 								</li>
@@ -154,7 +154,7 @@ const PageNavbar = (): React.JSX.Element => {
 						</div>
 					</div>
 					<div className="flex items-center">
-						<nav className="hidden md:flex gap-4">
+						<nav className="hidden lg:flex gap-4">
 							<Button variant={"base"} href={"/register"}>
 								Registrer deg
 							</Button>
@@ -163,7 +163,7 @@ const PageNavbar = (): React.JSX.Element => {
 							</Button>
 						</nav>
 						<div
-							className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color md:hidden hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
+							className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color lg:hidden hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
 							onClick={() => setIsOpen((prev) => !prev)}
 						>
 							{!isOpen ? (
