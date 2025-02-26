@@ -10,6 +10,7 @@ import {
 import DOMPurify from "dompurify";
 import { Announcement, Author } from "@/shared/types/general";
 import clsx from "clsx";
+import ProfilePicture from "./profilePicture";
 
 type AnnouncementPreviewProps = {
 	announcement: Announcement & { author?: Author };
@@ -73,7 +74,7 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 									Les Mer
 								</p>
 								<div className="flex gap-4 items-center mt-auto">
-									<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-accent border-solid border-y border-x border-modifier-border-color"></div>
+									<ProfilePicture url={""} />
 									<div className="flex gap-2 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 										<p className="font-xl text-lg">{announcement.author?.firstname}</p>
 										{announcement.author?.lastname != "" || null ? (

@@ -4,7 +4,7 @@ import React, { forwardRef } from "react";
 const inputVariants = cva("select-all border-solid border-[1px] transition-colors duration-100 ease-in-out", {
 	variants: {
 		variant: {
-			base: "hover:bg-modifier-primary-form-field border-modifier-border-color hover:border-modifier-border-hover hover:focus:border-modifier-border-color rounded-radius-sm px-4 py-2 placeholder:text-form-placeholder focus:outline-none focus:outline-modifier-border-color focus:outline-offset-[0px]",
+			base: "hover:bg-modifier-primary-form-field focus:outline-2 focus:outline-offset-2 focus:outline-modifier-border-color border-modifier-border-color hover:border-modifier-border-hover hover:focus:border-modifier-border-color rounded-radius-sm px-4 py-2 placeholder:text-form-placeholder focus:outline-none focus:outline-modifier-border-color focus:outline-offset-[0px]",
 		},
 		size: {
 			sm: "py-1 px-2 text-fs-sm",

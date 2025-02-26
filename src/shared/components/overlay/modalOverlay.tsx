@@ -13,24 +13,23 @@ const ModalOverlay = forwardRef<HTMLDivElement, ModalOverlayProps>(
 					? "flex justify-start"
 					: modal.justify === "right"
 						? "flex justify-end"
-						: modal.justify === "custom"
-							? "flex justify-[custom]"
-							: "flex justify-center";
+						: "flex justify-center";
 
 		const alignClass =
-			modal.align === "center"
+			modal.align === "top"
 				? "items-center"
 				: modal.align === "left"
 					? "items-start"
 					: modal.align === "right"
 						? "items-end"
-						: modal.align === "custom"
-							? "items-[custom]"
+						: modal.align === "bottom"
+							? "items-end"
 							: "items-center";
 
 		return (
 			<div
 				ref={ref}
+				onClick={(e) => e.stopPropagation()}
 				className={clsx("h-full w-full bg-modal-overlay", justifyClass, alignClass)}
 				{...props}
 			>

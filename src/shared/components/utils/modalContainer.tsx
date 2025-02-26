@@ -4,25 +4,35 @@ import useModal from "@/shared/hooks/useModal";
 import ModalOverlay from "../overlay/modalOverlay";
 import RenderModal from "./renderModal";
 import clsx from "clsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 type ModalContainerProps = { modal: Modal };
 
-export default function ModalContainer({ modal }: ModalContainerProps): React.JSX.Element {
+const ModalContainer = ({ modal }: ModalContainerProps): React.JSX.Element => {
 	const { remove } = useModal();
 
 	const sizeClass =
-		modal.size === "small"
-			? "w-sm h-[auto]"
-			: modal.size === "medium"
-				? "w-md h-[auto]"
-				: modal.size === "large"
-					? "w-lg h-[auto]"
-					: modal.size === "custom"
-						? "w-[calc(100%-2rem)] h-[auto]"
-						: "w-[500px] h-[auto]";
+		modal.size === "custom"
+			? modal.className
+			: {
+					small: "w-sm h-auto",
+					medium: "w-md h-auto",
+					large: "w-lg h-auto",
+				}[modal.size || "medium"];
+
+	const alignDirection = modal.align ?? "bottom";
+
+	const slideDirection = {
+		top: { y: "-100%" },
+		bottom: { y: "100%" },
+		left: { x: "-100%" },
+		right: { x: "100%" },
+	};
+
+	const slide = slideDirection[alignDirection];
 
 	return (
-		<>
+		<AnimatePresence>
 			<div
 				id="modal"
 				className="overflow-hidden fixed w-full h-full flex top-0 left-0 z-115"
@@ -30,9 +40,26 @@ export default function ModalContainer({ modal }: ModalContainerProps): React.JS
 				aria-modal="true"
 			>
 				<ModalOverlay modal={modal} onClick={() => remove()}>
-					<RenderModal className={clsx("bg-primary px-4 py-4", sizeClass)} modal={modal} />
+					<motion.div
+						initial={slide}
+						animate={{ x: 0, y: 0 }}
+						exit={slide}
+						transition={{
+							duration: 0.35,
+							ease: "easeOut",
+						}}
+						onClick={(e) => e.stopPropagation()}
+						className={clsx(
+							"bg-primary px-4 py-4 border-solid border-modifier-border-color",
+							modal.size === "custom" ? modal.className : sizeClass
+						)}
+					>
+						<RenderModal modal={modal} />
+					</motion.div>
 				</ModalOverlay>
 			</div>
-		</>
+		</AnimatePresence>
 	);
-}
+};
+
+export default ModalContainer;

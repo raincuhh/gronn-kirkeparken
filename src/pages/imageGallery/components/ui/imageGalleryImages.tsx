@@ -6,7 +6,7 @@ import RenderList from "@/shared/components/utils/renderList";
 import ImageGalleryMasonryCard from "./imageGalleryMasonryCard";
 
 const ImageGalleryImages = (): React.JSX.Element => {
-	const [photoData, setPhotoData] = useState<any[]>([]);
+	const [photosData, setPhotosData] = useState<any[]>([]);
 	const [photoError, setPhotoError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -19,18 +19,18 @@ const ImageGalleryImages = (): React.JSX.Element => {
 		if (error) {
 			console.error("Error fetching photos: ", error);
 			setPhotoError("Kunne ikke laste inn bilder");
-			setPhotoData([]);
+			setPhotosData([]);
 			setLoading(false);
 			return;
 		}
 
 		if (!data || data.length === 0) {
-			setPhotoData([]);
+			setPhotosData([]);
 			setLoading(false);
 			return;
 		}
 
-		const fetchPhotoAuthors = async (photos: Photos[]) => {
+		const fetchPhotoAuthor = async (photos: Photos[]) => {
 			const updatedPhotos = await Promise.all(
 				photos.map(async (photo) => {
 					if (!photo?.user_id) return { ...photo, author: { firstname: "Unknown" } };
@@ -48,19 +48,19 @@ const ImageGalleryImages = (): React.JSX.Element => {
 				})
 			);
 
-			setPhotoData(updatedPhotos);
+			setPhotosData(updatedPhotos);
 			console.log(updatedPhotos);
 			setLoading(false);
 		};
 
-		fetchPhotoAuthors(data);
+		fetchPhotoAuthor(data);
 	}, []);
 
 	useEffect(() => {
 		fetchApprovedPhotos();
 	}, [fetchApprovedPhotos]);
 
-	const memoizedPhotos = useMemo(() => photoData, [photoData]);
+	const memoizedPhotos = useMemo(() => photosData, [photosData]);
 
 	return (
 		<div>

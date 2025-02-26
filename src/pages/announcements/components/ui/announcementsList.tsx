@@ -83,7 +83,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 	return (
 		<div
 			id="announcements-list"
-			className="md:px-16 px-4 flex w-full mt-16 md:mt-48 max-w-[1140px] mx-auto items-center"
+			className="md:px-16 px-4 flex w-full mt-4 max-w-[1140px] mx-auto items-center"
 		>
 			<div className="flex flex-col w-full gap-4">
 				<AnnouncementsOptions searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

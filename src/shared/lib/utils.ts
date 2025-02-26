@@ -83,3 +83,24 @@ export const timeAgo = (date: Date): string => {
 export const formatTextWithLineBreaks = (text: string): string => {
 	return text.replace(/\n+/g, '<span class="block mb-4"></span>');
 };
+
+export const getRandomGradient = (): string => {
+	const colors = [
+		"#FF5733",
+		"#33FF57",
+		"#3357FF",
+		"#FF33A1",
+		"#FFD700",
+		"#00CED1",
+		"#FF4500",
+		"#8A2BE2",
+		"#20B2AA",
+		"#DC143C",
+		"#FF8C00",
+		"#32CD32",
+	];
+
+	const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
+	return `linear-gradient(to right, ${getRandomColor()} 20%, ${getRandomColor()} 80%)`;
+};
