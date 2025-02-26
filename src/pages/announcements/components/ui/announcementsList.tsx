@@ -49,7 +49,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 				announcements.map(async (announcement) => {
 					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
 
-					const { data, error } = await supabase
+					const { data: author, error } = await supabase
 						.from("users")
 						.select("firstname, lastname")
 						.eq("user_id", announcement.user_id)
@@ -58,7 +58,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 					if (error) {
 						console.error("Error fetching author: ", error);
 					}
-					return { ...announcement, data };
+					return { ...announcement, author };
 				})
 			);
 

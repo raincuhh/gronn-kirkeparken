@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NotFoundPage = (): React.JSX.Element => {
 	return (
-		<div className="flex w-full h-[calc(100dvh-6rem)] justify-center items-center">
+		<div className="h-dvh flex justify-center items-center mt-16">
 			<div className="flex flex-col items-center justify-center">
 				<div className="mb-2 text-center font-xl text-text-faint">404</div>
 				<header className="flex flex-col gap-4 text-center">

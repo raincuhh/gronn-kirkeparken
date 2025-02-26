@@ -76,10 +76,9 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 								<div className="flex gap-4 items-center mt-auto">
 									<ProfilePicture url={""} />
 									<div className="flex gap-2 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
-										<p className="font-xl text-lg">{announcement.author?.firstname}</p>
-										{announcement.author?.lastname != "" || null ? (
-											<p className="font-xl text-lg">{announcement.author?.lastname}</p>
-										) : null}
+										<p className="font-xl text-lg">
+											{announcement.author?.firstname} {announcement.author?.lastname}
+										</p>
 									</div>
 								</div>
 							</div>

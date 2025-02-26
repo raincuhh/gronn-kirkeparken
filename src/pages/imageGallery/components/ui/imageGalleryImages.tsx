@@ -89,7 +89,7 @@ const ImageGalleryImages = (): React.JSX.Element => {
 				</ul>
 			) : (
 				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
-					<p className="font-xl text-2xl">Ingen Bilder funnet</p>
+					<p className="font-xl text-2xl">Ingen bilder funnet</p>
 				</div>
 			)}
 		</div>
