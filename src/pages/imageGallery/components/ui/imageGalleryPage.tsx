@@ -1,7 +1,12 @@
 import React from "react";
+import ImageGalleryFeed from "./imageGalleryFeed";
 
 const ImageGalleryPage = (): React.JSX.Element => {
-	return <div></div>;
+	return (
+		<>
+			<ImageGalleryFeed />
+		</>
+	);
 };
 
 export default ImageGalleryPage;

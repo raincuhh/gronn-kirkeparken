@@ -24,14 +24,14 @@ const AnnouncementsList = (): React.JSX.Element => {
 		setLoading(true);
 		setAnnouncementsError(null);
 
-		const { data, error: announcementsError } = await supabase
+		const { data, error } = await supabase
 			.from("announcements")
 			.select("title, preview_text, created_at, announcement_id, user_id")
 			.order("created_at", { ascending: false })
 			.range(from, to);
 
-		if (announcementsError) {
-			console.error("Error fetching announcements:", announcementsError);
+		if (error) {
+			console.error("Error fetching announcements:", error);
 			setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
 			setAnnouncementsData([]);
 			setLoading(false);
@@ -49,16 +49,16 @@ const AnnouncementsList = (): React.JSX.Element => {
 				announcements.map(async (announcement) => {
 					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
 
-					const { data: author, error: authorError } = await supabase
+					const { data, error } = await supabase
 						.from("users")
 						.select("firstname, lastname")
 						.eq("user_id", announcement.user_id)
 						.maybeSingle();
 
-					if (authorError) {
-						console.error("Error fetching author:", authorError);
+					if (error) {
+						console.error("Error fetching author: ", error);
 					}
-					return { ...announcement, author };
+					return { ...announcement, data };
 				})
 			);
 
