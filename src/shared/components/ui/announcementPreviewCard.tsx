@@ -41,8 +41,8 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 				className="w-full h-full cursor-pointer group transition-all duration-100 ease-in-out"
 			>
 				<div className="relative overflow-hidden border-b border-r border-solid border-modifier-border-color group-hover:bg-primary-alt transition-colors duration-100 ease-in-out">
-					<div className={clsx("flex flex-col px-4 sm:px-8 py-8 sm:py-12")}>
-						<div className="flex flex-col w-full h-full justify-between md:min-h-[20rem]">
+					<div className={clsx("flex flex-col px-4 sm:px-8 lg:px-12 py-6 sm:py-12 md:py-24")}>
+						<div className="flex flex-col w-full h-full justify-between md:min-h-[16rem]">
 							<div className="flex flex-col w-full">
 								<header className="flex justify-between gap-4 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 									<p>{announcementPublishDate}</p>
@@ -55,7 +55,7 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 									{announcement?.preview_text != "" && (
 										<div className="relative">
 											<p
-												className="text-lg overflow-hidden max-h-[8rem] min-h-[8rem] md:max-h-[16rem] md:min-h-[16rem] text-text-muted group-hover:!text-text-normal font-lg transition-colors duration-100 ease-in-out"
+												className="text-lg overflow-hidden max-h-[8rem] min-h-[8rem] text-text-muted group-hover:!text-text-normal font-lg transition-colors duration-100 ease-in-out"
 												style={{
 													WebkitMaskImage:
 														"linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)",
@@ -73,7 +73,7 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 									Les Mer
 								</p>
 								<div className="flex gap-4 items-center mt-auto">
-									<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-accent"></div>
+									<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-accent border-solid border-y border-x border-modifier-border-color"></div>
 									<div className="flex gap-2 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 										<p className="font-xl text-lg">{announcement.author?.firstname}</p>
 										{announcement.author?.lastname != "" || null ? (

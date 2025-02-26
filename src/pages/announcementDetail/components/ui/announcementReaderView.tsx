@@ -23,7 +23,7 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 
 		const { data, error } = await supabase
 			.from("announcements")
-			.select("title, content, created_at")
+			.select("title, content, created_at, preview_text")
 			.eq("announcement_id", announcementId)
 			.single();
 
@@ -88,14 +88,15 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 						) : announcementData ? (
 							<>
 								<header className="flex flex-col">
-									<p className="text-text-muted text-md font-lg md:text-xl">
-										{announcementPublishDate}
-									</p>
+									<p className="text-text-muted text-lg">{announcementPublishDate}</p>
 									<h1 className="text-3xl sm:text-4xl font-xl !my-4">
 										{announcementData?.title ?? ""}
 									</h1>
 								</header>
-								<div className="flex flex-col">
+								<div className="flex flex-col gap-4">
+									<p className="prose prose-invert font-xl text-lg">
+										{announcementData?.preview_text ?? ""}
+									</p>
 									<Markdown className="prose prose-invert markdown-reset" components={{}}>
 										{announcementData?.content ?? ""}
 									</Markdown>

@@ -4,13 +4,21 @@ import { Announcement, Author } from "@/shared/types/general";
 import { useMediaQuery } from "react-responsive";
 import RenderList from "@/shared/components/utils/renderList";
 import Skeleton from "react-loading-skeleton";
+import AnnouncementsOptions from "./announcementsOptions";
+import Button from "@/shared/components/ui/button";
+import AnnouncementPreviewCard from "@/shared/components/ui/announcementPreviewCard";
 
 const AnnouncementsList = (): React.JSX.Element => {
 	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
 	const [announcementsError, setAnnouncementsError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
-	const gridSize = isOverMd ? 12 * 4 : 8 * 4;
+	const gridSize = isOverMd ? 8 * 1 : 8 * 1;
+
+	const [searchQuery, setSearchQuery] = useState<string>("");
+
+	const from = 0;
+	const to = 12;
 
 	const fetchAnnouncements = useCallback(async () => {
 		setLoading(true);
@@ -20,7 +28,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 			.from("announcements")
 			.select("title, preview_text, created_at, announcement_id, user_id")
 			.order("created_at", { ascending: false })
-			.limit(4);
+			.range(from, to);
 
 		if (announcementsError) {
 			console.error("Error fetching announcements:", announcementsError);
@@ -55,6 +63,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 			);
 
 			setAnnouncementsData(updatedAnnouncements);
+			console.log(updatedAnnouncements);
 			setLoading(false);
 		};
 
@@ -65,14 +74,21 @@ const AnnouncementsList = (): React.JSX.Element => {
 		fetchAnnouncements();
 	}, [fetchAnnouncements]);
 
+	const filteredAnnouncements = useMemo(() => {
+		return announcementsData.filter((announcement: Announcement) =>
+			announcement.title?.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+	}, [announcementsData, searchQuery]);
+
 	return (
 		<div
 			id="announcements-list"
 			className="md:px-16 px-4 flex w-full mt-16 md:mt-48 max-w-[1140px] mx-auto items-center"
 		>
-			<div className="flex flex-col w-full">
+			<div className="flex flex-col w-full gap-4">
+				<AnnouncementsOptions searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 				<div className="flex flex-col w-full">
-					<div className="relative grid grid-cols-8 grid-rows-4 md:grid-cols-12 md:grid-rows-4 border-t border-l border-modifier-border-color">
+					<div className="relative grid grid-cols-8 grid-rows-1 border-t border-l border-modifier-border-color">
 						{[...Array(gridSize)].map((_, i: number) => (
 							<div
 								key={i}
@@ -82,6 +98,41 @@ const AnnouncementsList = (): React.JSX.Element => {
 						))}
 					</div>
 					<div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-b border-x"></div>
+					{loading ? (
+						<div className="w-full mt-8 grid md:grid-cols-2 grid-cols-1 gap-8">
+							<Skeleton width={"100%"} height={"16rem"} />
+							<Skeleton width={"100%"} height={"16rem"} />
+							<Skeleton width={"100%"} height={"16rem"} />
+							<Skeleton width={"100%"} height={"16rem"} />
+						</div>
+					) : announcementsError ? (
+						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
+							<p className="text-lg">En feil oppstod</p>
+							<p className="font-xl text-2xl text-modifier-error">{announcementsError}</p>
+							<Button
+								onClick={fetchAnnouncements}
+								variant={"outline"}
+								size={"md"}
+								rounded={"full"}
+								className="font-xl"
+							>
+								Prøv igjen
+							</Button>
+						</div>
+					) : filteredAnnouncements.length > 0 ? (
+						<ul className="w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1">
+							<RenderList
+								data={filteredAnnouncements}
+								render={(data: Announcement & { author?: Author }, i: number) => (
+									<AnnouncementPreviewCard key={i} announcement={data} />
+								)}
+							/>
+						</ul>
+					) : (
+						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
+							<p className="font-xl text-2xl">Ingen kunngjøringer funnet</p>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
