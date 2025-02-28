@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState, useMemo } from "react";
 import { supabase } from "@/shared/lib/services";
 import { Announcement, Author } from "@/shared/types/general";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import RenderList from "@/shared/components/utils/renderList";
 import Skeleton from "react-loading-skeleton";
 import AnnouncementsOptions from "./announcementsOptions";
@@ -12,8 +12,8 @@ const AnnouncementsList = (): React.JSX.Element => {
 	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
 	const [announcementsError, setAnnouncementsError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
-	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
-	const gridSize = isOverMd ? 8 * 1 : 8 * 1;
+	// const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
+	// const gridSize = isOverMd ? 8 * 1 : 8 * 1;
 
 	const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -88,7 +88,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 			<div className="flex flex-col w-full gap-4">
 				<AnnouncementsOptions searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 				<div className="flex flex-col w-full">
-					<div className="relative grid grid-cols-8 grid-rows-1 border-t border-l border-modifier-border-color">
+					{/* <div className="relative grid grid-cols-8 grid-rows-1 border-t border-l border-modifier-border-color">
 						{[...Array(gridSize)].map((_, i: number) => (
 							<div
 								key={i}
@@ -96,8 +96,8 @@ const AnnouncementsList = (): React.JSX.Element => {
 								style={{ aspectRatio: "1" }}
 							></div>
 						))}
-					</div>
-					<div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-b border-x"></div>
+					</div> */}
+					<div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-y border-x"></div>
 					{loading ? (
 						<div className="w-full mt-8 grid md:grid-cols-2 grid-cols-1 gap-8">
 							<Skeleton width={"100%"} height={"16rem"} />

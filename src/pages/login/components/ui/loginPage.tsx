@@ -1,7 +1,12 @@
 import React from "react";
+import AuthScreen from "@/features/auth/components/ui/authScreen";
 
 const LoginPage = (): React.JSX.Element => {
-	return <div>Login</div>;
+	return (
+		<>
+			<AuthScreen type="login" />
+		</>
+	);
 };
 
 export default LoginPage;
