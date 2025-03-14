@@ -10,8 +10,6 @@ import { supabase } from "@/shared/lib/services";
 import { isAdmin } from "@/shared/lib/utils";
 import RenderList from "@/shared/components/utils/renderList";
 
-// type PageNavbarProps = { isPrivateRoute: boolean };
-
 const navLinks = {
 	"/home": [
 		{ title: "Kunngjøringer", href: "/announcements" },

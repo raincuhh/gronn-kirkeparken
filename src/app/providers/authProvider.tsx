@@ -84,9 +84,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		setSession(null);
 	}, []);
 
-	useEffect(() => {
-		console.log("useAuth state:", { user, loading });
-	}, [session, user]);
+	// useEffect(() => {
+	// 	console.log("useAuth state:", { user, loading });
+	// }, [session, user]);
 
 	const contextValue = useMemo(
 		() => ({
