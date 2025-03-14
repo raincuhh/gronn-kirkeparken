@@ -7,7 +7,7 @@ export type Announcement = {
 	preview_text?: string | null;
 };
 
-export type Author = { firstname?: string | null; lastname?: string | null };
+export type Author = { first_name?: string | null; last_name?: string | null };
 
 export enum UserRoles {
 	user = "user",

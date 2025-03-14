@@ -16,7 +16,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 			if (authSession?.session?.user) {
 				const { data, error } = await supabase
-					.from("users")
+					.from("profiles")
 					.select("*")
 					.eq("user_id", authSession.session.user.id)
 					.single();
@@ -52,14 +52,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		if (error) throw error;
 
 		if (data.user) {
-			await supabase.from("users").insert({
+			await supabase.from("profiles").insert({
 				user_id: data.user.id,
-				email,
 				first_name,
 				last_name,
 				role: UserRoles.user,
 			});
 		}
+		return data.user;
 	};
 
 	const login = async (email: string, password: string) => {
@@ -77,6 +77,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		setUser(null);
 		setSession(null);
 	};
+
+	useEffect(() => {
+		console.log("User:", user);
+		console.log("Session:", session);
+	}, [session, user]);
 
 	const contextValue = useMemo(() => {
 		return { user, session, register, login, logout };

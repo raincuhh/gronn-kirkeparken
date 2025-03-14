@@ -47,11 +47,11 @@ const AnnouncementsList = (): React.JSX.Element => {
 		const fetchAuthors = async (announcements: Announcement[]) => {
 			const updatedAnnouncements = await Promise.all(
 				announcements.map(async (announcement) => {
-					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
+					if (!announcement?.user_id) return { ...announcement, author: { first_name: "Unknown" } };
 
 					const { data: author, error } = await supabase
 						.from("users")
-						.select("firstname, lastname")
+						.select("first_name, last_name")
 						.eq("user_id", announcement.user_id)
 						.maybeSingle();
 
@@ -87,7 +87,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 		>
 			<div className="flex flex-col w-full gap-4">
 				<AnnouncementsOptions searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-				<div className="flex flex-col w-full">
+				<div className="flex flex-col w-full border border-modifier-border-color border-t">
 					{/* <div className="relative grid grid-cols-8 grid-rows-1 border-t border-l border-modifier-border-color">
 						{[...Array(gridSize)].map((_, i: number) => (
 							<div
@@ -97,7 +97,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 							></div>
 						))}
 					</div> */}
-					<div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-y border-x"></div>
+					{/* <div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-y border-x"></div> */}
 					{loading ? (
 						<div className="w-full mt-8 grid md:grid-cols-2 grid-cols-1 gap-8">
 							<Skeleton width={"100%"} height={"16rem"} />

@@ -6,6 +6,7 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ModalProvider from "./providers/modalProvider";
 import ModalRoot from "@/shared/components/utils/modalRoot";
+import AuthProvider from "./providers/authProvider";
 
 const App = (): React.JSX.Element => {
 	const baseColor = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary").trim();
@@ -16,12 +17,14 @@ const App = (): React.JSX.Element => {
 
 	return (
 		<>
-			<ModalProvider>
-				<SkeletonTheme baseColor={baseColor} highlightColor={highlightColor}>
-					<RouterProvider router={websiteRouter} />
-					<ModalRoot />
-				</SkeletonTheme>
-			</ModalProvider>
+			<AuthProvider>
+				<ModalProvider>
+					<SkeletonTheme baseColor={baseColor} highlightColor={highlightColor}>
+						<RouterProvider router={websiteRouter} />
+						<ModalRoot />
+					</SkeletonTheme>
+				</ModalProvider>
+			</AuthProvider>
 		</>
 	);
 };

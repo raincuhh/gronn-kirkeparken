@@ -41,11 +41,11 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 		const fetchAuthors = async (announcements: Announcement[]) => {
 			const updatedAnnouncements = await Promise.all(
 				announcements.map(async (announcement) => {
-					if (!announcement?.user_id) return { ...announcement, author: { firstname: "Unknown" } };
+					if (!announcement?.user_id) return { ...announcement, author: { first_name: "Unknown" } };
 
 					const { data: author, error: authorError } = await supabase
 						.from("users")
-						.select("firstname, lastname")
+						.select("first_name, last_name")
 						.eq("user_id", announcement.user_id)
 						.maybeSingle();
 

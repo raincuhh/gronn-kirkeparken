@@ -77,7 +77,7 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 									<ProfilePicture url={""} />
 									<div className="flex gap-2 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 										<p className="font-xl text-lg">
-											{announcement.author?.firstname} {announcement.author?.lastname}
+											{announcement.author?.first_name} {announcement.author?.last_name}
 										</p>
 									</div>
 								</div>
@@ -119,7 +119,7 @@ const AnnouncementPreviewCard = ({ announcement }: AnnouncementPreviewProps): Re
 									<div className="min-w-[2rem] min-h-[2rem] rounded-full bg-primary"></div>
 									<div className="flex gap-2">
 										<p className="font-xl text-lg text-rgb-full">
-											{announcement.author?.firstname}
+											{announcement.author?.first_name}
 										</p>
 										{announcement.author?.lastname != "" || null ? (
 											<p className="font-xl text-lg text-rgb-full">

@@ -33,11 +33,11 @@ const ImageGalleryImages = (): React.JSX.Element => {
 		const fetchPhotoAuthor = async (photos: Photos[]) => {
 			const updatedPhotos = await Promise.all(
 				photos.map(async (photo) => {
-					if (!photo?.user_id) return { ...photo, author: { firstname: "Unknown" } };
+					if (!photo?.user_id) return { ...photo, author: { first_name: "Unknown" } };
 
 					const { data, error } = await supabase
 						.from("users")
-						.select("firstname, lastname")
+						.select("first_name, last_name")
 						.eq("user_id", photo.user_id)
 						.maybeSingle();
 
