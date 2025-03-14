@@ -1,3 +1,5 @@
+import { User } from "../types/general";
+
 export const uppercaseify = (str: string): string => {
 	let first: string = str.charAt(0);
 	if (first !== first.toUpperCase()) {
@@ -103,4 +105,8 @@ export const getRandomGradient = (): string => {
 	const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
 
 	return `linear-gradient(to right, ${getRandomColor()} 20%, ${getRandomColor()} 80%)`;
+};
+
+export const isAdmin = (user: User | null) => {
+	return user?.role === "admin";
 };

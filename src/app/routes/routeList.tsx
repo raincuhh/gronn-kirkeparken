@@ -12,6 +12,7 @@ const AnnouncementDetailPage = lazy(
 );
 const DashboardPage = lazy(() => import("@/pages/dashboard/components/ui/dashboardPage"));
 const ImageGalleryPage = lazy(() => import("@/pages/imageGallery/components/ui/imageGalleryPage"));
+const UnauthorizedPage = lazy(() => import("@/pages/unauthorized/components/ui/unauthorizedPage"));
 
 const RouteList: RouteListProps[] = [
 	{
@@ -23,6 +24,12 @@ const RouteList: RouteListProps[] = [
 		id: "not-found",
 		url: "/404",
 		element: <NotFoundPage />,
+		type: RouteTypes.public,
+	},
+	{
+		id: "unauthorized",
+		url: "/401",
+		element: <UnauthorizedPage />,
 		type: RouteTypes.public,
 	},
 	{

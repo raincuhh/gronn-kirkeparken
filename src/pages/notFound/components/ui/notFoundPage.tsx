@@ -7,18 +7,17 @@ const NotFoundPage = (): React.JSX.Element => {
 			<div className="flex flex-col items-center justify-center">
 				<div className="mb-2 text-center font-xl text-text-faint">404</div>
 				<header className="flex flex-col gap-4 text-center">
-					<h1 className="text-xl font-xl sm:text-2xl">You found an unresolved link.</h1>
+					<h1 className="text-xl font-xl sm:text-2xl">Du fant en uløst lenke.</h1>
 					<p className="text-text-muted font-md">
-						We would note this, but we dont track visitors. If something seems wrong, feel free to
-						contact{" "}
+						Vi vil merke dette, men vi sporer ikke besøkende. Hvis noe virker galt, ta gjerne kontakt{" "}
 						<span className="">
-							<Link to={""}>support</Link>
+							<Link to={""}>med support</Link>
 						</span>
 						.
 					</p>
 				</header>
 				<div className="mt-2 text-text-accent hover:text-text-accent-hover text-md font-md">
-					<Link to={"/home"}>Go back to home.</Link>
+					<Link to={"/home"}>Gå tilbake til hjem.</Link>
 				</div>
 			</div>
 		</div>

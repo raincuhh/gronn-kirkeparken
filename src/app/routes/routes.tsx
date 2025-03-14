@@ -16,7 +16,7 @@ const websiteRouter = createBrowserRouter(
 					key={i}
 					path={route.url}
 					element={
-						<RouteGuard>
+						<RouteGuard type={route.type}>
 							<Suspense fallback={<SplashScreen />}>
 								<ScrollToTop />
 								<PageLayout>{route.element}</PageLayout>

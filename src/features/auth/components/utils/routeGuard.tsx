@@ -6,30 +6,36 @@ import useAuth from "../../hooks/useAuth";
 
 type RouteGuardProps = PropsWithChildren & { type?: RouteTypes };
 
-const RouteGuard = ({ children, type = RouteTypes.protected }: RouteGuardProps): React.JSX.Element => {
+const RouteGuard = ({ children, type }: RouteGuardProps): React.JSX.Element => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { user } = useAuth();
+	const { user, loading } = useAuth();
 
 	useEffect(() => {
+		console.log("RouteGuard triggered", { user, loading, type });
+		if (loading) return;
+
 		switch (type) {
 			case RouteTypes.private:
-				// if authenticated and role != admin.
-				// redirect with a 401 error no autherization
+				if (user && user.role !== "admin") {
+					console.log("Redirecting: Not an admin");
+					navigate("/401", { replace: true });
+				}
 				break;
 			case RouteTypes.auth:
-				// if not authenticated and route is auth, stay.
-				// if authenticated, redirect to dashboard.
+				if (user) {
+					console.log("Redirecting: User is authenticated");
+					navigate("/dashboard", { replace: true });
+				}
 				break;
 			case RouteTypes.protected:
-				// if not authenticated and route is protected route,
-				// redirect to auth route.
-				break;
-			case RouteTypes.public:
-			default:
+				if (!user) {
+					console.log("Redirecting: No user found, going to login");
+					navigate("/login", { state: { from: location }, replace: true });
+				}
 				break;
 		}
-	}, []);
+	}, [user, loading, type, navigate, location.pathname]);
 
 	return <>{children}</>;
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Button from "@/shared/components/ui/button";
+import Input from "@/shared/components/ui/input";
 
 type AuthFormProps = { type: "login" | "register" };
 
@@ -70,43 +71,39 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
 
 	return (
 		<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
-			<input
-				type="email"
+			<Input
+				type="text"
 				placeholder="E-post"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 				required
-				className="border p-2 rounded-md"
 			/>
-			<input
+			<Input
 				type="password"
 				placeholder="Passord"
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
 				required
-				className="border p-2 rounded-md"
 			/>
 
 			{type === "register" && (
 				<>
-					<input
+					<Input
 						type="text"
 						placeholder="Fornavn"
 						value={firstname}
 						onChange={(e) => setFirstname(e.target.value)}
 						required
-						className="border p-2 rounded-md"
 					/>
-					<input
+					<Input
 						type="text"
 						placeholder="Etternavn (valgfritt)"
 						value={lastname}
 						onChange={(e) => setLastname(e.target.value)}
-						className="border p-2 rounded-md"
 					/>
 				</>
 			)}
-			<Button type="submit" disabled={loading} variant={"base"} size={"lg"}>
+			<Button type="submit" disabled={loading} variant={"base"} size={"lg"} rounded={"full"}>
 				{loading ? "Laster..." : type === "login" ? "Logg inn" : "Registrer"}
 			</Button>
 			{error && <p className="text-red-500">{error}</p>}

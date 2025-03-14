@@ -4,14 +4,67 @@ import { Link, useLocation } from "react-router-dom";
 import Button from "@/shared/components/ui/button";
 import HamburgerMenuIcon from "@/shared/components/icons/hamburgerMenuIcon";
 import HamburgerMenuClosedIcon from "@/shared/components/icons/hamburgerMenuClosedIcon";
+import useAuth from "@/features/auth/hooks/useAuth";
+import ProfilePicture from "@/shared/components/ui/profilePicture";
+import { supabase } from "@/shared/lib/services";
+import { isAdmin } from "@/shared/lib/utils";
+import RenderList from "@/shared/components/utils/renderList";
 
 // type PageNavbarProps = { isPrivateRoute: boolean };
+
+const navLinks = {
+	"/home": [
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Bildegalleri", href: "/image-gallery" },
+	],
+	"/announcements": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Hjem", href: "/home" },
+	],
+	"/image-gallery": [
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
+	"/login": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
+	"/register": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
+	"/dashboard": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
+	"/dashboard/photo-approvals": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
+	"/dashboard/announcements": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
+};
+
+const adminLinks = [
+	{ title: "Godkjenn bilder", href: "/dashboard/photo-approvals" },
+	{ title: "Administrer kunngjøringer", href: "/dashboard/announcements" },
+];
 
 const PageNavbar = (): React.JSX.Element => {
 	const [hasScrolled, setHasScrolled] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const location = useLocation();
 	const [locationNavigation, setLocationNavigation] = useState<React.JSX.Element | null>(null);
+	const { user, logout, loading } = useAuth();
+	const [email, setEmail] = useState<string | null>(null);
+	const [emailError, setEmailError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -35,118 +88,69 @@ const PageNavbar = (): React.JSX.Element => {
 	useEffect(() => {
 		setIsOpen(false);
 
-		switch (location.pathname) {
-			case "/home":
-				setLocationNavigation(
-					<>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/announcements"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Kunngjøringer
-						</Button>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/image-gallery"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Bildegalleri
-						</Button>
-					</>
-				);
-				break;
-			case "/announcements":
-				setLocationNavigation(
-					<>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/image-gallery"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Bildegalleri
-						</Button>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/home"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Hjem
-						</Button>
-					</>
-				);
-				break;
-			case "/image-gallery":
-				setLocationNavigation(
-					<>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/announcements"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							kunngjøringer
-						</Button>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/home"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Hjem
-						</Button>
-					</>
-				);
-				break;
-			case "/login":
-			case "/register":
-				setLocationNavigation(
-					<>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/image-gallery"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Bildegalleri
-						</Button>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/announcements"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							kunngjøringer
-						</Button>
-						<Button
-							variant="ghost"
-							size="lg"
-							href="/home"
-							onClick={() => setIsOpen(false)}
-							className="flex justify-start !text-text-normal"
-						>
-							Hjem
-						</Button>
-					</>
-				);
-				break;
-			default:
-				setLocationNavigation(null);
-				break;
+		const pathname = location.pathname as keyof typeof navLinks;
+		const links = navLinks[pathname] || null;
+		if (links) {
+			const filteredAdminLinks = adminLinks.filter((link) => {
+				if (
+					link.href === "/dashboard/photo-approvals" &&
+					location.pathname === "/dashboard/photo-approvals"
+				) {
+					return false;
+				}
+				if (
+					link.href === "/dashboard/announcements" &&
+					location.pathname === "/dashboard/announcements"
+				) {
+					return false;
+				}
+				return true;
+			});
+
+			const navigationLinks = [...links, ...(isAdmin(user) ? filteredAdminLinks : [])];
+
+			setLocationNavigation(
+				<>
+					<RenderList
+						data={navigationLinks}
+						render={(item: { title: string; href: string }) => (
+							<>
+								<Button
+									key={item.href}
+									variant="ghost"
+									size="lg"
+									href={item.href}
+									onClick={() => setIsOpen(false)}
+									className="flex justify-start !text-text-normal"
+								>
+									{item.title}
+								</Button>
+							</>
+						)}
+					/>
+				</>
+			);
+		} else {
+			setLocationNavigation(null);
 		}
-	}, [location.pathname]);
+	}, [location.pathname, isAdmin(user)]);
+
+	useEffect(() => {
+		if (loading) return;
+		const fetchEmail = async () => {
+			const { data, error } = await supabase.auth.getUserIdentities();
+
+			if (error) {
+				console.error("Error fetching email: ", error);
+				setEmailError("Feil å hente E-Post");
+				return;
+			}
+
+			setEmail(data.identities[0].identity_data?.email);
+		};
+
+		fetchEmail();
+	}, [loading, user]);
 
 	return (
 		<>
@@ -189,12 +193,23 @@ const PageNavbar = (): React.JSX.Element => {
 					</div>
 					<div className="flex items-center">
 						<nav className="hidden lg:flex gap-4">
-							<Button variant={"base"} href={"/register"}>
-								Registrer deg
-							</Button>
-							<Button variant={"outline"} href={"/login"}>
-								Logg inn
-							</Button>
+							{user !== null ? (
+								<>
+									<Button variant={"outline"} href={"/dashboard"}>
+										Dashboard
+									</Button>
+									<ProfilePicture />
+								</>
+							) : (
+								<>
+									<Button variant={"base"} href={"/register"}>
+										Registrer deg
+									</Button>
+									<Button variant={"outline"} href={"/login"}>
+										Logg inn
+									</Button>
+								</>
+							)}
 						</nav>
 						<div
 							className="p-1 rounded-full border-solid border-[1px] border-modifier-border-color lg:hidden hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
@@ -214,20 +229,51 @@ const PageNavbar = (): React.JSX.Element => {
 					<div className="fixed inset-0 z-[109] bg-primary flex pt-16 w-full">
 						<div className="py-4 px-4 flex w-full flex-col text-lg font-md">
 							<nav className="w-full gap-4 flex flex-col mb-4">
-								<Button size={"lg"} variant={"base"} href={"/register"} className="w-full font-lg">
-									Registrer deg
-								</Button>
-								<Button size={"lg"} variant={"outline"} href={"/login"} className="w-full font-lg">
-									Logg in
-								</Button>
+								{user !== null ? (
+									<>
+										<Button size={"lg"} variant={"base"} href={"/dashboard"}>
+											Dashboard
+										</Button>
+									</>
+								) : (
+									<>
+										<Button
+											size={"lg"}
+											variant={"base"}
+											href={"/register"}
+											className="w-full font-lg"
+										>
+											Registrer deg
+										</Button>
+										<Button
+											size={"lg"}
+											variant={"outline"}
+											href={"/login"}
+											className="w-full font-lg"
+										>
+											Logg in
+										</Button>
+									</>
+								)}
 							</nav>
 							<nav className="w-full flex flex-col border-b-[1px] border-modifier-border-color pb-4 mb-4">
-								<Button variant={"ghost"} size={"lg"} className="flex justify-start">
-									type shit
-								</Button>
-								<Button variant={"ghost"} size={"lg"} className="flex justify-start">
-									more testing
-								</Button>
+								{user !== null ? (
+									<>
+										<Button
+											onClick={() => logout()}
+											variant={"outline"}
+											size={"lg"}
+											className="flex justify-center"
+										>
+											Logg ut
+										</Button>
+										<Button variant={"ghost"} size={"lg"} className="flex justify-start mt-4">
+											Email: {email !== null ? email : emailError}
+										</Button>
+									</>
+								) : (
+									<></>
+								)}
 							</nav>
 							<nav className="flex flex-col">{locationNavigation}</nav>
 						</div>
