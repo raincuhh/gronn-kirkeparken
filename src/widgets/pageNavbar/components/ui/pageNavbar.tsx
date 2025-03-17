@@ -111,10 +111,10 @@ const PageNavbar = (): React.JSX.Element => {
 				<>
 					<RenderList
 						data={navigationLinks}
-						render={(item: { title: string; href: string }) => (
+						render={(item: { title: string; href: string }, i: number) => (
 							<>
 								<Button
-									key={item.href}
+									key={i}
 									variant="ghost"
 									size="lg"
 									href={item.href}
@@ -266,7 +266,7 @@ const PageNavbar = (): React.JSX.Element => {
 											Logg ut
 										</Button>
 										<Button variant={"ghost"} size={"lg"} className="flex justify-start mt-4">
-											Email: {email !== null ? email : emailError}
+											E-Post: {email !== null ? email : emailError}
 										</Button>
 									</>
 								) : (

@@ -70,7 +70,7 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
 	};
 
 	return (
-		<form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
+		<form id="auth" onSubmit={handleFormSubmit} className="flex flex-col gap-4">
 			<Input
 				type="text"
 				placeholder="E-post"

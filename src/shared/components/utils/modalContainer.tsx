@@ -50,7 +50,7 @@ const ModalContainer = ({ modal }: ModalContainerProps): React.JSX.Element => {
 						}}
 						onClick={(e) => e.stopPropagation()}
 						className={clsx(
-							"bg-primary px-4 py-4 border-solid border-modifier-border-color",
+							"bg-primary border-solid border-modifier-border-color",
 							modal.size === "custom" ? modal.className : sizeClass
 						)}
 					>

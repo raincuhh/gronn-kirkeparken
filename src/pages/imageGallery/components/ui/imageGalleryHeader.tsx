@@ -1,21 +1,48 @@
 import UploadIcon from "@/shared/components/icons/uploadIcon";
 import useModal from "@/shared/hooks/useModal";
 import { Modal } from "@/shared/types/modal";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import ImageUploadForm from "./imageUploadForm";
 
 const ImageGalleryHeader = (): React.JSX.Element => {
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
+	const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState<string | null>(null);
+
+	const handleFormSubmit = async (file: File | null, caption: string) => {
+		setError(null);
+		setSuccess(null);
+		setLoading(true);
+
+		if (caption?.length > 120) {
+			setError("beskrivelsen må være maks 120 karakterer lang.");
+			setLoading(false);
+			return;
+		}
+
+		if (caption.length > 120) {
+			setError("Beskrivelsen må være maks 120 karakterer lang.");
+			setLoading(false);
+			return;
+		}
+
+		if (!file) {
+			setError("Du må velge en fil.");
+			setLoading(false);
+			return;
+		}
+
+		console.log(file);
+		console.log(caption);
+	};
 
 	const modalContent = useMemo<Modal>(
 		() => ({
 			id: "upload-image-to-image-gallery",
-			content: (
-				<div className="flex flex-col min-w-92 lg:min-w-112 min-h-128">
-					<header className=""></header>
-				</div>
-			),
+			content: <ImageUploadForm onSubmit={handleFormSubmit} />,
 			size: "custom",
 			justify: isOverMd ? "right" : "center",
 			align: isOverMd ? "right" : "bottom",
@@ -23,7 +50,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 				? "h-full border-l rounded-tl-md rounded-bl-md"
 				: "w-full border-t rounded-tl-md rounded-tr-md",
 		}),
-		[isOverMd]
+		[isOverMd, handleFormSubmit]
 	);
 
 	const handleOpenModal = useCallback(() => {
