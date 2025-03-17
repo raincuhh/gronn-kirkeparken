@@ -33,10 +33,10 @@ const ImageGalleryImages = (): React.JSX.Element => {
 		const fetchPhotoAuthor = async (photos: Photos[]) => {
 			const updatedPhotos = await Promise.all(
 				photos.map(async (photo) => {
-					if (!photo?.user_id) return { ...photo, author: { first_name: "Unknown" } };
+					if (!photo?.user_id) return { ...photo, author: { first_name: "John", last_name: "doe" } };
 
 					const { data, error } = await supabase
-						.from("users")
+						.from("profiles")
 						.select("first_name, last_name")
 						.eq("user_id", photo.user_id)
 						.maybeSingle();
@@ -63,7 +63,7 @@ const ImageGalleryImages = (): React.JSX.Element => {
 	const memoizedPhotos = useMemo(() => photosData, [photosData]);
 
 	return (
-		<div>
+		<div className="mt-4">
 			{photoError ? (
 				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
 					<p className="text-lg">En feil oppstod</p>

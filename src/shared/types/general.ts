@@ -1,3 +1,5 @@
+import { User as SupabaseUser } from "@supabase/supabase-js";
+
 export type Announcement = {
 	announcement_id?: string;
 	content?: string;
@@ -14,11 +16,9 @@ export enum UserRoles {
 	admin = "admin",
 }
 
-export type User = {
-	user_id?: string;
+export type User = SupabaseUser & {
 	first_name?: string;
 	last_name?: string | null;
-	created_at?: Date;
 	role?: UserRoles;
 };
 

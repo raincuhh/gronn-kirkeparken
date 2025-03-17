@@ -7,7 +7,7 @@ const RenderModal = forwardRef<HTMLDivElement, RenderModalProps>(
 	({ modal, ...props }: RenderModalProps, ref): React.JSX.Element => {
 		return (
 			<>
-				<div ref={ref} onClick={(e) => e.stopPropagation()} {...props}>
+				<div className="h-full" ref={ref} onClick={(e) => e.stopPropagation()} {...props}>
 					{modal.content}
 				</div>
 			</>

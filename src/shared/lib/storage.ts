@@ -14,7 +14,17 @@ export const uploadImage = async (file: File, userId: string) => {
 };
 
 export const getImageUrl = (path: string) => {
-	return supabase.storage.from("photo-album").getPublicUrl(path).data.publicUrl;
+	if (!path) {
+		throw new Error("Image path is required");
+	}
+
+	const { data } = supabase.storage.from("photo-album").getPublicUrl(path);
+
+	// if (error) {
+	//   throw new Error(`Error getting image URL: ${error.message}`);
+	// }
+
+	return data;
 };
 
 export const deleteImage = async (path: string) => {

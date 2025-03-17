@@ -4,6 +4,10 @@ import { Modal } from "@/shared/types/modal";
 import React, { useCallback, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import ImageUploadForm from "./imageUploadForm";
+import { uploadImage } from "@/shared/lib/storage";
+import useAuth from "@/features/auth/hooks/useAuth";
+import { supabase } from "@/shared/lib/services";
+import { PhotoStatus } from "@/shared/types/general";
 
 const ImageGalleryHeader = (): React.JSX.Element => {
 	const { open } = useModal();
@@ -11,6 +15,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState<string | null>(null);
+	const { user } = useAuth();
 
 	const handleFormSubmit = async (file: File | null, caption: string) => {
 		setError(null);
@@ -35,14 +40,53 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 			return;
 		}
 
-		console.log(file);
-		console.log(caption);
+		const {
+			data: { user },
+			error: userError,
+		} = await supabase.auth.getUser();
+
+		if (!user || userError) {
+			setError("Du må logge inn for å laste opp bilder.");
+			setLoading(false);
+			return;
+		}
+
+		try {
+			const file_url = await uploadImage(file, user.id);
+
+			const { data, error } = await supabase.from("photos").insert([
+				{
+					user_id: user.id,
+					img_url: file_url,
+					caption: caption || null,
+					status: PhotoStatus.pending,
+				},
+			]);
+
+			if (error) {
+				throw error;
+			}
+
+			setSuccess("Bildet ble lastet opp!");
+		} catch (error) {
+			setError("Noe gikk galt under opplastingen.");
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const modalContent = useMemo<Modal>(
 		() => ({
 			id: "upload-image-to-image-gallery",
-			content: <ImageUploadForm onSubmit={handleFormSubmit} />,
+			content: (
+				<ImageUploadForm
+					onSubmit={handleFormSubmit}
+					loading={loading}
+					success={success}
+					error={error}
+					setError={setError}
+				/>
+			),
 			size: "custom",
 			justify: isOverMd ? "right" : "center",
 			align: isOverMd ? "right" : "bottom",
