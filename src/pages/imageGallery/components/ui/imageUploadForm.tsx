@@ -30,6 +30,7 @@ const ImageUploadForm = ({
 
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
+
 		if (!user || !session) {
 			setError("du må være logget inn for å legge til bilder");
 			return;
@@ -70,15 +71,15 @@ const ImageUploadForm = ({
 						<h2>Legg til en beskrivelse</h2>
 						<div className="relative group">
 							<Input
-								className="w-full rounded-md bg-primary-alt"
+								className="w-full rounded-md bg-primary-alt pr-12"
 								type="text"
 								value={caption}
 								onChange={(e) => setCaption(e.target.value)}
-								maxLength={120}
+								maxLength={80}
 							/>
 							<div className="absolute h-full w-6 top-0 right-4 flex justify-center items-center">
-								<span className="bg-primary-alt group-hover:bg-secondary h-[50%] px-2 py-2 text-text-muted font-md flex justify-center items-center transition-colors duration-100 ease-in-out">
-									{120 - caption.length}
+								<span className="bg-primary-alt group-hover:bg-secondary h-[75%] px-2 py-2 text-text-muted font-md flex justify-center items-center transition-colors duration-100 ease-in-out">
+									{80 - caption.length}
 								</span>
 							</div>
 						</div>

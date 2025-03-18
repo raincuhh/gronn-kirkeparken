@@ -32,10 +32,10 @@ const ImageGalleryImages = (): React.JSX.Element => {
 
 		const fetchPhotoAuthor = async (photos: Photos[]) => {
 			const updatedPhotos = await Promise.all(
-				photos.map(async (photo) => {
+				photos.map(async (photo: Photos) => {
 					if (!photo?.user_id) return { ...photo, author: { first_name: "John", last_name: "doe" } };
 
-					const { data, error } = await supabase
+					const { data: author, error } = await supabase
 						.from("profiles")
 						.select("first_name, last_name")
 						.eq("user_id", photo.user_id)
@@ -44,12 +44,11 @@ const ImageGalleryImages = (): React.JSX.Element => {
 					if (error) {
 						console.error("Error fetching author: ", error);
 					}
-					return { ...photo, data };
+					return { ...photo, author };
 				})
 			);
 
 			setPhotosData(updatedPhotos);
-			console.log(updatedPhotos);
 			setLoading(false);
 		};
 
@@ -79,7 +78,7 @@ const ImageGalleryImages = (): React.JSX.Element => {
 					</Button>
 				</div>
 			) : memoizedPhotos.length > 0 ? (
-				<ul className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
+				<ul className="columns-1 sm:columns-2 md:columns-3 gap-4">
 					<RenderList
 						data={memoizedPhotos}
 						render={(data: Photos & { author?: Author }, i: number) => (
@@ -88,7 +87,7 @@ const ImageGalleryImages = (): React.JSX.Element => {
 					/>
 				</ul>
 			) : (
-				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
+				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-y border-x flex items-center justify-center">
 					<p className="font-xl text-2xl">Ingen bilder funnet</p>
 				</div>
 			)}
