@@ -48,6 +48,11 @@ const navLinks = {
 		{ title: "Kunngjøringer", href: "/announcements" },
 		{ title: "Hjem", href: "/home" },
 	],
+	"/announcements/:announcementId": [
+		{ title: "Bildegalleri", href: "/image-gallery" },
+		{ title: "Kunngjøringer", href: "/announcements" },
+		{ title: "Hjem", href: "/home" },
+	],
 };
 
 const adminLinks = [
@@ -86,8 +91,13 @@ const PageNavbar = (): React.JSX.Element => {
 	useEffect(() => {
 		setIsOpen(false);
 
-		const pathname = location.pathname as keyof typeof navLinks;
-		const links = navLinks[pathname] || null;
+		const matchedKey = Object.keys(navLinks).find((key) => {
+			const pattern = new RegExp(`^${key.replace(/:\w+/g, "[^/]+")}$`);
+			return pattern.test(location.pathname);
+		});
+
+		const links = matchedKey ? navLinks[matchedKey as keyof typeof navLinks] : null;
+
 		if (links) {
 			const filteredAdminLinks = adminLinks.filter((link) => {
 				if (
