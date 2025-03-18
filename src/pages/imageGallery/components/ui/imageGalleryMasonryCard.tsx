@@ -30,13 +30,17 @@ const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps
 	}, [getPublicUrl]);
 
 	return (
-		<li className="break-inside-avoid !mb-4 rounded-sm bg-primary-alt min-h-10">
+		<li className="break-inside-avoid !mb-4  min-h-10">
 			{loading ? (
-				<Skeleton width={100} height={300} />
+				<Skeleton height={300} />
 			) : (
-				<div className="flex flex-col">
-					<div className="relative"></div>
-					<div className="flex flex-col"></div>
+				<div className="flex flex-col rounded-md hover:bg-primary-alt group transition-colors duration-100 ease-in-out">
+					<div className="relative">
+						<img src={publicUrl} alt={data?.caption ?? ""} className="w-full block rounded-t-md" />
+					</div>
+					<div className="flex flex-col px-2 py-2">
+						<p className="text-">{data?.caption}</p>
+					</div>
 					{/* <div className="flex flex-col">
 						<div className="relative group">
 							<img src={publicUrl} alt={data?.caption ?? ""} className="w-full block" />

@@ -5,17 +5,15 @@ import React, { useCallback, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import ImageUploadForm from "./imageUploadForm";
 import { uploadImage } from "@/shared/lib/storage";
-import useAuth from "@/features/auth/hooks/useAuth";
 import { supabase } from "@/shared/lib/services";
 import { PhotoStatus } from "@/shared/types/general";
 
 const ImageGalleryHeader = (): React.JSX.Element => {
-	const { open } = useModal();
+	const { open, remove } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState<string | null>(null);
-	const { user } = useAuth();
 
 	const handleFormSubmit = async (file: File | null, caption: string) => {
 		setError(null);
@@ -54,12 +52,12 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 		try {
 			const file_url = await uploadImage(file, user.id);
 
-			const { data, error } = await supabase.from("photos").insert([
+			const { error } = await supabase.from("photos").insert([
 				{
 					user_id: user.id,
 					img_url: file_url,
 					caption: caption || null,
-					status: PhotoStatus.pending,
+					status: PhotoStatus.approved,
 				},
 			]);
 
@@ -72,6 +70,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 			setError("Noe gikk galt under opplastingen.");
 		} finally {
 			setLoading(false);
+			remove();
 		}
 	};
 

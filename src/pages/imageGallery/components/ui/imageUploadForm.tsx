@@ -87,8 +87,8 @@ const ImageUploadForm = ({
 					<Button type="submit" disabled={loading} variant={"base"} size={"lg"}>
 						{loading ? "Laster..." : "Last opp"}
 					</Button>
-					{error && <p className="text-red-500">{error}</p>}
-					{success && <p className="text-green-500">{success}</p>}
+					{error && <p className="text-text-error">{error}</p>}
+					{success && <p className="text-text-success">{success}</p>}
 				</form>
 			</div>
 			{!user && (
