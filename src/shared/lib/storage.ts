@@ -24,7 +24,7 @@ export const getImageUrl = (path: string) => {
 	//   throw new Error(`Error getting image URL: ${error.message}`);
 	// }
 
-	return data;
+	return data.publicUrl;
 };
 
 export const deleteImage = async (path: string) => {

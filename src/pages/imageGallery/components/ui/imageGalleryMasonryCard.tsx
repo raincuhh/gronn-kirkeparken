@@ -22,12 +22,12 @@ const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps
 
 	const getPublicUrl = useCallback(() => {
 		if (data?.img_url) {
-			const urlObject = getImageUrl(data.img_url);
-			if (urlObject && urlObject.publicUrl) {
-				setPublicUrl(urlObject.publicUrl);
+			const publicUrl = getImageUrl(data.img_url);
+			if (publicUrl) {
+				setPublicUrl(publicUrl);
 
 				let img = new Image();
-				img.src = urlObject.publicUrl;
+				img.src = publicUrl;
 				img.onload = () => {
 					setImageSize({ width: img.width, height: img.height });
 				};
