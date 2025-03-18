@@ -15,6 +15,7 @@ type ImageGalleryMasonryCardProps = {
 const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps): React.JSX.Element => {
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const [publicUrl, setPublicUrl] = useState<string>("");
 	const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
@@ -42,27 +43,44 @@ const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps
 		getPublicUrl();
 	}, [getPublicUrl]);
 
+	useEffect(() => {
+		if (isOpen) {
+			document.body.classList.add("overflow-hidden");
+		} else {
+			document.body.classList.remove("overflow-hidden");
+		}
+		return () => document.body.classList.remove("overflow-hidden");
+	}, [isOpen]);
+
 	const modalContent = useMemo<Modal>(
 		() => ({
 			id: "fullscreen-view",
 			content: (
-				<div>
+				<div className="flex flex-col gap-4">
 					<img src={publicUrl} alt={data?.caption ?? ""} className="aspect-video object-cover" />
+					<p className="text-lg text-rgb-full font-lg">{data?.caption}</p>
 				</div>
 			),
 			size: "custom",
 			justify: "center",
-			className: "max-w-xl",
+			className: "max-w-xl bg-transparent",
+			onClose: () => setIsOpen(false),
 		}),
 		[isOverMd]
 	);
 
 	const handleOpenModal = useCallback(() => {
+		setIsOpen(true);
 		open(modalContent);
 	}, [open, modalContent]);
 
 	return (
-		<li onClick={() => handleOpenModal()} className="break-inside-avoid !mb-4 min-h-16">
+		<li
+			onClick={() => {
+				handleOpenModal();
+			}}
+			className="break-inside-avoid !mb-4 min-h-16"
+		>
 			{loading || !imageSize ? (
 				<Skeleton
 					style={{

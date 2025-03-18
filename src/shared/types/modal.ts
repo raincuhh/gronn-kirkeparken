@@ -6,4 +6,5 @@ export type Modal = {
 	justify?: "center" | "left" | "right";
 	align?: "top" | "bottom" | "left" | "right";
 	className?: string;
+	onClose?: () => void;
 };

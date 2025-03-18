@@ -9,11 +9,28 @@ const ModalProvider = ({ children }: ModalProviderProps): React.JSX.Element => {
 
 	const open = (modal: Modal) => setModals((old) => [...old, modal]);
 
-	const remove = () => setModals((old) => old.slice(0, old.length - 1));
+	const remove = () => {
+		setModals((old) => {
+			const lastModal = old[old.length - 1];
+			lastModal?.onClose?.();
+			return old.slice(0, old.length - 1);
+		});
+	};
 
-	const removeAll = () => setModals([]);
+	const removeById = (id: string) => {
+		setModals((old) => {
+			const modalToRemove = old.find((modal) => modal.id === id);
+			modalToRemove?.onClose?.();
+			return old.filter((modal) => modal.id !== id);
+		});
+	};
 
-	const removeById = (id: string) => setModals((old) => old.filter((modal) => modal.id !== id));
+	const removeAll = () => {
+		setModals((old) => {
+			old.forEach((modal) => modal.onClose?.());
+			return [];
+		});
+	};
 
 	const contextValue = useMemo(
 		() => ({
