@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import AnnouncementsOptions from "./announcementsOptions";
 import Button from "@/shared/components/ui/button";
 import AnnouncementPreviewCard from "@/shared/components/ui/announcementPreviewCard";
+import clsx from "clsx";
 
 const AnnouncementsList = (): React.JSX.Element => {
 	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
@@ -63,7 +64,6 @@ const AnnouncementsList = (): React.JSX.Element => {
 			);
 
 			setAnnouncementsData(updatedAnnouncements);
-			console.log(updatedAnnouncements);
 			setLoading(false);
 		};
 
@@ -87,17 +87,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 		>
 			<div className="flex flex-col w-full gap-4">
 				<AnnouncementsOptions searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-				<div className="flex flex-col w-full border border-modifier-border-color border-t">
-					{/* <div className="relative grid grid-cols-8 grid-rows-1 border-t border-l border-modifier-border-color">
-						{[...Array(gridSize)].map((_, i: number) => (
-							<div
-								key={i}
-								className="border-r border-b border-modifier-border-color"
-								style={{ aspectRatio: "1" }}
-							></div>
-						))}
-					</div> */}
-					{/* <div className="w-full min-h-[1.5rem] border-solid border-modifier-border-color border-y border-x"></div> */}
+				<div className="flex flex-col w-full  border-modifier-border-color">
 					{loading ? (
 						<div className="w-full mt-8 grid md:grid-cols-2 grid-cols-1 gap-8">
 							<Skeleton width={"100%"} height={"16rem"} />
@@ -120,11 +110,20 @@ const AnnouncementsList = (): React.JSX.Element => {
 							</Button>
 						</div>
 					) : filteredAnnouncements.length > 0 ? (
-						<ul className="w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1">
+						<ul
+							className={clsx(
+								"w-full list-none border-solid border-modifier-border-color grid md:grid-cols-2 grid-cols-1 border-t border-l",
+								filteredAnnouncements.length < 2 ? "border-t" : "border-t-0"
+							)}
+						>
 							<RenderList
 								data={filteredAnnouncements}
 								render={(data: Announcement & { author?: Author }, i: number) => (
-									<AnnouncementPreviewCard key={i} announcement={data} />
+									<AnnouncementPreviewCard
+										key={i}
+										announcement={data}
+										borderT={filteredAnnouncements.length > 2}
+									/>
 								)}
 							/>
 						</ul>

@@ -4,6 +4,7 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import Button from "@/shared/components/ui/button";
 import RenderList from "@/shared/components/utils/renderList";
 import ImageGalleryMasonryCard from "./imageGalleryMasonryCard";
+import Skeleton from "react-loading-skeleton";
 
 const ImageGalleryImages = (): React.JSX.Element => {
 	const [photosData, setPhotosData] = useState<any[]>([]);
@@ -63,7 +64,14 @@ const ImageGalleryImages = (): React.JSX.Element => {
 
 	return (
 		<div className="mt-4">
-			{photoError ? (
+			{loading ? (
+				<div className="w-full mt-8 grid md:grid-cols-2 grid-cols-1 gap-8">
+					<Skeleton width={"100%"} height={"16rem"} />
+					<Skeleton width={"100%"} height={"16rem"} />
+					<Skeleton width={"100%"} height={"16rem"} />
+					<Skeleton width={"100%"} height={"16rem"} />
+				</div>
+			) : photoError ? (
 				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
 					<p className="text-lg">En feil oppstod</p>
 					<p className="font-xl text-2xl text-modifier-error">{photoError}</p>

@@ -6,7 +6,7 @@ export const uploadImage = async (file: File, userId: string) => {
 	const filePath = `${fileName}`;
 
 	const { data, error } = await supabase.storage
-		.from("photo-album")
+		.from("photoalbum")
 		.upload(filePath, file, { cacheControl: "3600", upsert: false });
 
 	if (error) throw error;
@@ -18,7 +18,7 @@ export const getImageUrl = (path: string) => {
 		throw new Error("Image path is required");
 	}
 
-	const { data } = supabase.storage.from("photo-album").getPublicUrl(path);
+	const { data } = supabase.storage.from("photoalbum").getPublicUrl(path);
 
 	// if (error) {
 	//   throw new Error(`Error getting image URL: ${error.message}`);
@@ -28,6 +28,6 @@ export const getImageUrl = (path: string) => {
 };
 
 export const deleteImage = async (path: string) => {
-	const { error } = await supabase.storage.from("photo-album").remove([path]);
+	const { error } = await supabase.storage.from("photoalbum").remove([path]);
 	if (error) throw error;
 };
