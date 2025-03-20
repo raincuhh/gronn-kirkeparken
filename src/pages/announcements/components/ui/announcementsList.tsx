@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState, useMemo } from "react";
 import { supabase } from "@/shared/lib/services";
 import { Announcement, Author } from "@/shared/types/general";
-// import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 import RenderList from "@/shared/components/utils/renderList";
 import Skeleton from "react-loading-skeleton";
 import AnnouncementsOptions from "./announcementsOptions";
@@ -13,7 +13,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
 	const [announcementsError, setAnnouncementsError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
-	// const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
+	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	// const gridSize = isOverMd ? 8 * 1 : 8 * 1;
 
 	const [searchQuery, setSearchQuery] = useState<string>("");
@@ -112,8 +112,8 @@ const AnnouncementsList = (): React.JSX.Element => {
 					) : filteredAnnouncements.length > 0 ? (
 						<ul
 							className={clsx(
-								"w-full list-none border-solid border-modifier-border-color grid md:grid-cols-2 grid-cols-1 border-t border-l",
-								filteredAnnouncements.length < 2 ? "border-t" : "border-t-0"
+								"w-full list-none border-solid border-modifier-border-color grid md:grid-cols-2 grid-cols-1 border-l",
+								filteredAnnouncements.length > 2 ? "border-t-0" : "border-t"
 							)}
 						>
 							<RenderList
@@ -122,7 +122,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 									<AnnouncementPreviewCard
 										key={i}
 										announcement={data}
-										borderT={filteredAnnouncements.length > 2}
+										borderT={filteredAnnouncements.length === 1 && i == 0 && isOverMd}
 									/>
 								)}
 							/>

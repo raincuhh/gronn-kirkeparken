@@ -42,14 +42,14 @@ const AnnouncementPreviewCard = ({ announcement, borderT }: AnnouncementPreviewP
 					.concat(`?announcement_id=${encodeURIComponent(announcement?.announcement_id ?? "")}`)}
 				className="w-full h-full cursor-pointer group transition-all duration-100 ease-in-out"
 			>
-				<div
-					className={clsx(
-						"relative overflow-hidden border-b border-r border-solid border-modifier-border-color group-hover:bg-primary-alt transition-colors duration-100 ease-in-out",
-						borderT ? "border-t" : "border-t-0"
-					)}
-				>
-					<div className={clsx("flex flex-col px-4 sm:px-8 lg:px-12 py-6 sm:py-12 md:py-24")}>
-						<div className="flex flex-col w-full h-full justify-between md:min-h-[16rem]">
+				<div className="relative overflow-hidden border-b border-r border-solid border-modifier-border-color group-hover:bg-primary-alt transition-colors duration-100 ease-in-out">
+					<div
+						className={clsx(
+							"flex flex-col px-4 sm:px-8 lg:px-12 py-6 sm:py-12 md:py-24 border-modifier-border-color",
+							borderT ? "border-t" : "border-t-0"
+						)}
+					>
+						<div className="flex flex-col w-full h-full justify-between md:min-h-[22rem]">
 							<div className="flex flex-col w-full">
 								<header className="flex justify-between gap-4 text-text-muted group-hover:text-text-normal transition-colors duration-100 ease-in-out">
 									<p>{announcementPublishDate}</p>

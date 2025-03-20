@@ -57,7 +57,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 					user_id: user.id,
 					img_url: file_url,
 					caption: caption || null,
-					status: PhotoStatus.approved,
+					status: PhotoStatus.pending,
 				},
 			]);
 

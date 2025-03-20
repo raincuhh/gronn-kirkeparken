@@ -6,6 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import Button from "@/shared/components/ui/button";
 import RenderList from "@/shared/components/utils/renderList";
 import Skeleton from "react-loading-skeleton";
+import clsx from "clsx";
 
 const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
@@ -135,11 +136,20 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 						</div>
 					) : memoizedAnnouncements.length > 0 ? (
 						<>
-							<ul className="w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1">
+							<ul
+								className={clsx(
+									"w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1",
+									memoizedAnnouncements.length >= 2 ? "border-t" : "border-t-0"
+								)}
+							>
 								<RenderList
 									data={memoizedAnnouncements}
 									render={(data: Announcement & { author?: Author }, i: number) => (
-										<AnnouncementPreviewCard key={i} announcement={data} />
+										<AnnouncementPreviewCard
+											key={i}
+											announcement={data}
+											borderT={memoizedAnnouncements.length < 2 && i === 1}
+										/>
 									)}
 								/>
 							</ul>
