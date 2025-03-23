@@ -51,7 +51,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 					if (!announcement?.user_id) return { ...announcement, author: { first_name: "Unknown" } };
 
 					const { data: author, error } = await supabase
-						.from("users")
+						.from("profiles")
 						.select("first_name, last_name")
 						.eq("user_id", announcement.user_id)
 						.maybeSingle();
