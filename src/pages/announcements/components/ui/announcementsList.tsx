@@ -113,7 +113,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 						<ul
 							className={clsx(
 								"w-full list-none border-solid border-modifier-border-color grid md:grid-cols-2 grid-cols-1 border-l",
-								filteredAnnouncements.length > 2 ? "border-t-0" : "border-t"
+								filteredAnnouncements.length > 1 ? "border-t" : "border-t-0"
 							)}
 						>
 							<RenderList

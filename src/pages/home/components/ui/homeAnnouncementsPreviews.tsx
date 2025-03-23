@@ -138,8 +138,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 						<>
 							<ul
 								className={clsx(
-									"w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1",
-									memoizedAnnouncements.length >= 2 ? "border-t" : "border-t-0"
+									"w-full list-none border-solid border-l border-modifier-border-color grid md:grid-cols-2 grid-cols-1"
 								)}
 							>
 								<RenderList
@@ -148,7 +147,7 @@ const HomeAnnouncementsPreviews = (): React.JSX.Element => {
 										<AnnouncementPreviewCard
 											key={i}
 											announcement={data}
-											borderT={memoizedAnnouncements.length < 2 && i === 1}
+											borderT={memoizedAnnouncements.length === 1 && i == 0 && isOverMd}
 										/>
 									)}
 								/>
