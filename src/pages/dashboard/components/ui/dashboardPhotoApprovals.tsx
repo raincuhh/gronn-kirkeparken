@@ -34,8 +34,8 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 
 			setPhotos(data ?? []);
 		} catch (err: any) {
-			console.error(err.message);
-			setError(err.message);
+			console.error(err?.message);
+			setError(err?.message);
 			setPhotos([]);
 		} finally {
 			setLoading(false);
@@ -73,7 +73,7 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 					</Button>
 				</div>
 			) : photos.length > 0 ? (
-				<ul>
+				<ul className="flex flex-col gap-4">
 					<RenderList
 						data={photos}
 						render={(item: Photos, i: number) => (

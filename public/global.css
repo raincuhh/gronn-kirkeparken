@@ -53,9 +53,9 @@
 	--color-success-400: hsl(141, 50%, 60%);
 
 	--color-scheme: dark;
-	--color-accent-h: 120;
-	--color-accent-s: 59%;
-	--color-accent-l: 46.1%;
+	--color-accent-h: 100;
+	--color-accent-s: 47%;
+	--color-accent-l: 45.1%;
 
 	--color-accent-hsl: var(--color-accent-h), var(--color-accent-s), var(--color-accent-l);
 	--color-accent: hsl(var(--color-accent-hsl));
