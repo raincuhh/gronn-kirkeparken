@@ -82,13 +82,13 @@ const RouteList: RouteListProps[] = [
 	{
 		id: "approvals",
 		url: "/dashboard/photo-approvals",
-		element: <></>,
+		element: <DashboardPage />,
 		type: RouteTypes.private,
 	},
 	{
 		id: "announcement-posting",
 		url: "/dashboard/announcements",
-		element: <></>,
+		element: <DashboardPage />,
 		type: RouteTypes.private,
 	},
 ];

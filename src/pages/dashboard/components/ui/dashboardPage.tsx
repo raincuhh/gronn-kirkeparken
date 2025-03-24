@@ -1,7 +1,12 @@
 import React from "react";
+import Dashboard from "./dashboard";
 
 const DashboardPage = (): React.JSX.Element => {
-	return <div>dashboard</div>;
+	return (
+		<>
+			<Dashboard />
+		</>
+	);
 };
 
 export default DashboardPage;
