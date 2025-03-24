@@ -48,7 +48,7 @@ const DashboardPhotoApprovalsItem = ({
 		setIsOpen(true);
 		open(modalContent);
 	}, [open, modalContent]);
-
+	//
 	return (
 		<>
 			{loading ? (
