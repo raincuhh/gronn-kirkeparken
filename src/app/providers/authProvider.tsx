@@ -17,6 +17,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 			if (!session?.user) {
 				setUser(null);
 				setSession(null);
+				setLoading(false);
 				return;
 			}
 
@@ -28,6 +29,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 			if (error) {
 				console.error("Error fetching user: ", error);
+				setLoading(false);
 				return;
 			}
 

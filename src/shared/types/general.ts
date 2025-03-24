@@ -17,6 +17,7 @@ export enum UserRoles {
 }
 
 export type User = SupabaseUser & {
+	user_id?: string;
 	first_name?: string;
 	last_name?: string | null;
 	role?: UserRoles;

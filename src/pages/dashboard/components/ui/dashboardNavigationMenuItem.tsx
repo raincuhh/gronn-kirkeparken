@@ -20,7 +20,7 @@ const DashboardNavigationMenuItem = ({
 				variant={"ghost"}
 				size={"md"}
 				className={clsx(
-					"w-full justify-start",
+					"w-full justify-start text-lg font-lg",
 					active ? "!bg-interactive-base text-rgb-full hover:!bg-interactive-base-hover" : ""
 				)}
 			>

@@ -80,6 +80,12 @@ const RouteList: RouteListProps[] = [
 		type: RouteTypes.protected,
 	},
 	{
+		id: "dashboard",
+		url: "/dashboard/photos",
+		element: <DashboardPage />,
+		type: RouteTypes.protected,
+	},
+	{
 		id: "approvals",
 		url: "/dashboard/photo-approvals",
 		element: <DashboardPage />,

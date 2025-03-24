@@ -12,24 +12,22 @@ const RouteGuard = ({ children, type }: RouteGuardProps): React.JSX.Element => {
 	const { user, loading } = useAuth();
 
 	useEffect(() => {
-		// console.log("RouteGuard triggered", { user, loading, type });
+		console.log("Auth state inside RouteGuard:", { user, loading });
+
 		if (loading) return;
 
 		switch (type) {
 			case RouteTypes.private:
-				if (user && user.role !== "admin") {
-					navigate("/401", { replace: true });
-				}
+				if (user && user.role !== "admin") navigate("/401", { replace: true });
 				break;
 			case RouteTypes.auth:
-				if (user) {
-					navigate("/dashboard", { replace: true });
-				}
+				if (user) navigate("/dashboard", { replace: true });
 				break;
 			case RouteTypes.protected:
-				if (!user) {
-					navigate("/login", { state: { from: location }, replace: true });
-				}
+				if (!user) navigate("/login", { state: { from: location }, replace: true });
+				break;
+			default:
+				if (!user) navigate("/login", { state: { from: location }, replace: true });
 				break;
 		}
 	}, [user, loading, type, navigate, location.pathname]);
