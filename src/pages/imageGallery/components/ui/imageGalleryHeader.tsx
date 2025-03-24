@@ -7,6 +7,8 @@ import ImageUploadForm from "./imageUploadForm";
 import { uploadImage } from "@/shared/lib/storage";
 import { supabase } from "@/shared/lib/services";
 import { PhotoStatus } from "@/shared/types/general";
+import useAuth from "@/features/auth/hooks/useAuth";
+import Button from "@/shared/components/ui/button";
 
 const ImageGalleryHeader = (): React.JSX.Element => {
 	const { open, remove } = useModal();
@@ -14,6 +16,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState<string | null>(null);
+	const { user } = useAuth();
 
 	const handleFormSubmit = async (file: File | null, caption: string) => {
 		setError(null);
@@ -111,16 +114,29 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 						<h1 className="text-2xl sm:text-3xl font-xl !mb-4">Bildegalleri</h1>
 						<p className="text-text-muted text-md md:text-lg font-lg">
 							Bla gjennom de nyeste bildene fra Grønn Kirkeparken, delt av fellesskapet. Har du et
-							bilde å dele? Last opp et bilde med en beskrivelse og bidra til galleriet!
+							bilde å dele? Logg inn eller Registrer deg og last opp et bilde med en beskrivelse og
+							bidra til galleriet!
 						</p>
 					</div>
 					<div>
-						<div
-							onClick={handleOpenModal}
-							className="p-1 flex justify-center items-center rounded-md border-solid border-[1px] border-modifier-border-color hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
-						>
-							<UploadIcon />
-						</div>
+						{!user ? (
+							<div className="flex gap-4">
+								<Button
+									variant={"base"}
+									href={"/register"}
+									className="whitespace-nowrap overflow-hidden text-ellipsis"
+								>
+									Registrer deg
+								</Button>
+							</div>
+						) : (
+							<div
+								onClick={handleOpenModal}
+								className="p-1 flex justify-center items-center rounded-md border-solid border-[1px] border-modifier-border-color hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default"
+							>
+								<UploadIcon />
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

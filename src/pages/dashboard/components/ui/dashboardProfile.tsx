@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CurrentPageHeader } from "../../types/type";
 import DashboardCurrentPageHeader from "./dashboardCurrentPageHeader";
 import { supabase } from "@/shared/lib/services";
@@ -13,56 +13,42 @@ type DashboardProfileProps = {
 };
 
 const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.JSX.Element => {
-	const [profileData, setProfileData] = useState<User | null>(null);
-	const [profileError, setProfileError] = useState<any>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [profile, setProfile] = useState<User | null>(null);
+	const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState(true);
 	const { logout } = useAuth();
 
 	const fetchProfile = useCallback(async () => {
-		setLoading(true);
-		setProfileError(null);
+		try {
+			setLoading(true);
+			setError(null);
 
-		const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+			const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+			if (sessionError || !sessionData.session?.user) {
+				throw new Error("Kunne ikke laste inn brukerøkten");
+			}
 
-		if (sessionError || !sessionData.session?.user) {
-			console.error("Error fetching auth session:", sessionError);
-			setProfileError("Kunne ikke laste inn brukerøkten");
-			setProfileData(null);
+			const user = sessionData.session.user;
+			const { data, error: profileError } = await supabase
+				.from("profiles")
+				.select("*")
+				.eq("user_id", user.id)
+				.maybeSingle();
+
+			if (profileError) throw new Error("Kunne ikke laste inn profil");
+			setProfile(data ? { ...data, email: user.email } : null);
+		} catch (err: any) {
+			console.error(err);
+			setError(err.message);
+			setProfile(null);
+		} finally {
 			setLoading(false);
-			return;
 		}
-
-		const userEmail = sessionData.session.user.email;
-
-		const { data, error } = await supabase
-			.from("profiles")
-			.select("*")
-			.eq("user_id", (await supabase.auth.getSession()).data.session?.user.id)
-			.maybeSingle();
-
-		if (error) {
-			console.error("Error fetching Profile: ", error);
-			setProfileError("Kunne ikke laste inn profil");
-			setProfileData(null);
-			setLoading(false);
-			return;
-		}
-
-		if (!data || data.length === 0) {
-			setProfileData(null);
-			setLoading(false);
-			return;
-		}
-
-		setProfileData({ ...data, email: userEmail });
-		setLoading(false);
 	}, []);
 
 	useEffect(() => {
 		fetchProfile();
 	}, [fetchProfile]);
-
-	const memoizedProfile = useMemo(() => profileData, [profileData]);
 
 	return (
 		<div className="flex flex-col">
@@ -75,10 +61,10 @@ const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.J
 					<Skeleton height={"3rem"} />
 					<Skeleton height={"3rem"} />
 				</div>
-			) : profileError ? (
-				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
+			) : error ? (
+				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4 px-4">
 					<p className="text-lg">En feil oppstod</p>
-					<p className="font-xl text-2xl text-modifier-error">{profileError}</p>
+					<p className="font-xl text-2xl text-modifier-error">{error}</p>
 					<Button
 						onClick={fetchProfile}
 						variant={"outline"}
@@ -89,15 +75,15 @@ const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.J
 						Prøv igjen
 					</Button>
 				</div>
-			) : memoizedProfile != null ? (
+			) : profile != null ? (
 				<div className="flex flex-col w-full mt-4">
 					<ul className="w-full gap-2">
-						<DashboardProfileItem title={"id"} dataText={memoizedProfile.user_id ?? ""} />
-						<DashboardProfileItem title={"fornavn"} dataText={memoizedProfile.first_name ?? ""} />
-						<DashboardProfileItem title={"etternavn"} dataText={memoizedProfile.last_name ?? ""} />
-						<DashboardProfileItem title={"e-post"} dataText={memoizedProfile.email ?? ""} />
-						<DashboardProfileItem title={"rolle"} dataText={memoizedProfile.role ?? ""} />
-						<DashboardProfileItem title={"opprettet"} dataText={memoizedProfile.created_at ?? ""} />
+						<DashboardProfileItem title={"id"} dataText={profile.user_id ?? ""} />
+						<DashboardProfileItem title={"fornavn"} dataText={profile.first_name ?? ""} />
+						<DashboardProfileItem title={"etternavn"} dataText={profile.last_name ?? ""} />
+						<DashboardProfileItem title={"e-post"} dataText={profile.email ?? ""} />
+						<DashboardProfileItem title={"rolle"} dataText={profile.role ?? ""} />
+						<DashboardProfileItem title={"opprettet"} dataText={profile.created_at ?? ""} />
 						<div
 							onClick={() => logout()}
 							className="font-lg text-lg text-text-accent mt-2 hover:text-text-accent-hover hover:underline cursor-pointer"

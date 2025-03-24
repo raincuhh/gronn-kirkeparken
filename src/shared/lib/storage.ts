@@ -1,4 +1,5 @@
 import { supabase } from "./services";
+import { Photos } from "../types/general";
 
 export const uploadImage = async (file: File, userId: string) => {
 	const fileExt = file.name.split(".").pop();
@@ -13,17 +14,12 @@ export const uploadImage = async (file: File, userId: string) => {
 	return data?.path;
 };
 
-export const getImageUrl = (path: string) => {
-	if (!path) {
-		throw new Error("Image path is required");
+export const getPublicImageUrl = (photo: Photos) => {
+	if (!photo?.img_url) {
+		throw new Error("Image URL path is missing");
 	}
 
-	const { data } = supabase.storage.from("photoalbum").getPublicUrl(path);
-
-	// if (error) {
-	//   throw new Error(`Error getting image URL: ${error.message}`);
-	// }
-
+	const { data } = supabase.storage.from("photoalbum").getPublicUrl(photo.img_url);
 	return data.publicUrl;
 };
 

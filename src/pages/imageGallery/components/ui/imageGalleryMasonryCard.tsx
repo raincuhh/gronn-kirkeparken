@@ -1,7 +1,7 @@
 import { Author, Photos } from "@/shared/types/general";
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Skeleton from "react-loading-skeleton";
-import { getImageUrl } from "@/shared/lib/storage";
+import { getPublicImageUrl } from "@/shared/lib/storage";
 import ProfilePicture from "@/shared/components/ui/profilePicture";
 import { useMediaQuery } from "react-responsive";
 import useModal from "@/shared/hooks/useModal";
@@ -15,40 +15,21 @@ type ImageGalleryMasonryCardProps = {
 const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps): React.JSX.Element => {
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
-	const [isOpen, setIsOpen] = useState<boolean>(false);
-
-	const [publicUrl, setPublicUrl] = useState<string>("");
+	const [isOpen, setIsOpen] = useState(false);
 	const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
 
-	const getPublicUrl = useCallback(() => {
-		if (data?.img_url) {
-			const publicUrl = getImageUrl(data.img_url);
-			if (publicUrl) {
-				setPublicUrl(publicUrl);
-
-				let img = new Image();
-				img.src = publicUrl;
-				img.onload = () => {
-					setImageSize({ width: img.width, height: img.height });
-				};
-			} else {
-				console.error("No public URL available");
-			}
-		} else {
-			console.error("Image URL is undefined");
-		}
-	}, [data?.img_url]);
+	const publicUrl = useMemo(() => (data?.img_url ? getPublicImageUrl(data) : ""), [data?.img_url]);
 
 	useEffect(() => {
-		getPublicUrl();
-	}, [getPublicUrl]);
+		if (!publicUrl) return;
+
+		const img: HTMLImageElement = new Image();
+		img.src = publicUrl;
+		img.onload = () => setImageSize({ width: img.width, height: img.height });
+	}, [publicUrl]);
 
 	useEffect(() => {
-		if (isOpen) {
-			document.body.classList.add("overflow-hidden");
-		} else {
-			document.body.classList.remove("overflow-hidden");
-		}
+		document.body.classList.toggle("overflow-hidden", isOpen);
 		return () => document.body.classList.remove("overflow-hidden");
 	}, [isOpen]);
 

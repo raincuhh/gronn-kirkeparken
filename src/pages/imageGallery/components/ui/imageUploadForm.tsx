@@ -92,11 +92,6 @@ const ImageUploadForm = ({
 					{success && <p className="text-text-success">{success}</p>}
 				</form>
 			</div>
-			{!user && (
-				<>
-					<div className="absolute w-full h-full bg-modal-overlay"></div>
-				</>
-			)}
 		</div>
 	);
 };

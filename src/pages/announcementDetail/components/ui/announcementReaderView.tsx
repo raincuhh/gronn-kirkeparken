@@ -72,15 +72,17 @@ const AnnouncementReaderView = (): React.JSX.Element => {
 								</div>
 							</>
 						) : announcementError ? (
-							<div className="w-full h-full flex items-center justify-center flex-col gap-4">
-								<p className="text-lg">En feil oppstod</p>
-								<p className="font-xl text-2xl text-modifier-error">{announcementError}</p>
+							<div className="w-full h-full flex items-center justify-center flex-col gap-4 p-4">
+								<p className="text-lg w-full items-center">En feil oppstod</p>
+								<p className="font-xl text-2xl text-modifier-error w-full items-center">
+									{announcementError}
+								</p>
 								<Button
 									onClick={fetchAnnouncement}
 									variant={"outline"}
 									size={"md"}
 									rounded={"full"}
-									className="font-xl"
+									className="font-xl w-full items-center"
 								>
 									Prøv igjen
 								</Button>

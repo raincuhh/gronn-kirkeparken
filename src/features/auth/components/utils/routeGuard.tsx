@@ -12,8 +12,7 @@ const RouteGuard = ({ children, type }: RouteGuardProps): React.JSX.Element => {
 	const { user, loading } = useAuth();
 
 	useEffect(() => {
-		console.log("Auth state inside RouteGuard:", { user, loading });
-
+		// console.log("Auth state inside RouteGuard:", { user, loading });
 		if (loading) return;
 
 		switch (type) {
