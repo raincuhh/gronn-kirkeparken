@@ -66,7 +66,7 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
 		setError(null);
 
 		if (type === "register") navigate("/login");
-		if (type === "login") navigate("/dashboard");
+		if (type === "login") navigate("/home");
 	};
 
 	return (
