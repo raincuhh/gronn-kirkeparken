@@ -68,7 +68,7 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
 		if (type === "register") navigate("/login");
 		if (type === "login") navigate("/home");
 	};
-
+	//
 	return (
 		<form id="auth" onSubmit={handleFormSubmit} className="flex flex-col gap-4">
 			<Input
