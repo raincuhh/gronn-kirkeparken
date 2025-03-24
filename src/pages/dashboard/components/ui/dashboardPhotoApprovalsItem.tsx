@@ -19,17 +19,8 @@ const DashboardPhotoApprovalsItem = ({
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const [isOpen, setIsOpen] = useState(false);
-	const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
 
 	const publicUrl = useMemo(() => (photo?.img_url ? getPublicImageUrl(photo) : ""), [photo?.img_url]);
-
-	useEffect(() => {
-		if (!publicUrl) return;
-
-		const img: HTMLImageElement = new Image();
-		img.src = publicUrl;
-		img.onload = () => setImageSize({ width: img.width, height: img.height });
-	}, [publicUrl]);
 
 	useEffect(() => {
 		document.body.classList.toggle("overflow-hidden", isOpen);
@@ -64,47 +55,20 @@ const DashboardPhotoApprovalsItem = ({
 				<Skeleton height={"2rem"} />
 			) : (
 				<>
-					<li className="flex w-full justify-between">
-						<div className="flex gap-4">
-							<div
-								onClick={() => {
-									handleOpenModal();
-								}}
-								className="relative group ease-in-out duration-100 transition-colors"
-							>
-								<div className="object-cover min-w-32 max-w-32 min-h-16 max-h-16 overflow-hidden rounded-md group-hover:">
-									<img
-										src={publicUrl}
-										alt={photo?.caption ?? ""}
-										className="aspect-video object-cover"
-									/>
-								</div>
-								<div className="rounded-md cursor-pointer absolute w-full opacity-0 group-hover:opacity-100 h-full bg-modal-overlay top-0 left-0 ease-in-out duration-100 transition-colors">
-									<div className="flex w-full h-full justify-center items-center text-rgb-full">
-										Se full
-									</div>
-								</div>
-							</div>
-							<div className="flex items-center">
-								<p className="max-w-[180px] whitespace-nowrap overflow-hidden text-ellipsis">
-									{photo.caption}
-								</p>
-							</div>
+					<li className="flex w-full justify-between items-center gap-4 !pb-4 border-b border-modifier-border-color">
+						<div className="flex gap-4 items-center">
+							<Thumbnail
+								imageUrl={publicUrl}
+								caption={photo?.caption ?? ""}
+								onClick={handleOpenModal}
+							/>
+							<p className="max-w-[180px] whitespace-nowrap overflow-hidden text-ellipsis hidden font-lg text-md lg:block">
+								{photo?.caption}
+							</p>
 						</div>
-						<div className="flex gap-8 items-center">
-							<div>
-								<Button
-									variant={"outline"}
-									size={"sm"}
-									className="w-[100px] overflow-hidden whitespace-nowrap text-ellipsis"
-								>
-									{photo?.status}
-								</Button>
-							</div>
-							<div className="flex gap-4">
-								<Button variant={"success"}>Godkjenn</Button>
-								<Button variant={"destructive"}>Avvis</Button>
-							</div>
+						<div className="flex gap-6 items-center">
+							<span className="text-text-muted truncate text-md font-lg">{photo?.status}</span>
+							<ApprovalButtons />
 						</div>
 					</li>
 				</>
@@ -114,3 +78,31 @@ const DashboardPhotoApprovalsItem = ({
 };
 
 export default DashboardPhotoApprovalsItem;
+
+type ThumbnailProps = {
+	imageUrl: string;
+	caption?: string;
+	onClick: () => void;
+};
+
+const Thumbnail = ({ imageUrl, caption, onClick }: ThumbnailProps) => (
+	<div className="relative group cursor-pointer" onClick={onClick}>
+		<div className="w-32 h-16 overflow-hidden rounded-md">
+			<img src={imageUrl} alt={caption ?? ""} className="w-full h-full object-cover" />
+		</div>
+		<div className="absolute inset-0 bg-modal-overlay rounded-md bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-rgb-full text-md transition-opacity">
+			Se full
+		</div>
+	</div>
+);
+
+const ApprovalButtons = () => (
+	<div className="flex gap-4">
+		<Button variant="success" className="w-[80px]">
+			Godkjenn
+		</Button>
+		<Button variant="destructive" className="w-[80px]">
+			Avvis
+		</Button>
+	</div>
+);
