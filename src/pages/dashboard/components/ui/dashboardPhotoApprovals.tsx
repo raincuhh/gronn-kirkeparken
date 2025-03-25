@@ -73,7 +73,7 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 					</Button>
 				</div>
 			) : photos.length > 0 ? (
-				<ul className="flex flex-col gap-4 overflow-y-scroll overflow-x-hidden h-[600px]">
+				<ul className="flex flex-col">
 					<RenderList
 						data={photos}
 						render={(item: Photos, i: number) => (

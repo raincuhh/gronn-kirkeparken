@@ -55,19 +55,21 @@ const DashboardPhotoApprovalsItem = ({
 				<Skeleton height={"2rem"} />
 			) : (
 				<>
-					<li className="flex w-full justify-between items-center gap-4 !pb-4 border-b border-modifier-border-color">
+					<li className="flex w-full justify-between items-center gap-4 !py-2 hover:bg-primary-alt rounded-md transition-colors duration-100 ease-in-out">
 						<div className="flex gap-4 items-center">
 							<Thumbnail
 								imageUrl={publicUrl}
 								caption={photo?.caption ?? ""}
 								onClick={handleOpenModal}
 							/>
-							<p className="max-w-[180px] whitespace-nowrap overflow-hidden text-ellipsis hidden font-lg text-md lg:block">
+							<p className="max-w-[100px] whitespace-nowrap overflow-hidden text-ellipsis hidden font-lg text-md lg:block">
 								{photo?.caption}
 							</p>
 						</div>
-						<div className="flex gap-6 items-center">
-							<span className="text-text-muted truncate text-md font-lg">{photo?.status}</span>
+						<div className="flex gap-4 md:gap-6 items-center">
+							<span className="text-text-muted truncate text-md font-lg max-w-[55px] md:max-w-[75px]">
+								{photo?.status}
+							</span>
 							<ApprovalButtons />
 						</div>
 					</li>
@@ -97,7 +99,7 @@ const Thumbnail = ({ imageUrl, caption, onClick }: ThumbnailProps) => (
 );
 
 const ApprovalButtons = () => (
-	<div className="flex gap-4">
+	<div className="flex gap-4 md:flex-row flex-col">
 		<Button variant="success" className="w-[80px]">
 			Godkjenn
 		</Button>
