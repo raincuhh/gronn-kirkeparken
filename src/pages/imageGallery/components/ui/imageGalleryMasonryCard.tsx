@@ -37,8 +37,8 @@ const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps
 		() => ({
 			id: "fullscreen-view",
 			content: (
-				<div className="flex flex-col gap-4">
-					<img src={publicUrl} alt={data?.caption ?? ""} className="aspect-video object-cover" />
+				<div className="flex flex-col gap-4 !px-2">
+					<img src={publicUrl} alt={data?.caption ?? ""} className="object-cover max-h-[calc(80vh)]" />
 					<p className="text-lg text-rgb-full font-lg">{data?.caption}</p>
 				</div>
 			),

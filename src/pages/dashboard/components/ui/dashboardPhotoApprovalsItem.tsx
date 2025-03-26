@@ -6,15 +6,19 @@ import { useMediaQuery } from "react-responsive";
 import useModal from "@/shared/hooks/useModal";
 import { Modal } from "@/shared/types/modal";
 import Button from "@/shared/components/ui/button";
+import { photoStatusToNo } from "@/shared/lib/utils";
+import { supabase } from "@/shared/lib/services";
 
 type DashboardPhotoApprovalsItemProps = {
 	photo: Photos;
 	loading: boolean;
+	onUpdate: () => void;
 };
 
 const DashboardPhotoApprovalsItem = ({
 	photo,
 	loading,
+	onUpdate,
 }: DashboardPhotoApprovalsItemProps): React.JSX.Element => {
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
@@ -31,8 +35,8 @@ const DashboardPhotoApprovalsItem = ({
 		() => ({
 			id: "fullscreen-view",
 			content: (
-				<div className="flex flex-col gap-4">
-					<img src={publicUrl} alt={photo?.caption ?? ""} className="aspect-video object-cover" />
+				<div className="flex flex-col gap-4 !px-2">
+					<img src={publicUrl} alt={photo?.caption ?? ""} className="object-cover max-h-[calc(80vh)]" />
 					<p className="text-lg text-rgb-full font-lg">{photo?.caption}</p>
 				</div>
 			),
@@ -46,16 +50,16 @@ const DashboardPhotoApprovalsItem = ({
 
 	const handleOpenModal = useCallback(() => {
 		setIsOpen(true);
-		open(modalContent);
+		setTimeout(() => open(modalContent), 0);
 	}, [open, modalContent]);
-	//
+
 	return (
 		<>
 			{loading ? (
 				<Skeleton height={"2rem"} />
 			) : (
 				<>
-					<li className="flex w-full justify-between items-center gap-4 !py-2 hover:bg-primary-alt rounded-md transition-colors duration-100 ease-in-out">
+					<li className="flex w-full justify-between items-center gap-4 !py-2 !px-4 hover:bg-primary-alt rounded-md transition-colors duration-100 ease-in-out">
 						<div className="flex gap-4 items-center">
 							<Thumbnail
 								imageUrl={publicUrl}
@@ -68,9 +72,9 @@ const DashboardPhotoApprovalsItem = ({
 						</div>
 						<div className="flex gap-4 md:gap-6 items-center">
 							<span className="text-text-muted truncate text-md font-lg max-w-[55px] md:max-w-[75px]">
-								{photo?.status}
+								{photoStatusToNo(photo?.status)}
 							</span>
-							<ApprovalButtons />
+							<ApprovalButtons photoId={photo?.photo_id ?? ""} onUpdate={onUpdate} />
 						</div>
 					</li>
 				</>
@@ -98,13 +102,58 @@ const Thumbnail = ({ imageUrl, caption, onClick }: ThumbnailProps) => (
 	</div>
 );
 
-const ApprovalButtons = () => (
-	<div className="flex gap-4 md:flex-row flex-col">
-		<Button variant="success" className="w-[80px]">
-			Godkjenn
-		</Button>
-		<Button variant="destructive" className="w-[80px]">
-			Avvis
-		</Button>
-	</div>
-);
+type ApprovalButtonsProps = {
+	photoId: string | null;
+	onUpdate: () => void;
+};
+
+const ApprovalButtons = ({ photoId, onUpdate }: ApprovalButtonsProps) => {
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+
+	const handleUpdateStatus = async (status: "approved" | "rejected") => {
+		try {
+			setLoading(true);
+			setError(null);
+
+			if (photoId === null) {
+				throw new Error("Kunne ikke hente bilde Id.");
+			}
+
+			const { error } = await supabase.from("photos").update({ status }).eq("photo_id", photoId);
+
+			if (error) {
+				throw new Error("Noe gikk feil, prøv igjen.");
+			}
+
+			onUpdate();
+		} catch (err: any) {
+			console.error(err?.message);
+			setError(err?.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	return (
+		<div className="flex gap-4 md:flex-row flex-col">
+			<Button
+				variant="success"
+				className="w-[80px]"
+				onClick={() => handleUpdateStatus("approved")}
+				disabled={loading}
+			>
+				{loading ? "prosesser..." : "Godkjenn"}
+			</Button>
+			<Button
+				variant="destructive"
+				className="w-[80px]"
+				onClick={() => handleUpdateStatus("rejected")}
+				disabled={loading}
+			>
+				{loading ? "prosesser..." : "Avvis"}
+			</Button>
+			{error && <p className="text-red-500 text-sm">{error}</p>}
+		</div>
+	);
+};

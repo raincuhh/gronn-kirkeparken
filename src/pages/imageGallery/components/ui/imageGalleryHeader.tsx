@@ -19,40 +19,27 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 	const { user } = useAuth();
 
 	const handleFormSubmit = async (file: File | null, caption: string) => {
-		setError(null);
-		setSuccess(null);
-		setLoading(true);
-
-		if (caption?.length > 120) {
-			setError("beskrivelsen må være maks 120 karakterer lang.");
-			setLoading(false);
-			return;
-		}
-
-		if (caption.length > 120) {
-			setError("Beskrivelsen må være maks 120 karakterer lang.");
-			setLoading(false);
-			return;
-		}
-
-		if (!file) {
-			setError("Du må velge en fil.");
-			setLoading(false);
-			return;
-		}
-
-		const {
-			data: { user },
-			error: userError,
-		} = await supabase.auth.getUser();
-
-		if (!user || userError) {
-			setError("Du må logge inn for å laste opp bilder.");
-			setLoading(false);
-			return;
-		}
-
 		try {
+			setError(null);
+			setSuccess(null);
+			setLoading(true);
+
+			if (caption?.length > 120) {
+				throw new Error("beskrivelsen må være maks 120 karakterer lang.");
+			}
+
+			if (!file) {
+				throw new Error("Du må velge en fil.");
+			}
+
+			const {
+				data: { user },
+				error: userError,
+			} = await supabase.auth.getUser();
+
+			if (!user || userError) {
+				throw new Error("Du må logge inn for å laste opp bilder.");
+			}
 			const file_url = await uploadImage(file, user.id);
 
 			const { error } = await supabase.from("photos").insert([
@@ -65,15 +52,17 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 			]);
 
 			if (error) {
-				throw error;
+				throw new Error("Noe gikk feil, prøv igjen.");
 			}
 
 			setSuccess("Bildet ble lastet opp!");
-		} catch (error) {
-			setError("Noe gikk galt under opplastingen.");
+		} catch (err: any) {
+			console.error(err?.message);
+			setError(err?.message);
 		} finally {
 			setLoading(false);
 			remove();
+			setSuccess(null);
 		}
 	};
 

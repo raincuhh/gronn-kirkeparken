@@ -7,6 +7,7 @@ import Button from "@/shared/components/ui/button";
 import DashboardProfileItem from "./dashboardProfileItem";
 import Skeleton from "react-loading-skeleton";
 import useAuth from "@/features/auth/hooks/useAuth";
+import { sqlTimestampToDateVTwo, timeAgo } from "@/shared/lib/utils";
 
 type DashboardProfileProps = {
 	currentPageHeader: CurrentPageHeader;
@@ -83,7 +84,17 @@ const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.J
 						<DashboardProfileItem title={"etternavn"} dataText={profile.last_name ?? ""} />
 						<DashboardProfileItem title={"e-post"} dataText={profile.email ?? ""} />
 						<DashboardProfileItem title={"rolle"} dataText={profile.role ?? ""} />
-						<DashboardProfileItem title={"opprettet"} dataText={profile.created_at ?? ""} />
+						<DashboardProfileItem
+							title={"opprettet"}
+							dataText={
+								profile?.created_at
+									? (() => {
+											const date = sqlTimestampToDateVTwo(profile.created_at);
+											return date ? date.toLocaleDateString() + " - " + timeAgo(date) : "";
+										})()
+									: ""
+							}
+						/>
 						<div
 							onClick={() => logout()}
 							className="font-lg text-lg text-text-accent mt-2 hover:text-text-accent-hover hover:underline cursor-pointer"

@@ -1,4 +1,4 @@
-import { User } from "../types/general";
+import { PhotoStatus, User } from "../types/general";
 
 export const uppercaseify = (str: string): string => {
 	let first: string = str.charAt(0);
@@ -67,19 +67,19 @@ export const timeAgo = (date: Date): string => {
 	const now = new Date();
 	const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-	if (diffInSeconds < 60) return `${diffInSeconds} sekund(er) siden`;
+	if (diffInSeconds < 60) return `${diffInSeconds} sekund${diffInSeconds === 1 ? "" : "er"} siden`;
 	const diffInMinutes = Math.floor(diffInSeconds / 60);
-	if (diffInMinutes < 60) return `${diffInMinutes} minutt(er) siden`;
+	if (diffInMinutes < 60) return `${diffInMinutes} minutt${diffInMinutes === 1 ? "" : "er"} siden`;
 	const diffInHours = Math.floor(diffInMinutes / 60);
-	if (diffInHours < 24) return `${diffInHours} time(r) siden`;
+	if (diffInHours < 24) return `${diffInHours} time${diffInHours === 1 ? "" : "r"} siden`;
 	const diffInDays = Math.floor(diffInHours / 24);
-	if (diffInDays < 7) return `${diffInDays} dag(er) siden`;
+	if (diffInDays < 7) return `${diffInDays} dag${diffInDays === 1 ? "" : "er"} siden`;
 	const diffInWeeks = Math.floor(diffInDays / 7);
-	if (diffInWeeks < 4) return `${diffInWeeks} uke(r) siden`;
+	if (diffInWeeks < 4) return `${diffInWeeks} uke${diffInWeeks === 1 ? "" : "r"} siden`;
 	const diffInMonths = Math.floor(diffInDays / 30);
-	if (diffInMonths < 12) return `${diffInMonths} måned(er) siden`;
+	if (diffInMonths < 12) return `${diffInMonths} måned${diffInMonths === 1 ? "" : "er"} siden`;
 	const diffInYears = Math.floor(diffInDays / 365);
-	return `${diffInYears} year(s) ago`;
+	return `${diffInYears} år siden`;
 };
 
 export const formatTextWithLineBreaks = (text: string): string => {
@@ -109,4 +109,14 @@ export const getRandomGradient = (): string => {
 
 export const isAdmin = (user: User | null) => {
 	return user?.role === "admin";
+};
+
+export const photoStatusToNo = (status: PhotoStatus) => {
+	const t: Record<PhotoStatus, string> = {
+		pending: "venter",
+		rejected: "avvist",
+		approved: "godkjent",
+	};
+
+	return t[status];
 };

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { CurrentPageHeader } from "../../types/type";
 import DashboardCurrentPageHeader from "./dashboardCurrentPageHeader";
-import { Photos } from "@/shared/types/general";
+import { Photos, PhotoStatus } from "@/shared/types/general";
 import { supabase } from "@/shared/lib/services";
 import RenderList from "@/shared/components/utils/renderList";
 import DashboardPhotoApprovalsItem from "./dashboardPhotoApprovalsItem";
@@ -17,7 +17,7 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 	const [photos, setPhotos] = useState<Photos[]>([]);
 	const [error, setError] = useState<string | null>(null);
 
-	const fetchPhotos = useCallback(async () => {
+	const fetchPendingPhotos = useCallback(async () => {
 		try {
 			setLoading(true);
 			setError(null);
@@ -28,7 +28,11 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 			}
 
 			const userId = sessionData.session.user.id;
-			const { data, error: photosError } = await supabase.from("photos").select("*").eq("user_id", userId);
+			const { data, error: photosError } = await supabase
+				.from("photos")
+				.select("*")
+				.eq("user_id", userId)
+				.eq("status", PhotoStatus.pending);
 
 			if (photosError) throw new Error("Kunne ikke laste inn bilder.");
 
@@ -43,8 +47,8 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 	}, []);
 
 	useEffect(() => {
-		fetchPhotos();
-	}, [fetchPhotos]);
+		fetchPendingPhotos();
+	}, [fetchPendingPhotos]);
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -63,7 +67,7 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 					<p className="text-lg">En feil oppstod</p>
 					<p className="font-xl text-2xl text-modifier-error">{error}</p>
 					<Button
-						onClick={fetchPhotos}
+						onClick={fetchPendingPhotos}
 						variant={"outline"}
 						size={"md"}
 						rounded={"full"}
@@ -77,7 +81,12 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 					<RenderList
 						data={photos}
 						render={(item: Photos, i: number) => (
-							<DashboardPhotoApprovalsItem photo={item} loading={loading} key={i} />
+							<DashboardPhotoApprovalsItem
+								photo={item}
+								loading={loading}
+								onUpdate={fetchPendingPhotos}
+								key={i}
+							/>
 						)}
 					/>
 				</ul>
