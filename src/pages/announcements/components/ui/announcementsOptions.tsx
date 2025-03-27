@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import SearchBar from "@/shared/components/ui/searchBar";
 import Button from "@/shared/components/ui/button";
 import { Modal } from "@/shared/types/modal";
