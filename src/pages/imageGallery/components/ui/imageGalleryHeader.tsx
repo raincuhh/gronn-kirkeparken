@@ -1,7 +1,7 @@
 import UploadIcon from "@/shared/components/icons/uploadIcon";
 import useModal from "@/shared/hooks/useModal";
 import { Modal } from "@/shared/types/modal";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import ImageUploadForm from "./imageUploadForm";
 import { uploadImage } from "@/shared/lib/storage";
@@ -14,9 +14,37 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 	const { open, remove } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const [error, setError] = useState<string | null>(null);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState<boolean>(false);
 	const [success, setSuccess] = useState<string | null>(null);
-	const { user } = useAuth();
+	const { session } = useAuth();
+	const [hasPendingPhoto, setHasPendingPhoto] = useState<boolean>(false);
+
+	const checkPendingPhotos = useCallback(async () => {
+		if (!session?.user) {
+			console.error("No session available.");
+			return;
+		}
+
+		const userId = session.user.id;
+		const { data: pendingPhotos, error } = await supabase
+			.from("photos")
+			.select("photo_id")
+			.eq("user_id", userId)
+			.eq("status", PhotoStatus.pending);
+
+		if (error) {
+			console.error("Error fetching pending photos:", error.message);
+			return;
+		}
+
+		setHasPendingPhoto(pendingPhotos.length > 0);
+	}, [session]);
+
+	useEffect(() => {
+		if (session) {
+			checkPendingPhotos();
+		}
+	}, [session, hasPendingPhoto]);
 
 	const handleFormSubmit = async (file: File | null, caption: string) => {
 		try {
@@ -24,27 +52,37 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 			setSuccess(null);
 			setLoading(true);
 
-			if (caption?.length > 120) {
-				throw new Error("beskrivelsen må være maks 120 karakterer lang.");
+			if (caption.length > 120) {
+				throw new Error("Beskrivelsen må være maks 120 karakterer lang.");
 			}
 
 			if (!file) {
 				throw new Error("Du må velge en fil.");
 			}
 
-			const {
-				data: { user },
-				error: userError,
-			} = await supabase.auth.getUser();
-
-			if (!user || userError) {
+			const { data: userData, error: userError } = await supabase.auth.getUser();
+			if (!userData || userError) {
 				throw new Error("Du må logge inn for å laste opp bilder.");
 			}
-			const file_url = await uploadImage(file, user.id);
 
+			const { data: pendingPhotos, error: pendingError } = await supabase
+				.from("photos")
+				.select("photo_id")
+				.eq("user_id", userData.user.id)
+				.eq("status", PhotoStatus.pending);
+
+			if (pendingError) {
+				throw new Error("Kunne ikke hente bilder, prøv igjen.");
+			}
+
+			if (pendingPhotos.length > 0) {
+				throw new Error("Du har allerede et bilde til gjennomgang. Vent til det er godkjent.");
+			}
+
+			const file_url = await uploadImage(file, userData.user.id);
 			const { error } = await supabase.from("photos").insert([
 				{
-					user_id: user.id,
+					user_id: userData.user.id,
 					img_url: file_url,
 					caption: caption || null,
 					status: PhotoStatus.pending,
@@ -52,10 +90,11 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 			]);
 
 			if (error) {
-				throw new Error("Noe gikk feil, prøv igjen.");
+				throw new Error("Noe gikk galt, prøv igjen.");
 			}
 
 			setSuccess("Bildet ble lastet opp!");
+			setHasPendingPhoto(true);
 		} catch (err: any) {
 			console.error(err?.message);
 			setError(err?.message);
@@ -76,6 +115,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 					success={success}
 					error={error}
 					setError={setError}
+					hasPendingPhoto={hasPendingPhoto}
 				/>
 			),
 			size: "custom",
@@ -90,7 +130,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 
 	const handleOpenModal = useCallback(() => {
 		open(modalContent);
-	}, [open, modalContent]);
+	}, [open, modalContent, hasPendingPhoto]);
 
 	return (
 		<header
@@ -108,7 +148,7 @@ const ImageGalleryHeader = (): React.JSX.Element => {
 						</p>
 					</div>
 					<div>
-						{!user ? (
+						{!session?.user ? (
 							<div className="flex gap-4">
 								<Button
 									variant={"base"}

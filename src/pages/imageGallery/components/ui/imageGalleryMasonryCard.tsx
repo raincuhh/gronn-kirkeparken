@@ -56,12 +56,7 @@ const ImageGalleryMasonryCard = ({ data, loading }: ImageGalleryMasonryCardProps
 	}, [open, modalContent]);
 
 	return (
-		<li
-			onClick={() => {
-				handleOpenModal();
-			}}
-			className="break-inside-avoid !mb-4 min-h-16"
-		>
+		<li onClick={handleOpenModal} className="break-inside-avoid !mb-4 min-h-16">
 			{loading || !imageSize ? (
 				<Skeleton
 					style={{

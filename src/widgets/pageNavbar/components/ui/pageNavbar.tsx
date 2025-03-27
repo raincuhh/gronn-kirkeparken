@@ -122,18 +122,16 @@ const PageNavbar = (): React.JSX.Element => {
 					<RenderList
 						data={navigationLinks}
 						render={(item: { title: string; href: string }, i: number) => (
-							<>
-								<Button
-									key={i}
-									variant="ghost"
-									size="lg"
-									href={item.href}
-									onClick={() => setIsOpen(false)}
-									className="flex justify-start !text-text-normal"
-								>
-									{item.title}
-								</Button>
-							</>
+							<Button
+								key={i}
+								variant="ghost"
+								size="lg"
+								href={item.href}
+								onClick={() => setIsOpen(false)}
+								className="flex justify-start !text-text-normal"
+							>
+								{item.title}
+							</Button>
 						)}
 					/>
 				</>
