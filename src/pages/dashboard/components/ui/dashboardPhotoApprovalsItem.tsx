@@ -22,7 +22,7 @@ const DashboardPhotoApprovalsItem = ({
 }: DashboardPhotoApprovalsItemProps): React.JSX.Element => {
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const publicUrl = useMemo(() => (photo?.img_url ? getPublicImageUrl(photo) : ""), [photo?.img_url]);
 

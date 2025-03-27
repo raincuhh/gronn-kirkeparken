@@ -22,16 +22,9 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 			setLoading(true);
 			setError(null);
 
-			const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-			if (sessionError || !sessionData.session?.user) {
-				throw new Error("Kunne ikke hente brukerøkten.");
-			}
-
-			const userId = sessionData.session.user.id;
 			const { data, error: photosError } = await supabase
 				.from("photos")
 				.select("*")
-				.eq("user_id", userId)
 				.eq("status", PhotoStatus.pending);
 
 			if (photosError) throw new Error("Kunne ikke laste inn bilder.");

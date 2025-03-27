@@ -1,9 +1,10 @@
 import { User } from "@/shared/types/general";
+import { Session } from "@supabase/supabase-js";
 import { createContext, useContext } from "react";
 
 type AuthContextProps = {
 	user: User | null;
-	session: string | null;
+	session: Session | null;
 	loading: boolean;
 	register: (email: string, password: string, first_name: string, last_name: string) => void;
 	login: (email: string, password: string) => void;

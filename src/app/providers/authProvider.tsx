@@ -2,12 +2,13 @@ import { useState, useEffect, PropsWithChildren, useMemo, useCallback } from "re
 import { supabase } from "@/shared/lib/services";
 import { User, UserRoles } from "@/shared/types/general";
 import { AuthContext } from "@/features/auth/hooks/useAuth";
+import { Session } from "@supabase/supabase-js";
 
 type AuthProviderProps = PropsWithChildren;
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
 	const [user, setUser] = useState<User | null>(null);
-	const [session, setSession] = useState<string | null>(null);
+	const [session, setSession] = useState<Session | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
@@ -34,7 +35,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 			}
 
 			setUser(data);
-			setSession(session.access_token);
+			setSession(session);
 			setLoading(false);
 		};
 
@@ -76,7 +77,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		if (error) throw error;
 
 		if (data.session) {
-			setSession(data.session.access_token);
+			setSession(data.session);
 		}
 	}, []);
 
