@@ -149,6 +149,9 @@ const DashboardPhotosList = ({
 	categorizedPhotos,
 	loading,
 }: DashboardPhotosListProps): React.JSX.Element => {
+	useEffect(() => {
+		console.log("hello world");
+	}, []);
 	return (
 		<div className="flex flex-col gap-2">
 			<header className="text-xl font-xl border-solid pb-2 mb-2 border-modifier-border-color border-b-[1px]">
