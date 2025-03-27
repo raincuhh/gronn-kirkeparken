@@ -7,11 +7,8 @@ import Button from "@/shared/components/ui/button";
 import Skeleton from "react-loading-skeleton";
 import useAuth from "@/features/auth/hooks/useAuth";
 import RenderList from "@/shared/components/utils/renderList";
-import useModal from "@/shared/hooks/useModal";
-import { useMediaQuery } from "react-responsive";
 import { getPublicImageUrl } from "@/shared/lib/storage";
-import { Modal } from "@/shared/types/modal";
-import { photoStatusToNo } from "@/shared/lib/utils";
+import Thumbnail from "@/shared/components/ui/thumbnail";
 
 type DashboardPhotosProps = {
 	currentPageHeader: CurrentPageHeader;
@@ -147,13 +144,17 @@ type DashboardPhotosListProps = {
 	loading: boolean;
 };
 
-const DashboardPhotosList = ({ header, categorizedPhotos, loading }: DashboardPhotosListProps) => {
+const DashboardPhotosList = ({
+	header,
+	categorizedPhotos,
+	loading,
+}: DashboardPhotosListProps): React.JSX.Element => {
 	return (
 		<div className="flex flex-col gap-2">
 			<header className="text-xl font-xl border-solid pb-2 mb-2 border-modifier-border-color border-b-[1px]">
 				{header}
 			</header>
-			<ul className="flex flex-col">
+			<ul className="columns-1 sm:columns-2 md:columns-3 gap-4">
 				<RenderList
 					data={categorizedPhotos}
 					render={(item: Photos, i: number) => (
@@ -170,82 +171,35 @@ type DashboardPhotoItemProps = {
 	loading: boolean;
 };
 
-const DashboardPhotoItem = ({ photo, loading }: DashboardPhotoItemProps) => {
-	const { open } = useModal();
-	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+const DashboardPhotoItem = ({ photo, loading }: DashboardPhotoItemProps): React.JSX.Element => {
+	const [imageSize, setImageSize] = useState<{ width: number; height: number } | null>(null);
 
 	const publicUrl = useMemo(() => (photo?.img_url ? getPublicImageUrl(photo) : ""), [photo?.img_url]);
 
 	useEffect(() => {
-		document.body.classList.toggle("overflow-hidden", isOpen);
-		return () => document.body.classList.remove("overflow-hidden");
-	}, [isOpen]);
+		if (!publicUrl) return;
 
-	const modalContent = useMemo<Modal>(
-		() => ({
-			id: "fullscreen-view",
-			content: (
-				<div className="flex flex-col gap-4 !px-2">
-					<img src={publicUrl} alt={photo?.caption ?? ""} className="object-cover max-h-[calc(80vh)]" />
-					<p className="text-lg text-rgb-full font-lg">{photo?.caption}</p>
-				</div>
-			),
-			size: "custom",
-			justify: "center",
-			className: "max-w-xl bg-transparent",
-			onClose: () => setIsOpen(false),
-		}),
-		[isOverMd]
-	);
-
-	const handleOpenModal = useCallback(() => {
-		setIsOpen(true);
-		setTimeout(() => open(modalContent), 0);
-	}, [open, modalContent]);
+		const img: HTMLImageElement = new Image();
+		img.src = publicUrl;
+		img.onload = () => setImageSize({ width: img.width, height: img.height });
+	}, [publicUrl]);
 
 	return (
-		<>
+		<li className="break-inside-avoid !mb-4 min-h-16">
 			{loading ? (
-				<Skeleton height={"2rem"} />
+				<Skeleton
+					style={{
+						width: "100%",
+						height: imageSize ? `${imageSize.height}px` : "200px",
+					}}
+				/>
 			) : (
 				<>
-					<li className="flex w-full justify-between items-center gap-4 !py-2 !px-4 hover:bg-primary-alt rounded-md transition-colors duration-100 ease-in-out">
-						<div className="flex gap-4 items-center">
-							<Thumbnail
-								imageUrl={publicUrl}
-								caption={photo?.caption ?? ""}
-								onClick={handleOpenModal}
-							/>
-							<p className="max-w-[100px] whitespace-nowrap overflow-hidden text-ellipsis hidden font-lg text-md lg:block">
-								{photo?.caption}
-							</p>
-						</div>
-						<div className="flex gap-4 md:gap-6 items-center">
-							<span className="text-text-muted truncate text-md font-lg max-w-[55px] md:max-w-[75px]">
-								{photoStatusToNo(photo?.status)}
-							</span>
-						</div>
-					</li>
+					<div className="flex flex-col hover:bg-primary-alt transition-colors duration-100 ease-in-out">
+						<Thumbnail photo={photo} caption={photo.caption ?? ""} />
+					</div>
 				</>
 			)}
-		</>
+		</li>
 	);
 };
-
-type ThumbnailProps = {
-	imageUrl: string;
-	caption?: string;
-	onClick: () => void;
-};
-
-const Thumbnail = ({ imageUrl, caption, onClick }: ThumbnailProps) => (
-	<div className="relative group cursor-pointer" onClick={onClick}>
-		<div className="w-32 h-16 overflow-hidden rounded-md">
-			<img src={imageUrl} alt={caption ?? ""} className="w-full h-full object-cover" />
-		</div>
-		<div className="absolute inset-0 bg-modal-overlay rounded-md bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-rgb-full text-md transition-opacity">
-			Se full
-		</div>
-	</div>
-);

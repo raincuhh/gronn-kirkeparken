@@ -143,7 +143,7 @@ const ApprovalButtons = ({ photoId, onUpdate }: ApprovalButtonsProps) => {
 				onClick={() => handleUpdateStatus("approved")}
 				disabled={loading}
 			>
-				{loading ? "prosesser..." : "Godkjenn"}
+				{loading ? "vent..." : "Godkjenn"}
 			</Button>
 			<Button
 				variant="destructive"
@@ -151,7 +151,7 @@ const ApprovalButtons = ({ photoId, onUpdate }: ApprovalButtonsProps) => {
 				onClick={() => handleUpdateStatus("rejected")}
 				disabled={loading}
 			>
-				{loading ? "prosesser..." : "Avvis"}
+				{loading ? "vent..." : "Avvis"}
 			</Button>
 			{error && <p className="text-red-500 text-sm">{error}</p>}
 		</div>

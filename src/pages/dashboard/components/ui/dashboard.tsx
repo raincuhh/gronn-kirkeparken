@@ -13,7 +13,7 @@ type PageHeader = {
 
 const pageData: Record<string, PageHeader> = {
 	"/dashboard": { title: "Profil", desc: "Endre forskjellige profil instillinger." },
-	"/dashboard/photos": { title: "Lagt ut bilder", desc: "Se dine ventende bilder." },
+	"/dashboard/photos": { title: "Lagt ut bilder", desc: "Se dine lagt ut bilder." },
 	"/dashboard/photo-approvals": { title: "Godkjenn bilder", desc: "Godkjenn bilde innlegg." },
 	"/dashboard/announcements": {
 		title: "Kunngjøringer",
