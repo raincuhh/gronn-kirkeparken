@@ -13,7 +13,7 @@ type DashboardPhotoApprovalsProps = {
 };
 
 const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsProps): React.JSX.Element => {
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState<boolean>(true);
 	const [photos, setPhotos] = useState<Photos[]>([]);
 	const [error, setError] = useState<string | null>(null);
 
@@ -47,7 +47,7 @@ const DashboardPhotoApprovals = ({ currentPageHeader }: DashboardPhotoApprovalsP
 		<div className="flex flex-col gap-4">
 			<DashboardCurrentPageHeader title={currentPageHeader.title} desc={currentPageHeader.desc} />
 			{loading ? (
-				<div className="flex w-full flex-col gap-4 mt-4">
+				<div className="flex w-full flex-col gap-4">
 					<Skeleton height={"2rem"} />
 					<Skeleton height={"2rem"} />
 					<Skeleton height={"2rem"} />

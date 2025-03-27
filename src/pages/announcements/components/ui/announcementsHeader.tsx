@@ -1,8 +1,8 @@
-import DottedHorizontalRoundedIcon from "@/shared/components/icons/dottedHorizontalRoundedIcon";
+// import DottedHorizontalRoundedIcon from "@/shared/components/icons/dottedHorizontalRoundedIcon";
 import React from "react";
 
 const AnnouncementsHeader = (): React.JSX.Element => {
-	const admin = true;
+	// const admin = true;
 
 	return (
 		<header
@@ -18,11 +18,11 @@ const AnnouncementsHeader = (): React.JSX.Element => {
 						</p>
 					</div>
 					<div>
-						{admin ? (
+						{/* {admin ? (
 							<div className="p-1 flex justify-center items-center rounded-md border-solid border-[1px] border-modifier-border-color hover:bg-primary-alt transition-colors duration-100 ease-in-out cursor-default">
 								<DottedHorizontalRoundedIcon />
 							</div>
-						) : null}
+						) : null} */}
 					</div>
 				</div>
 			</div>

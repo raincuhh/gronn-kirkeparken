@@ -29,7 +29,7 @@ const Dashboard = (): React.JSX.Element => {
 		<div id="dashboard" className="md:px-16 px-4 flex w-full mt-16 max-w-[1140px] mx-auto items-center">
 			<div className="mt-16 flex flex-col sm:flex-row justify-between w-full">
 				<DashboardNavigationMenu />
-				<div className="sm:min-w-[70%] md:min-w-[65%] pt-4 sm:pt-0 sm:pl-4 flex flex-col ">
+				<div className="min-w-[70%] pt-4 sm:pt-0 sm:pl-4 flex flex-col ">
 					{location.pathname === "/dashboard" ? (
 						<DashboardProfile currentPageHeader={currentPage} />
 					) : location.pathname === "/dashboard/photos" ? (

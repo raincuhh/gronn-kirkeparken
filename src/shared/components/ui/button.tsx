@@ -18,7 +18,7 @@ const buttonVariants = cva(
 				ghost: "bg-transparent hover:bg-interactive-base hover:!text-base-00",
 				outline:
 					"bg-transparent !text-text-normal hover:bg-base-10 hover:border-base-20 border-solid border-[1px] border-modifier-border-color",
-				link: "underline !text-text-accent hover:text-text-accent-hover cursor-pointer",
+				link: "!underline !text-text-normal hover:!text-text-accent cursor-pointer",
 			},
 			size: {
 				sm: "py-1 px-2 text-fs-sm",
@@ -52,7 +52,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		if (href) {
 			return (
 				<>
-					<Link to={href} className={clsx(classes, "!text-base-05")}>
+					<Link
+						to={href}
+						className={clsx(classes, "text-text-normal")}
+						{...(props as Omit<ButtonProps, keyof ButtonHTMLAttributes<HTMLButtonElement>>)}
+					>
 						{text || children}
 					</Link>
 				</>

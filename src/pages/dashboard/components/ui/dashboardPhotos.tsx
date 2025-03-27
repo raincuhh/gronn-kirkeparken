@@ -79,7 +79,7 @@ const DashboardPhotos = ({ currentPageHeader }: DashboardPhotosProps): React.JSX
 		<div className="flex flex-col gap-4">
 			<DashboardCurrentPageHeader title={currentPageHeader.title} desc={currentPageHeader.desc} />
 			{loading ? (
-				<div className="flex w-full flex-col gap-4 mt-4">
+				<div className="flex w-full flex-col gap-4">
 					<Skeleton height={"2rem"} />
 					<Skeleton height={"2rem"} />
 					<Skeleton height={"2rem"} />
@@ -149,9 +149,6 @@ const DashboardPhotosList = ({
 	categorizedPhotos,
 	loading,
 }: DashboardPhotosListProps): React.JSX.Element => {
-	useEffect(() => {
-		console.log("hello world");
-	}, []);
 	return (
 		<div className="flex flex-col gap-2">
 			<header className="text-xl font-xl border-solid pb-2 mb-2 border-modifier-border-color border-b-[1px]">

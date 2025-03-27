@@ -10,8 +10,8 @@ import AnnouncementPreviewCard from "@/shared/components/ui/announcementPreviewC
 import clsx from "clsx";
 
 const AnnouncementsList = (): React.JSX.Element => {
-	const [announcementsData, setAnnouncementsData] = useState<any[]>([]);
-	const [announcementsError, setAnnouncementsError] = useState<any>(null);
+	const [announcements, setAnnouncements] = useState<any[]>([]);
+	const [error, setError] = useState<any>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	// const gridSize = isOverMd ? 8 * 1 : 8 * 1;
@@ -22,52 +22,55 @@ const AnnouncementsList = (): React.JSX.Element => {
 	const to = 12;
 
 	const fetchAnnouncements = useCallback(async () => {
-		setLoading(true);
-		setAnnouncementsError(null);
+		try {
+			setLoading(true);
+			setError(null);
 
-		const { data, error } = await supabase
-			.from("announcements")
-			.select("title, preview_text, created_at, announcement_id, user_id")
-			.order("created_at", { ascending: false })
-			.range(from, to);
+			const { data, error: announcementError } = await supabase
+				.from("announcements")
+				.select("title, preview_text, created_at, announcement_id, user_id")
+				.order("created_at", { ascending: false })
+				.range(from, to);
 
-		if (error) {
-			console.error("Error fetching announcements:", error);
-			setAnnouncementsError("Kunne ikke laste inn kunngjøringer.");
-			setAnnouncementsData([]);
+			if (announcementError) {
+				throw new Error("Kunne ikke laste inn kunngjøringer.");
+			}
+
+			if (!data || data.length === 0) {
+				setAnnouncements([]);
+				setLoading(false);
+				return;
+			}
+
+			const fetchAuthors = async (announcements: Announcement[]) => {
+				const updatedAnnouncements = await Promise.all(
+					announcements.map(async (announcement) => {
+						if (!announcement?.user_id) return { ...announcement, author: { first_name: "Unknown" } };
+
+						const { data: author, error } = await supabase
+							.from("profiles")
+							.select("first_name, last_name")
+							.eq("user_id", announcement.user_id)
+							.maybeSingle();
+
+						if (error) {
+							console.error("Error fetching author: ", error);
+						}
+						return { ...announcement, author };
+					})
+				);
+
+				setAnnouncements(updatedAnnouncements);
+			};
+
+			fetchAuthors(data);
+		} catch (err: any) {
+			console.error(err?.message);
+			setError(err?.message);
+			setAnnouncements([]);
+		} finally {
 			setLoading(false);
-			return;
 		}
-
-		if (!data || data.length === 0) {
-			setAnnouncementsData([]);
-			setLoading(false);
-			return;
-		}
-
-		const fetchAuthors = async (announcements: Announcement[]) => {
-			const updatedAnnouncements = await Promise.all(
-				announcements.map(async (announcement) => {
-					if (!announcement?.user_id) return { ...announcement, author: { first_name: "Unknown" } };
-
-					const { data: author, error } = await supabase
-						.from("profiles")
-						.select("first_name, last_name")
-						.eq("user_id", announcement.user_id)
-						.maybeSingle();
-
-					if (error) {
-						console.error("Error fetching author: ", error);
-					}
-					return { ...announcement, author };
-				})
-			);
-
-			setAnnouncementsData(updatedAnnouncements);
-			setLoading(false);
-		};
-
-		fetchAuthors(data);
 	}, []);
 
 	useEffect(() => {
@@ -75,10 +78,10 @@ const AnnouncementsList = (): React.JSX.Element => {
 	}, [fetchAnnouncements]);
 
 	const filteredAnnouncements = useMemo(() => {
-		return announcementsData.filter((announcement: Announcement) =>
+		return announcements.filter((announcement: Announcement) =>
 			announcement.title?.toLowerCase().includes(searchQuery.toLowerCase())
 		);
-	}, [announcementsData, searchQuery]);
+	}, [announcements, searchQuery]);
 
 	return (
 		<div
@@ -95,10 +98,10 @@ const AnnouncementsList = (): React.JSX.Element => {
 							<Skeleton width={"100%"} height={"16rem"} />
 							<Skeleton width={"100%"} height={"16rem"} />
 						</div>
-					) : announcementsError ? (
+					) : error ? (
 						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center flex-col gap-4">
 							<p className="text-lg">En feil oppstod</p>
-							<p className="font-xl text-2xl text-modifier-error">{announcementsError}</p>
+							<p className="font-xl text-2xl text-modifier-error">{error}</p>
 							<Button
 								onClick={fetchAnnouncements}
 								variant={"outline"}
@@ -128,7 +131,7 @@ const AnnouncementsList = (): React.JSX.Element => {
 							/>
 						</ul>
 					) : (
-						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-b border-x flex items-center justify-center">
+						<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-y rounded-md border-x flex items-center justify-center">
 							<p className="font-xl text-2xl">Ingen kunngjøringer funnet</p>
 						</div>
 					)}

@@ -52,10 +52,10 @@ const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.J
 	}, [fetchProfile]);
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col gap-4">
 			<DashboardCurrentPageHeader title={currentPageHeader.title} desc={currentPageHeader.desc} />
 			{loading ? (
-				<div className="flex w-full flex-col gap-4 mt-4">
+				<div className="flex w-full flex-col gap-4">
 					<Skeleton height={"3rem"} />
 					<Skeleton height={"3rem"} />
 					<Skeleton height={"3rem"} />

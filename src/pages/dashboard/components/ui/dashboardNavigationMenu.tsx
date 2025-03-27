@@ -32,7 +32,7 @@ const DashboardNavigationMenu = (): React.JSX.Element => {
 	const { user } = useAuth();
 
 	return (
-		<div className="sm:min-w-[30%] md:min-w-[35%] w-full flex flex-col">
+		<div className="min-w-[30%] w-full flex flex-col">
 			<ul className="flex flex-col gap-1">
 				<RenderList
 					data={userNavData}

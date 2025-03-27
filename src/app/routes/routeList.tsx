@@ -97,6 +97,12 @@ const RouteList: RouteListProps[] = [
 		element: <DashboardPage />,
 		type: RouteTypes.private,
 	},
+	{
+		id: "announcement-new",
+		url: "/dashboard/announcements/new",
+		element: <DashboardPage />,
+		type: RouteTypes.private,
+	},
 ];
 
 export default RouteList;
