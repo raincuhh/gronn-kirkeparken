@@ -157,7 +157,7 @@ const DashboardPhotosList = ({ header, categorizedPhotos, loading }: DashboardPh
 				<RenderList
 					data={categorizedPhotos}
 					render={(item: Photos, i: number) => (
-						<DashboardPhotoItem photo={item} key={i} loading={loading} />
+						<DashboardPhotosItem photo={item} key={i} loading={loading} />
 					)}
 				/>
 			</ul>
@@ -170,7 +170,7 @@ type DashboardPhotoItemProps = {
 	loading: boolean;
 };
 
-const DashboardPhotoItem = ({ photo, loading }: DashboardPhotoItemProps) => {
+const DashboardPhotosItem = ({ photo, loading }: DashboardPhotoItemProps) => {
 	const { open } = useModal();
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 	const [isOpen, setIsOpen] = useState<boolean>(false);
