@@ -55,11 +55,13 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 				throw new Error("Kunne ikke slette kunngjøringen.");
 			}
 
-			// setAnnouncements((prev) => prev.filter((announcement) => announcement.announcement_id !== id));
+			// setAnnouncements((prev) =>
+			// 	prev.filter((announcement: Announcement) => announcement.announcement_id !== id)
+			// );
+
 			fetchAnnouncements();
 		} catch (err: any) {
 			console.error(err?.message);
-			alert("En feil oppstod under sletting av kunngjøringen.");
 		}
 	}, []);
 
@@ -76,6 +78,7 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 				searchQuery={searchQuery}
 				setSearchQuery={setSearchQuery}
 				showNewAnnouncementButton={true}
+				onNewAnnouncement={fetchAnnouncements}
 			/>
 			{loading ? (
 				<div className="flex flex-col gap-4">

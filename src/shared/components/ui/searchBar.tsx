@@ -11,8 +11,8 @@ const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps): React.JSX.E
 	return (
 		<div className="relative group">
 			<Input
-				className="w-72 group-hover:bg-secondary"
-				placeholder="Søk kunngjøringer ..."
+				className="sm:w-72 group-hover:bg-secondary"
+				placeholder="Søk kunngjøringer..."
 				value={searchQuery}
 				onChange={(e) => setSearchQuery(e.target.value)}
 			/>

@@ -11,12 +11,14 @@ type AnnouncementsOptionsProps = {
 	searchQuery: string;
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 	showNewAnnouncementButton?: boolean;
+	onNewAnnouncement?: () => void;
 };
 
 const AnnouncementsOptions = ({
 	searchQuery,
 	setSearchQuery,
 	showNewAnnouncementButton = false,
+	onNewAnnouncement,
 }: AnnouncementsOptionsProps): React.JSX.Element => {
 	const { open, remove } = useModal();
 	const [error, setError] = useState<string | null>(null);
@@ -41,6 +43,7 @@ const AnnouncementsOptions = ({
 				throw new Error("Kunne ikke opprette kunngjøring. Prøv igjen.");
 			}
 
+			if (onNewAnnouncement) onNewAnnouncement();
 			setSuccess("Kunngjøring opprettet!");
 		} catch (err: any) {
 			console.error(err.message);
@@ -80,11 +83,11 @@ const AnnouncementsOptions = ({
 	return (
 		<div className="flex justify-between w-full items-center">
 			<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-			{showNewAnnouncementButton && (
+			{showNewAnnouncementButton ? (
 				<Button variant={"base"} onClick={handleOpenModal}>
 					Ny kunngjøring
 				</Button>
-			)}
+			) : null}
 		</div>
 	);
 };
