@@ -45,14 +45,16 @@ const NewAnnouncementForm = ({ onSubmit, loading, error, setError, success }: Ne
 						/>
 					</div>
 					<div className="mb-8 flex flex-col gap-2">
-						<h2>Innhold</h2>
+						<div className="flex w-full justify-between">
+							<h2>Innhold</h2>
+							<span>Er Markdown*</span>
+						</div>
 						<textarea
-							className="w-full rounded-md bg-primary-alt p-2"
+							className="w-full rounded-md bg-primary-alt px-4 py-2 border-solid border-modifier-border-color border"
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
-							maxLength={500}
-							rows={5}
-							placeholder="Skriv inn innhold (maks 500 tegn)"
+							rows={6}
+							placeholder="Skriv inn innhold"
 						/>
 					</div>
 					<Button

@@ -47,6 +47,22 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 		fetchAnnouncements();
 	}, [fetchAnnouncements]);
 
+	const handleDeleteAnnouncement = useCallback(async (id: string) => {
+		try {
+			const { error } = await supabase.from("announcements").delete().eq("announcement_id", id);
+
+			if (error) {
+				throw new Error("Kunne ikke slette kunngjøringen.");
+			}
+
+			// setAnnouncements((prev) => prev.filter((announcement) => announcement.announcement_id !== id));
+			fetchAnnouncements();
+		} catch (err: any) {
+			console.error(err?.message);
+			alert("En feil oppstod under sletting av kunngjøringen.");
+		}
+	}, []);
+
 	const filteredAnnouncements = useMemo(() => {
 		return announcements.filter((announcement: Announcement) =>
 			announcement.title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -90,7 +106,11 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 						<RenderList
 							data={filteredAnnouncements}
 							render={(item: Announcement, i: number) => (
-								<DashboardAnnouncementsItem key={i} announcement={item} />
+								<DashboardAnnouncementsItem
+									key={i}
+									announcement={item}
+									onDelete={handleDeleteAnnouncement}
+								/>
 							)}
 						/>
 					</ul>
@@ -108,9 +128,10 @@ export default DashboardAnnouncements;
 
 type DashboardAnnouncementsItemProps = {
 	announcement: Announcement;
+	onDelete: (id: string) => void;
 };
 
-const DashboardAnnouncementsItem = ({ announcement }: DashboardAnnouncementsItemProps) => {
+const DashboardAnnouncementsItem = ({ announcement, onDelete }: DashboardAnnouncementsItemProps) => {
 	return (
 		<li className="list-none">
 			<div className="w-full h-full cursor-pointer group transition-all duration-100 ease-in-out">
@@ -119,7 +140,7 @@ const DashboardAnnouncementsItem = ({ announcement }: DashboardAnnouncementsItem
 						<div className="truncate md:max-w-[50%] sm:max-w-[40%] max-w-[25%]">
 							{announcement.title}
 						</div>
-						<DashboardAnnouncementsItemOptions announcement={announcement} />
+						<DashboardAnnouncementsItemOptions announcement={announcement} onDelete={onDelete} />
 					</div>
 				</div>
 			</div>
@@ -129,9 +150,13 @@ const DashboardAnnouncementsItem = ({ announcement }: DashboardAnnouncementsItem
 
 type DashboardAnnouncementsItemOptionsProps = {
 	announcement: Announcement;
+	onDelete: (id: string) => void;
 };
 
-const DashboardAnnouncementsItemOptions = ({ announcement }: DashboardAnnouncementsItemOptionsProps) => {
+const DashboardAnnouncementsItemOptions = ({
+	announcement,
+	onDelete,
+}: DashboardAnnouncementsItemOptionsProps) => {
 	return (
 		<div className="flex">
 			<div className="flex items-center">
@@ -148,7 +173,9 @@ const DashboardAnnouncementsItemOptions = ({ announcement }: DashboardAnnounceme
 				<div className="border-solid border-r-[1px] border-modifier-border-color mr-4">
 					<Button variant={"link"}>Rediger</Button>
 				</div>
-				<Button variant={"destructive"}>Slett</Button>
+				<Button variant={"destructive"} onClick={() => onDelete(announcement?.announcement_id ?? "")}>
+					Slett
+				</Button>
 			</div>
 		</div>
 	);

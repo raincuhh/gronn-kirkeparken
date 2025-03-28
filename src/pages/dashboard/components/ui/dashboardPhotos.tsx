@@ -19,7 +19,6 @@ const DashboardPhotos = ({ currentPageHeader }: DashboardPhotosProps): React.JSX
 	const [photos, setPhotos] = useState<Photos[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const { session } = useAuth();
-
 	const [loadingSession, setLoadingSession] = useState(true);
 
 	useEffect(() => {
@@ -126,11 +125,9 @@ const DashboardPhotos = ({ currentPageHeader }: DashboardPhotosProps): React.JSX
 					) : null}
 				</div>
 			) : (
-				<>
-					<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-y border-x flex items-center justify-center">
-						<p className="font-xl text-2xl">Ingen bilder funnet.</p>
-					</div>
-				</>
+				<div className="w-full min-h-[20rem] border-solid border-modifier-border-color border-y border-x flex items-center justify-center">
+					<p className="font-xl text-2xl">Ingen bilder funnet.</p>
+				</div>
 			)}
 		</div>
 	);

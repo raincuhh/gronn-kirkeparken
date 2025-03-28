@@ -26,7 +26,7 @@ const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.J
 
 			const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 			if (sessionError || !sessionData.session?.user) {
-				throw new Error("Kunne ikke laste inn brukerøkten");
+				throw new Error("Kunne ikke laste inn brukerøkten.");
 			}
 
 			const user = sessionData.session.user;
@@ -36,7 +36,7 @@ const DashboardProfile = ({ currentPageHeader }: DashboardProfileProps): React.J
 				.eq("user_id", user.id)
 				.maybeSingle();
 
-			if (profileError) throw new Error("Kunne ikke laste inn profil");
+			if (profileError) throw new Error("Kunne ikke laste inn profil.");
 			setProfile(data ? { ...data, email: user.email } : null);
 		} catch (err: any) {
 			console.error(err);
