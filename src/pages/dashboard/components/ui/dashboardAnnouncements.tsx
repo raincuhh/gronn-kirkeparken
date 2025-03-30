@@ -55,10 +55,6 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 				throw new Error("Kunne ikke slette kunngjøringen.");
 			}
 
-			// setAnnouncements((prev) =>
-			// 	prev.filter((announcement: Announcement) => announcement.announcement_id !== id)
-			// );
-
 			fetchAnnouncements();
 		} catch (err: any) {
 			console.error(err?.message);
