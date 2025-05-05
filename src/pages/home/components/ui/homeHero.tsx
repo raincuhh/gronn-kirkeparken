@@ -2,6 +2,7 @@ import Button from "@/shared/components/ui/button";
 import React from "react";
 import HomeHorizontalBannerScroll from "./homeHorizontalBannerScroll";
 import LinkExternalIcon from "@/shared/components/icons/linkExternalIcon";
+import EnvironmentalDate from "./homeSpecialEnvironmentDate";
 
 const HomeHero = (): React.JSX.Element => {
 	return (
@@ -10,6 +11,7 @@ const HomeHero = (): React.JSX.Element => {
 			className="relative min-h-[calc(100dvh-6rem)] pt-24 md:pt-48 overflow-hidden w-full flex flex-col justify-center items-center bg-[url('/assets/images/gradientBakgrunnHero.svg')] bg-cover bg-[30%] md:bg-[-10%]"
 		>
 			<div className="px-4 pt-4 mb-16 flex flex-col justify-center items-center">
+				<EnvironmentalDate />
 				<header className="md:text-3xl lg:text-4xl text-2xl font-xl text-center mb-4">
 					Grønt skifte på Kirkeparken VGS
 				</header>
@@ -18,9 +20,11 @@ const HomeHero = (): React.JSX.Element => {
 					initiativer, bidra med ideer, og følg miljøarbeidet vårt - sammen gjør vi en forskjell!
 				</p>
 				<div className="flex gap-4 mt-8 font-lg">
-					<Button rounded={"full"} size={"md"} className="font-xl">
-						om oss
-					</Button>
+					<a href="#about-us">
+						<Button rounded="full" size="md" className="font-xl">
+							om oss
+						</Button>
+					</a>
 					<Button
 						rounded={"full"}
 						size={"md"}
@@ -39,6 +43,7 @@ const HomeHero = (): React.JSX.Element => {
 					Kirkeparken VGS er en miljøbevisst skole som fremmer bærekraft, engasjement og grønn utvikling.
 				</p>
 			</div>
+
 			<HomeHorizontalBannerScroll speed={10000} />
 		</div>
 	);
