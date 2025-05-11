@@ -4,7 +4,7 @@ import Button from "@/shared/components/ui/button";
 import useAuth from "@/features/auth/hooks/useAuth";
 
 type NewAnnouncementFormProps = {
-	onSubmit: (title: string, content: string) => void;
+	onSubmit: (title: string, content: string, userId: string) => void;
 	loading: boolean;
 	error: string | null;
 	setError: (error: string | null) => void;
@@ -24,7 +24,9 @@ const NewAnnouncementForm = ({ onSubmit, loading, error, setError, success }: Ne
 			return;
 		}
 
-		onSubmit(title, content);
+		const userId = session.user.id;
+
+		onSubmit(title, content, userId);
 	};
 	return (
 		<div className="flex flex-col min-w-92 lg:min-w-112 min-h-128 relative h-full">

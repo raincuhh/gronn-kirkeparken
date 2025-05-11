@@ -34,6 +34,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 				return;
 			}
 
+			// console.log("authprovider data: ", data);
+
 			setUser(data);
 			setSession(session);
 			setLoading(false);

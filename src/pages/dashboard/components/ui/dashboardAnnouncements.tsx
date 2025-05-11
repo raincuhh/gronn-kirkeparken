@@ -8,6 +8,10 @@ import Button from "@/shared/components/ui/button";
 import RenderList from "@/shared/components/utils/renderList";
 import { lowercaseifySentences, sanitizeAndHyphenate } from "@/shared/lib/utils";
 import AnnouncementsOptions from "@/pages/announcements/components/ui/announcementsOptions";
+import useModal from "@/shared/hooks/useModal";
+import { useMediaQuery } from "react-responsive";
+import EditAnnouncementForm from "./editAnnouncementForm";
+import { Modal } from "@/shared/types/modal";
 
 type DashboardAnnouncementsProps = {
 	currentPageHeader: CurrentPageHeader;
@@ -19,6 +23,12 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 	const [error, setError] = useState<string | null>(null);
 	const [searchQuery, setSearchQuery] = useState<string>("");
 
+	const [editLoading, setEditLoading] = useState(false);
+	const [editError, setEditError] = useState<string | null>(null);
+	const [editSuccess, setEditSuccess] = useState<string | null>(null);
+	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
+	const { open, remove } = useModal();
+
 	const fetchAnnouncements = useCallback(async () => {
 		try {
 			setLoading(true);
@@ -26,13 +36,13 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 
 			const { data, error: announcementError } = await supabase
 				.from("announcements")
-				.select("title, preview_text, created_at, announcement_id, user_id")
+				.select("*")
 				.order("created_at", { ascending: false });
 
 			if (announcementError) {
 				throw new Error("Kunne ikke laste inn kunngjøringer.");
 			}
-
+			// console.log(data);
 			setAnnouncements(data);
 		} catch (err: any) {
 			console.error(err?.message);
@@ -60,6 +70,63 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 			console.error(err?.message);
 		}
 	}, []);
+
+	const handleEditAnnouncement = useCallback(
+		(announcement: Announcement) => {
+			const onSubmit = async (title: string, content: string) => {
+				// console.log("clicking handle edit announcement");
+				// console.log("Updated data before supabase update:", { title, content });
+
+				try {
+					setEditLoading(true);
+					setEditError(null);
+					setEditSuccess(null);
+					// console.log("before supabase update data: ", title, content);
+
+					const { error: updateError } = await supabase
+						.from("announcements")
+						.update({ title, content })
+						.eq("announcement_id", announcement.announcement_id);
+
+					// console.log("Update result:", data);
+
+					if (updateError) throw new Error("Kunne ikke oppdatere kunngjøring.");
+
+					setEditSuccess("Kunngjøring oppdatert!");
+					fetchAnnouncements();
+					remove();
+				} catch (err: any) {
+					setEditError(err.message);
+				} finally {
+					setEditLoading(false);
+				}
+			};
+
+			const modalContent: Modal = {
+				id: "edit-announcement",
+				content: (
+					<EditAnnouncementForm
+						initialTitle={announcement.title ?? ""}
+						initialContent={announcement.content || ""}
+						onSubmit={onSubmit}
+						loading={editLoading}
+						error={editError}
+						setError={setEditError}
+						success={editSuccess}
+					/>
+				),
+				size: "custom",
+				justify: isOverMd ? "right" : "center",
+				align: isOverMd ? "right" : "bottom",
+				className: isOverMd
+					? "h-full border-l rounded-tl-md rounded-bl-md"
+					: "w-full border-t rounded-tl-md rounded-tr-md",
+			};
+
+			open(modalContent);
+		},
+		[fetchAnnouncements, isOverMd, open, remove, editLoading, editError, editSuccess]
+	);
 
 	const filteredAnnouncements = useMemo(() => {
 		return announcements.filter((announcement: Announcement) =>
@@ -109,6 +176,7 @@ const DashboardAnnouncements = ({ currentPageHeader }: DashboardAnnouncementsPro
 									key={i}
 									announcement={item}
 									onDelete={handleDeleteAnnouncement}
+									onEdit={handleEditAnnouncement}
 								/>
 							)}
 						/>
@@ -128,9 +196,10 @@ export default DashboardAnnouncements;
 type DashboardAnnouncementsItemProps = {
 	announcement: Announcement;
 	onDelete: (id: string) => void;
+	onEdit: (announcement: Announcement) => void;
 };
 
-const DashboardAnnouncementsItem = ({ announcement, onDelete }: DashboardAnnouncementsItemProps) => {
+const DashboardAnnouncementsItem = ({ announcement, onDelete, onEdit }: DashboardAnnouncementsItemProps) => {
 	return (
 		<li className="list-none">
 			<div className="w-full h-full cursor-pointer group transition-all duration-100 ease-in-out">
@@ -139,7 +208,11 @@ const DashboardAnnouncementsItem = ({ announcement, onDelete }: DashboardAnnounc
 						<div className="truncate md:max-w-[50%] sm:max-w-[40%] max-w-[25%]">
 							{announcement.title}
 						</div>
-						<DashboardAnnouncementsItemOptions announcement={announcement} onDelete={onDelete} />
+						<DashboardAnnouncementsItemOptions
+							announcement={announcement}
+							onDelete={onDelete}
+							onEdit={onEdit}
+						/>
 					</div>
 				</div>
 			</div>
@@ -150,11 +223,13 @@ const DashboardAnnouncementsItem = ({ announcement, onDelete }: DashboardAnnounc
 type DashboardAnnouncementsItemOptionsProps = {
 	announcement: Announcement;
 	onDelete: (id: string) => void;
+	onEdit: (announcement: Announcement) => void;
 };
 
 const DashboardAnnouncementsItemOptions = ({
 	announcement,
 	onDelete,
+	onEdit,
 }: DashboardAnnouncementsItemOptionsProps) => {
 	return (
 		<div className="flex">
@@ -170,7 +245,9 @@ const DashboardAnnouncementsItemOptions = ({
 					</Button>
 				</div>
 				<div className="border-solid border-r-[1px] border-modifier-border-color mr-4">
-					<Button variant={"link"}>Rediger</Button>
+					<Button variant={"link"} onClick={() => onEdit(announcement)}>
+						Rediger
+					</Button>
 				</div>
 				<Button variant={"destructive"} onClick={() => onDelete(announcement?.announcement_id ?? "")}>
 					Slett

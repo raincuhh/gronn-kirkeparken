@@ -6,6 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import useModal from "@/shared/hooks/useModal";
 import { supabase } from "@/shared/lib/services";
 import NewAnnouncementForm from "@/pages/dashboard/components/ui/newAnnouncementForm";
+import useAuth from "@/features/auth/hooks/useAuth";
 
 type AnnouncementsOptionsProps = {
 	searchQuery: string;
@@ -26,7 +27,7 @@ const AnnouncementsOptions = ({
 	const [success, setSuccess] = useState<string | null>(null);
 	const isOverMd = useMediaQuery({ query: "(min-width: 768px)" });
 
-	const handleFormSubmit = async (title: string, content: string) => {
+	const handleFormSubmit = async (title: string, content: string, userId: string) => {
 		try {
 			setError(null);
 			setSuccess(null);
@@ -36,6 +37,7 @@ const AnnouncementsOptions = ({
 				{
 					title,
 					content,
+					user_id: userId,
 				},
 			]);
 
