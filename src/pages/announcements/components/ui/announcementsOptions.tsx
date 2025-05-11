@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import useModal from "@/shared/hooks/useModal";
 import { supabase } from "@/shared/lib/services";
 import NewAnnouncementForm from "@/pages/dashboard/components/ui/newAnnouncementForm";
-import useAuth from "@/features/auth/hooks/useAuth";
+// import useAuth from "@/features/auth/hooks/useAuth";
 
 type AnnouncementsOptionsProps = {
 	searchQuery: string;
